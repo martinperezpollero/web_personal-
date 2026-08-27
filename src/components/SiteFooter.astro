@@ -1,0 +1,11 @@
+---
+import { getLocaleFromPath } from '../i18n/utils';
+import { ui } from '../i18n/ui';
+
+const lang = getLocaleFromPath(Astro.url.pathname);
+---
+
+<footer class="site-footer">
+  <span>Martín Pérez Pollero · Montevideo</span>
+  <span>{ui[lang]['footer.todo']}</span>
+</footer>

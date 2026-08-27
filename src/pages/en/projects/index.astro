@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { ui } from '../../../i18n/ui';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => !p.data.borrador)
+  .sort((a, b) => a.data.orden - b.data.orden);
+---
+
+<BaseLayout
+  title="projects — Martín Pérez Pollero"
+  description="Projects by Martín Pérez Pollero. Each one lives on its own site."
+>
+  <h1>projects</h1>
+  <p>Each project has its own site, design and pace. This is the index.</p>
+
+  {projects.length === 0 && <p><em>{ui.en['projects.empty']}</em></p>}
+
+  {
+    projects.map(async (p) => {
+      const { Content } = await render(p);
+      return (
+        <article>
+          <h2>
+            {p.data.enlaceExterno ? (
+              <a href={p.data.enlaceExterno}>{p.data.titulo}</a>
+            ) : (
+              p.data.titulo
+            )}
+          </h2>
+          <p class="meta">{[p.data.estado, p.data.periodo].filter(Boolean).join(' · ')}</p>
+          <p>{p.data.resumen}</p>
+          <Content />
+          {p.data.colaboradores.length > 0 && (
+            <p class="meta">with {p.data.colaboradores.join(', ')}</p>
+          )}
+          {p.data.anclaje && (
+            <p class="meta">
+              {p.data.anclaje.url ? (
+                <a href={p.data.anclaje.url}>{p.data.anclaje.cita}</a>
+              ) : (
+                p.data.anclaje.cita
+              )}
+            </p>
+          )}
+        </article>
+      );
+    })
+  }
+</BaseLayout>

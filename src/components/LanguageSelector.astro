@@ -1,0 +1,25 @@
+---
+import { locales, alternatePath, getLocaleFromPath } from '../i18n/utils';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  path?: string;
+}
+
+const path = Astro.props.path ?? Astro.url.pathname;
+const current = getLocaleFromPath(path);
+---
+
+<div class="lang-selector">
+  {
+    locales.map((loc) =>
+      loc === current ? (
+        <span aria-current="true">{ui[loc]['lang.label']}</span>
+      ) : (
+        <a href={alternatePath(path, loc)} hreflang={loc} lang={loc}>
+          {ui[loc]['lang.label']}
+        </a>
+      )
+    )
+  }
+</div>

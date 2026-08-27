@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ui } from '../../i18n/ui';
+import publications from '../../data/publications.json';
+
+// CSL-JSON exportado de Zotero (CLAUDE.md §7). No se edita a mano.
+const items = publications as Array<Record<string, any>>;
+---
+
+<BaseLayout
+  title="publicaciones — Martín Pérez Pollero"
+  description="Selección de publicaciones de Martín Pérez Pollero."
+>
+  <h1>publicaciones</h1>
+
+  {
+    items.length === 0 ? (
+      <p><em>{ui.es['publications.empty']}</em></p>
+    ) : (
+      <ul>
+        {items.map((it) => (
+          <li>
+            <span class="pub-title">{it.title}</span>
+            {it.issued?.['date-parts']?.[0]?.[0] && <span> ({it.issued['date-parts'][0][0]})</span>}
+            {it.DOI && <> · <a href={`https://doi.org/${it.DOI}`}>DOI</a></>}
+            {it.URL && <> · <a href={it.URL}>texto</a></>}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>

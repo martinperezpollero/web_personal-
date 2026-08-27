@@ -1,0 +1,85 @@
+/*
+  tokens.css — ÚNICO lugar donde viven las decisiones visuales del hub
+  (CLAUDE.md §6). Ningún componente escribe un color o un tamaño a mano:
+  todos consumen estas variables. Cambiar la cara del sitio debería ser
+  editar este archivo y nada más.
+
+  ⚠️ VALORES PROVISIONALES. La dirección estética todavía no está definida
+  (CLAUDE.md §6). Estos valores son deliberadamente neutros y NO son ninguna
+  de las tres direcciones que CLAUDE.md pide descartar:
+    - crema cálido + serif de alto contraste + terracota
+    - fondo casi negro + acento verde ácido o bermellón
+    - retícula tipo periódico con filetes finos
+  Cuando se defina la dirección, se reescribe este archivo.
+*/
+
+:root {
+  /* ---- Color -------------------------------------------------------- */
+  --color-bg:        #fcfcfc; /* fondo de página */
+  --color-fg:        #1c1c1c; /* texto principal */
+  --color-muted:     #6a6a6a; /* texto secundario: fechas, estados, metadatos */
+  --color-border:    #e5e5e5; /* filetes y separadores */
+  --color-accent:    #33456b; /* enlaces y anillo de foco; provisional, sin carga simbólica */
+  --color-accent-fg: #ffffff; /* texto sobre el acento */
+
+  /* ---- Tipografía ------------------------------------------------- */
+  /* Provisional: pila del sistema en cuerpo y títulos hasta elegir familias. */
+  --font-body:    system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: var(--font-body);
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Escala de tamaños (base 16px, razón ~1.25) */
+  --text-xs:   0.79rem;
+  --text-sm:   0.889rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.4rem;
+  --text-2xl:  1.8rem;
+  --text-3xl:  2.25rem;
+
+  /* Pesos */
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+
+  /* Interlineado */
+  --leading-tight: 1.2;
+  --leading-body:  1.6;
+
+  /* ---- Espaciado (escala de 4px) -------------------------------- */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ---- Medida y contenedor ------------------------------------- */
+  --measure:   60ch;   /* ancho máximo de una línea de texto */
+  --container: 40rem;  /* ancho máximo del contenido del hub */
+
+  /* ---- Radios ------------------------------------------------- */
+  --radius-sm: 2px;
+  --radius-md: 6px;
+
+  /* ---- Transiciones ---------------------------------------- */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+}
+
+/*
+  Modo oscuro provisional. Es una decisión estética: si la dirección de §6
+  define un solo modo, borrar este bloque.
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:        #141414;
+    --color-fg:        #ececec;
+    --color-muted:     #9a9a9a;
+    --color-border:    #2c2c2c;
+    --color-accent:    #9db2e0;
+    --color-accent-fg: #141414;
+  }
+}
