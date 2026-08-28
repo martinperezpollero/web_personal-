@@ -1,0 +1,138 @@
+---
+/*
+  ReliefCanvas — la textura de fondo del hub: curvas de nivel irregulares
+  generadas con ruido (value noise + fBm + domain warp) y marching squares.
+
+  Es la ÚNICA pieza de JS del sitio además del selector de idioma y el menú
+  móvil (CLAUDE.md §4). Se justifica así: el efecto es puramente decorativo y
+  progresivo — sin JS el <canvas> queda vacío y no cambia nada del contenido
+  ni del layout. No hay animación; se dibuja una vez y se recalcula solo al
+  redimensionar o al cambiar de tema. Colores y grosor salen de tokens.css
+  (--relief-line, --relief-weight, --relief-opacity).
+*/
+---
+
+<canvas id="relief" aria-hidden="true"></canvas>
+
+<style>
+  #relief {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--relief-opacity, 0.55);
+  }
+</style>
+
+<script>
+  function hash(x: number, y: number, seed: number) {
+    let h = Math.imul(x | 0, 374761393) ^ Math.imul(y | 0, 668265263) ^ Math.imul(seed | 0, 2246822519);
+    h = Math.imul(h ^ (h >>> 13), 1274126177);
+    return ((h ^ (h >>> 16)) >>> 0) / 4294967295;
+  }
+  const smooth = (t: number) => t * t * (3 - 2 * t);
+  function vnoise(x: number, y: number, seed: number) {
+    const xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+    const a = hash(xi, yi, seed), b = hash(xi + 1, yi, seed), c = hash(xi, yi + 1, seed), d = hash(xi + 1, yi + 1, seed);
+    const u = smooth(xf), v = smooth(yf);
+    return a * (1 - u) * (1 - v) + b * u * (1 - v) + c * (1 - u) * v + d * u * v;
+  }
+  function fbm(x: number, y: number, seed: number) {
+    let f = 0, amp = 0.5, freq = 1;
+    for (let i = 0; i < 5; i++) { f += amp * vnoise(x * freq, y * freq, seed + i * 97); freq *= 2.03; amp *= 0.5; }
+    return f;
+  }
+  function fieldAt(x: number, y: number, seed: number) {
+    const wx = x + 0.75 * fbm(x + 11.3, y + 7.7, seed + 41);
+    const wy = y + 0.75 * fbm(x - 5.1, y + 2.9, seed + 83);
+    return fbm(wx, wy, seed);
+  }
+
+  const SEED = 7;      // fijo: el hub siempre tiene el mismo terreno
+  const SCALE = 2.4;   // unidades de ruido a lo ancho del viewport
+  const LEVELS = 11;   // curvas; trazo uniforme, sin curvas índice
+
+  function draw() {
+    const canvas = document.getElementById("relief") as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    const cs = getComputedStyle(document.documentElement);
+    ctx.strokeStyle = cs.getPropertyValue("--relief-line").trim() || "rgba(90,110,125,0.13)";
+    ctx.lineWidth = parseFloat(cs.getPropertyValue("--relief-weight")) || 0.8;
+
+    const cell = 6;
+    const cols = Math.ceil(w / cell) + 1;
+    const rows = Math.ceil(h / cell) + 1;
+    const grid = new Float32Array(cols * rows);
+    let min = Infinity, max = -Infinity;
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        const v = fieldAt((x * cell / w) * SCALE, (y * cell / h) * SCALE * (h / w), SEED);
+        grid[y * cols + x] = v;
+        if (v < min) min = v;
+        if (v > max) max = v;
+      }
+    }
+    const span = (max - min) || 1;
+    const T = (a: number, b: number, lv: number) => (lv - a) / ((b - a) || 1e-6);
+
+    ctx.beginPath();
+    for (let li = 1; li < LEVELS; li++) {
+      const lv = min + span * (li / LEVELS);
+      for (let r = 0; r < rows - 1; r++) {
+        for (let c = 0; c < cols - 1; c++) {
+          const tl = grid[r * cols + c], tr = grid[r * cols + c + 1],
+                br = grid[(r + 1) * cols + c + 1], bl = grid[(r + 1) * cols + c];
+          let idx = 0;
+          if (tl > lv) idx |= 8;
+          if (tr > lv) idx |= 4;
+          if (br > lv) idx |= 2;
+          if (bl > lv) idx |= 1;
+          if (idx === 0 || idx === 15) continue;
+          const top: [number, number] = [c + T(tl, tr, lv), r];
+          const right: [number, number] = [c + 1, r + T(tr, br, lv)];
+          const bot: [number, number] = [c + T(bl, br, lv), r + 1];
+          const lef: [number, number] = [c, r + T(tl, bl, lv)];
+          let A: [number, number], B: [number, number];
+          switch (idx) {
+            case 1: case 14: A = lef; B = bot; break;
+            case 2: case 13: A = bot; B = right; break;
+            case 3: case 12: A = lef; B = right; break;
+            case 4: case 11: A = top; B = right; break;
+            case 6: case 9:  A = top; B = bot; break;
+            case 7: case 8:  A = lef; B = top; break;
+            case 5:
+              ctx.moveTo(lef[0] * cell, lef[1] * cell); ctx.lineTo(top[0] * cell, top[1] * cell);
+              A = bot; B = right; break;
+            case 10:
+              ctx.moveTo(top[0] * cell, top[1] * cell); ctx.lineTo(right[0] * cell, right[1] * cell);
+              A = lef; B = bot; break;
+            default: continue;
+          }
+          ctx.moveTo(A[0] * cell, A[1] * cell);
+          ctx.lineTo(B[0] * cell, B[1] * cell);
+        }
+      }
+    }
+    ctx.stroke();
+  }
+
+  let rt: number | undefined;
+  const redraw = () => { window.clearTimeout(rt); rt = window.setTimeout(draw, 160); };
+
+  draw();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  window.addEventListener("resize", redraw);
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => window.setTimeout(draw, 30));
+</script>

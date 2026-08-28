@@ -20,14 +20,23 @@ body {
   display: flex;
   flex-direction: column;
   font-size: var(--text-base);
+  background: var(--color-bg);
 }
 
-img, picture, svg { max-width: 100%; display: block; }
+/* El contenido va por encima de la textura de relieve (ReliefCanvas, z-index 0). */
+.site-header,
+main,
+.site-footer,
+.skip-link { position: relative; z-index: 1; }
+
+img, picture, svg, canvas { max-width: 100%; display: block; }
 
 h1, h2, h3 {
   font-family: var(--font-heading);
   line-height: var(--leading-tight);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-heading);
+  font-optical-sizing: auto;
+  letter-spacing: -0.005em;
 }
 h1 { font-size: var(--text-3xl); }
 h2 { font-size: var(--text-xl); }
@@ -55,6 +64,7 @@ a:hover { text-decoration: none; }
   max-width: var(--container);
   margin-inline: auto;
   padding-inline: var(--space-4);
+  padding-block-start: var(--space-6);
   flex: 1;
 }
 
@@ -73,7 +83,8 @@ a:hover { text-decoration: none; }
 .site-name {
   font-family: var(--font-heading);
   font-size: var(--text-lg);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-heading);
+  font-optical-sizing: auto;
   color: var(--color-fg);
   text-decoration: none;
   margin-right: auto;
@@ -119,7 +130,54 @@ article > * + * { margin-top: var(--space-3); }
 article:last-of-type { border-bottom: 0; }
 
 .meta { color: var(--color-muted); font-size: var(--text-sm); }
-.pub-title { font-style: italic; }
+/* La línea de estado + período va en mono, como un dato de carta. */
+.meta--dato { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.02em; }
+
+/* Único uso del "pop" cálido (tokens.css --color-pop): el estado «En curso». */
+.estado--activo { color: var(--color-pop); }
+
+/* Nota / marcador de pendiente. */
+.nota { color: var(--color-muted); }
+
+/* Entradilla de la home. */
+.lede { font-size: var(--text-lg); }
+
+/* ---- Bloques de la home ---------------------------------- */
+.home-block { margin-top: var(--space-12); }
+.home-block h2 {
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  font-weight: var(--weight-regular);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-muted);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.home-block > * + * { margin-top: var(--space-4); }
+.home-list { list-style: none; padding-left: 0; }
+.home-list li + li { margin-top: var(--space-2); }
+
+/* ---- Lista de publicaciones (CSL-JSON) ------------------- */
+.pub-list {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.pub { max-width: var(--measure); font-size: var(--text-sm); line-height: 1.5; }
+.pub-authors { color: var(--color-fg); }
+.pub-year { color: var(--color-muted); }
+.pub-title { font-style: italic; display: block; }
+.pub-venue { color: var(--color-muted); }
+.pub-venue::before { content: " "; }
+.pub-links {
+  display: block;
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
 
 /* ---- Saltar al contenido -------------------------- */
 .skip-link {

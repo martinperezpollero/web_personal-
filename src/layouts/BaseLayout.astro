@@ -3,6 +3,7 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import ReliefCanvas from '../components/ReliefCanvas.astro';
 import { alternatePath, getLocaleFromPath, locales } from '../i18n/utils';
 
 interface Props {
@@ -22,6 +23,13 @@ const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* TODO §6: evaluar autohospedar las fuentes (dependencia) para no depender de un tercero. */}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,560;9..144,600&family=Spline+Sans+Mono:wght@400;500&family=Spline+Sans:wght@400;500;600&display=swap"
+    />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {
@@ -34,6 +42,7 @@ const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
+    <ReliefCanvas />
     <SiteHeader />
     <main id="main" class="container">
       <slot />
