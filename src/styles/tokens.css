@@ -17,9 +17,16 @@
     Spline Sans (cuerpo) + Spline Sans Mono (datos: fechas, coordenadas).
   No es ninguno de los tres vetos de §6: fondo blanco (no crema), serif blanda
   (no de alto contraste) y acento marino (no terracota).
+
+  El hub es SIEMPRE claro: no hay modo oscuro ni selector de tema (sería más
+  JS, y §4 lo limita al idioma y al menú móvil). `color-scheme: light` fuerza
+  la interfaz del navegador (scrollbars, formularios) aunque el SO esté en
+  oscuro — por eso ya no "se ve negro" en equipos con tema oscuro.
 */
 
 :root {
+  color-scheme: light;
+
   /* ---- Color ------------------------------------------------------ */
   --color-bg:        #ffffff; /* fondo: blanco puro */
   --color-fg:        #1f2a33; /* texto principal: pizarra */
@@ -81,33 +88,7 @@
 }
 
 /*
-  Modo oscuro: "relieve nocturno". Mismo sistema, el papel se vuelve fondo
-  profundo y el marino sube de brillo para sostener el contraste (AA).
-
-  El sitio sigue al sistema operativo (no hay selector de tema: sería más JS,
-  y §4 lo limita al idioma y al menú móvil). El bloque [data-theme] queda
-  preparado por si algún día se agrega, y para poder forzar un tema en pruebas.
+  Sin modo oscuro: el hub es siempre claro. Si en algún momento se quiere un
+  "relieve nocturno", va acá como @media (prefers-color-scheme: dark) con la
+  guarda :root:not([data-theme="light"]).
 */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-bg:        #14171a;
-    --color-fg:        #e9eaec;
-    --color-muted:     #969ba3;
-    --color-border:    #2a2e33;
-    --color-accent:    #6fb7cf;
-    --color-accent-fg: #14171a;
-    --color-pop:       #e0784f;
-    --relief-line:     rgba(150, 178, 195, 0.13);
-  }
-}
-
-:root[data-theme="dark"] {
-  --color-bg:        #14171a;
-  --color-fg:        #e9eaec;
-  --color-muted:     #969ba3;
-  --color-border:    #2a2e33;
-  --color-accent:    #6fb7cf;
-  --color-accent-fg: #14171a;
-  --color-pop:       #e0784f;
-  --relief-line:     rgba(150, 178, 195, 0.13);
-}

@@ -7,7 +7,7 @@
   móvil (CLAUDE.md §4). Se justifica así: el efecto es puramente decorativo y
   progresivo — sin JS el <canvas> queda vacío y no cambia nada del contenido
   ni del layout. No hay animación; se dibuja una vez y se recalcula solo al
-  redimensionar o al cambiar de tema. Colores y grosor salen de tokens.css
+  redimensionar. Colores y grosor salen de tokens.css
   (--relief-line, --relief-weight, --relief-opacity).
 */
 ---
@@ -134,5 +134,4 @@
   draw();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
   window.addEventListener("resize", redraw);
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => window.setTimeout(draw, 30));
 </script>
