@@ -1,6 +1,54 @@
 [
   {
-    "id": "biografia-ludica-2025",
+    "id": "ocio-penitenciario-claeh-2024",
+    "type": "article-journal",
+    "title": "Ocio educativo en espacios penitenciarios: deporte, cultura y recreación en los procesos de reinserción social",
+    "container-title": "Cuadernos del CLAEH",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Lema", "given": "Ricardo" },
+      { "family": "Morata", "given": "T." },
+      { "family": "Palasí", "given": "E." },
+      { "family": "Enjuanes", "given": "J." }
+    ],
+    "issued": { "date-parts": [[2024]] },
+    "volume": "43",
+    "issue": "119",
+    "page": "85-101",
+    "publisher-place": "Montevideo",
+    "ISSN": "2393-5979",
+    "DOI": "10.29192/claeh.43.1.8"
+  },
+  {
+    "id": "jovenes-informacion-politica-desacatos-2024",
+    "type": "article-journal",
+    "title": "Jóvenes, apropiación y socialización de la información política en un contexto electoral",
+    "container-title": "Desacatos. Revista de Ciencias Sociales",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Winocur", "given": "Rosalía" },
+      { "family": "Rojas Torres", "given": "C." }
+    ],
+    "issued": { "date-parts": [[2024]] },
+    "ISSN": "2448-5144",
+    "URL": "https://desacatos.ciesas.edu.mx/index.php/Desacatos/article/view/2747/1728"
+  },
+  {
+    "id": "metodologia-recreacion-educaciosocial-2024",
+    "type": "article-journal",
+    "title": "Aportes a la construcción de una metodología basada en la recreación educativa. La experiencia de la Universidad Católica del Uruguay",
+    "container-title": "Educació Social",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Lema", "given": "Ricardo" }
+    ],
+    "issued": { "date-parts": [[2024]] },
+    "volume": "83",
+    "ISSN": "1135-805X",
+    "DOI": "10.60940/EducacioSocialn83id419366"
+  },
+  {
+    "id": "biografia-ludica-cartografia-2025",
     "type": "chapter",
     "title": "La biografía lúdica. Una propuesta teórico-metodológica para el estudio del jugar y de la subjetividad",
     "container-title": "Cartografía lúdica: un mapa vivo por explorar",
@@ -8,46 +56,144 @@
       { "family": "Pérez-Pollero", "given": "Martín" },
       { "family": "Monteagudo", "given": "María Jesús" }
     ],
+    "editor": [{ "family": "Camino Carrasco", "given": "Marina" }],
     "issued": { "date-parts": [[2025]] },
     "publisher": "Dykinson",
-    "page": "247-265"
+    "page": "247-265",
+    "ISBN": "9791370062736"
   },
   {
-    "id": "ocio-encierro-2024",
-    "type": "article-journal",
-    "title": "Ocio educativo en espacios penitenciarios",
-    "container-title": "Cuadernos del CLAEH",
-    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
-    "issued": { "date-parts": [[2024]] },
-    "volume": "43",
-    "issue": "119"
-  },
-  {
-    "id": "metodologia-recreacion-2024",
-    "type": "article-journal",
-    "title": "Aportes a la construcción de una metodología basada en la recreación educativa",
-    "container-title": "Educació Social",
-    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
-    "issued": { "date-parts": [[2024]] },
-    "volume": "83"
-  },
-  {
-    "id": "ocio-accion-sociocultural-2023",
+    "id": "espacios-recreativos-presupuesto-ciudades-2024",
     "type": "chapter",
-    "title": "[capítulo — título por confirmar desde Zotero]",
-    "container-title": "Ocio educativo y acción sociocultural",
-    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
-    "issued": { "date-parts": [[2023]] },
-    "publisher": "Graó"
+    "title": "Espacios públicos recreativos y presupuesto participativo en la ciudad de Montevideo",
+    "container-title": "Ciudades para vivir. Habitar y transitar",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Lema", "given": "Ricardo" },
+      { "family": "Pérez", "given": "J." }
+    ],
+    "editor": [{ "family": "Monteagudo", "given": "María Jesús" }],
+    "issued": { "date-parts": [[2024]] },
+    "publisher": "Catarata",
+    "publisher-place": "Bilbao",
+    "ISBN": "978-84-1352-943-1",
+    "URL": "https://www.catarata.org/libro/ciudades-para-vivir_151369/"
   },
   {
-    "id": "juguetes-jugadores-prologo-2023",
+    "id": "prologo-juguetes-jugadores-scheines-2023",
     "type": "chapter",
-    "title": "Prólogo a la reedición de «Juguetes y Jugadores» de Graciela Scheines",
+    "title": "Notas preliminares o una burbuja en la obra de Graciela Scheines (prólogo)",
     "container-title": "Juguetes y Jugadores",
-    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Velázquez", "given": "José Pablo" },
+      { "family": "Ponce", "given": "Lucas" }
+    ],
     "issued": { "date-parts": [[2023]] },
     "publisher": "Espíritu Guerrero",
-    "page": "17-42"
+    "publisher-place": "Buenos Aires",
+    "page": "17-42",
+    "ISBN": "9789874865656"
+  },
+  {
+    "id": "ocio-privados-libertad-grao-2023",
+    "type": "chapter",
+    "title": "Ocio educativo con personas privadas de libertad en Uruguay. Aportes desde la recreación educativa",
+    "container-title": "Ocio educativo y acción sociocultural. Construyendo modelos para el desarrollo de personas y comunidades",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Lema", "given": "Ricardo" }
+    ],
+    "issued": { "date-parts": [[2023]] },
+    "publisher": "Graó",
+    "page": "153-164",
+    "ISBN": "9788419788320"
+  },
+  {
+    "id": "usos-internet-organizaciones-ambientales-2016",
+    "type": "chapter",
+    "title": "Usos estratégicos de Internet en dos organizaciones ambientales uruguayas",
+    "container-title": "Tecnologías Digitales en Sociedad: análisis empíricos y reflexiones teóricas",
+    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
+    "editor": [{ "literal": "Observatic" }],
+    "issued": { "date-parts": [[2016]] },
+    "publisher": "Universidad de la República",
+    "publisher-place": "Uruguay",
+    "page": "90-95",
+    "ISBN": "978-9974-01371-1"
+  },
+  {
+    "id": "uruguay-digital-como-estamos-2013",
+    "type": "book",
+    "title": "Uruguay Digital: ¿cómo estamos? Múltiples miradas, un solo compromiso",
+    "author": [
+      { "family": "Morales", "given": "S." },
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Caldés", "given": "L." },
+      { "family": "Rivoir", "given": "Ana Laura" }
+    ],
+    "issued": { "date-parts": [[2013]] },
+    "number-of-pages": "152",
+    "publisher-place": "Montevideo",
+    "ISBN": "9789974767874"
+  },
+  {
+    "id": "informe-interactividad-tv-digital-2017",
+    "type": "report",
+    "title": "Interactividad y televisión digital en Uruguay: informe de la experiencia interactiva y conclusiones generales del proyecto",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Kaplún", "given": "Gabriel" },
+      { "family": "Grampín", "given": "E." },
+      { "family": "Nihil Olivera", "given": "Mauricio" },
+      { "family": "Bakala", "given": "Ewelina" }
+    ],
+    "issued": { "date-parts": [[2017]] },
+    "publisher-place": "Montevideo"
+  },
+  {
+    "id": "informe-tv-digital-interactiva-hibrida-2016",
+    "type": "report",
+    "title": "Informe tecnológico y sociocultural sobre las posibilidades de acceso y uso de la TV digital interactiva/híbrida en Uruguay",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Kaplún", "given": "Gabriel" },
+      { "family": "Grampín", "given": "E." },
+      { "family": "Nihil Olivera", "given": "Mauricio" },
+      { "family": "Bakala", "given": "Ewelina" }
+    ],
+    "issued": { "date-parts": [[2016]] },
+    "publisher-place": "Montevideo"
+  },
+  {
+    "id": "repensar-espacio-recreativo-minka-2021",
+    "type": "article-magazine",
+    "title": "Repensar el espacio recreativo: rumbos y derivas en tiempos de confinamiento",
+    "container-title": "Revista MINKA — Recreación y Lúdica",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Velázquez", "given": "J." }
+    ],
+    "issued": { "date-parts": [[2021, 6]] },
+    "volume": "2",
+    "page": "24-29",
+    "publisher-place": "Córdoba, Argentina",
+    "ISSN": "2718-7934",
+    "URL": "https://issuu.com/minkarecreacion/docs/original"
+  },
+  {
+    "id": "navegando-la-tension-centros-interes-prisma-2019",
+    "type": "article-magazine",
+    "title": "Navegando la tensión: la asignatura Centros de Interés en la formación de profesionales de la Recreación",
+    "container-title": "Prisma. Nuevas lecturas en el campo de la Recreación",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Velázquez", "given": "José Pablo" }
+    ],
+    "issued": { "date-parts": [[2019, 8]] },
+    "volume": "1",
+    "page": "54-74",
+    "publisher-place": "Buenos Aires",
+    "ISSN": "2683-7943"
   }
 ]

@@ -6,8 +6,17 @@ import { getLocaleFromPath } from '../i18n/utils';
 const lang = getLocaleFromPath(Astro.url.pathname);
 const t = ui[lang];
 
-// TODO §10: reemplazar cada "pendiente" por la URL real cuando la tengamos.
-const profiles = ['CVUy', 'Google Scholar', 'ORCID', 'LinkedIn', 'Bluesky'];
+// TODO §10: completar las URLs que faltan.
+const profiles: { label: string; href?: string }[] = [
+  {
+    label: 'CVUy',
+    href: 'https://exportcvuy.anii.org.uy/cv/?7ed9909c3cbde1b8004c19b4613454d8d86bc4f2feb04e77e3dc358d91bd94a82a94a44cb1824e8564a3ac4781ffff721437e6ecec64a9b3329b362b090f4849',
+  },
+  { label: 'Google Scholar' },
+  { label: 'ORCID' },
+  { label: 'LinkedIn' },
+  { label: 'Bluesky' },
+];
 ---
 
 <ul class="contact-list">
@@ -18,7 +27,7 @@ const profiles = ['CVUy', 'Google Scholar', 'ORCID', 'LinkedIn', 'Bluesky'];
   {
     profiles.map((p) => (
       <li>
-        {p} — <span class="nota">{t['contact.pending']}</span>
+        {p.href ? <a href={p.href}>{p.label}</a> : <>{p.label} — <span class="nota">{t['contact.pending']}</span></>}
       </li>
     ))
   }

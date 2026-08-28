@@ -14,7 +14,15 @@ Flujo:
 **No se editan publicaciones a mano.** El hub muestra entre cinco y ocho piezas
 seleccionadas; el CV completo va aparte en PDF.
 
-Hoy: `[]` — TODO primera exportación. Anclajes públicos por proyecto en CLAUDE.md §2.
+Hoy: 13 entradas **sacadas del CVUy público** de Martín (actualizado al
+14/12/2025), convertidas a CSL-JSON a mano. Es un puente, no la fuente
+definitiva: falta reconciliarlo con el flujo de Zotero (§7) y **seleccionar
+5–8 destacadas** — hoy están las 13. El CVUy tampoco cubre 2026 (falta LSA
+Brunel, Otium 2026; ver CLAUDE.md §2). Anclajes por proyecto en §2.
+
+Cosas a revisar en los datos: iniciales de coautores donde el CVUy solo daba
+"J." / "E." / "C."; el título del capítulo en «Ciudades para vivir» figuraba
+con páginas 1–1 en el CVUy (se omitió el rango).
 
 ## publications.sample.json
 
