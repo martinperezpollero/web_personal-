@@ -257,21 +257,6 @@ article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
 }
 .contact-list li + li { margin-top: var(--space-2); }
 
-/* ---- Marco del juego (marcador de posición) ------------- */
-.game-frame {
-  aspect-ratio: 16 / 9;
-  max-width: 40rem;
-  border: 1px dashed var(--color-accent);
-  border-radius: var(--radius-md);
-  display: grid;
-  place-items: center;
-  color: var(--color-muted);
-  font-family: var(--font-mono);
-  font-size: var(--text-sm);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
 /* ---- Saltar al contenido -------------------------- */
 .skip-link {
   position: absolute;

@@ -29,9 +29,9 @@ export const ui = {
     'contact.emailNote': '(§2: decidir si va este correo o uno institucional)',
     'contact.pending': 'pendiente',
     'game.title': 'juego',
-    'game.lede': 'Un juego breve sobre cartografías lúdicas. En construcción.',
+    'game.lede': 'Un ejercicio breve sobre cartografía: leer una leyenda.',
     'game.body':
-      'TODO: definir qué es. Fuerte candidato a satélite (§1, §9): repo propio, su JS y su diseño; el hub quedaría con solo el enlace.',
+      'Primera ronda de un juego sobre cartografías lúdicas. Si crece (más rondas, niveles), pasa a satélite (§1, §9): repo y diseño propios, y el hub queda con el enlace.',
     'portrait.alt': 'Foto de Martín Pérez Pollero (marcador de posición)',
   },
   en: {
@@ -56,9 +56,9 @@ export const ui = {
     'contact.emailNote': '(§2: decide whether to show this address or an institutional one)',
     'contact.pending': 'pending',
     'game.title': 'game',
-    'game.lede': 'A small game about playful cartography. Under construction.',
+    'game.lede': 'A short exercise about cartography: reading a legend.',
     'game.body':
-      'TODO: define what it is. A strong candidate for a satellite (§1, §9): its own repo, JS and design; the hub would keep only the link.',
+      'The first round of a game about playful cartography. If it grows (more rounds, levels), it becomes a satellite (§1, §9): its own repo and design, with the hub keeping the link.',
     'portrait.alt': 'Photo of Martín Pérez Pollero (placeholder)',
   },
 } as const satisfies Record<Locale, Record<string, string>>;

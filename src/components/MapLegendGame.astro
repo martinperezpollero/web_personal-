@@ -1,0 +1,357 @@
+---
+/*
+  MapLegendGame — micro-juego: unir cada elemento del terreno con su símbolo
+  de carta, como armando una leyenda. Conecta con "Cartografía lúdica" y con
+  toda la dirección estética (§6).
+
+  Necesita JS (isla, §4): sin JS se ve el tablero pero no se puede jugar; se
+  muestra un aviso. Sin animación si el sistema pide reduced-motion.
+
+  Si el juego crece (más rondas, puntajes, niveles) es candidato a satélite
+  (§1, §9) — hoy es una sola ronda, contenida.
+*/
+interface Props {
+  lang: 'es' | 'en';
+}
+const { lang } = Astro.props;
+
+const T = {
+  es: {
+    instr: 'Uní cada elemento del terreno con su símbolo. Clic en uno, después en el otro.',
+    again: 'de nuevo',
+    done: '¡carta completa!',
+    of: 'de',
+    nojs: 'Este mini-juego necesita JavaScript.',
+  },
+  en: {
+    instr: 'Match each feature of the terrain with its symbol. Click one, then the other.',
+    again: 'again',
+    done: 'legend complete!',
+    of: 'of',
+    nojs: 'This mini-game needs JavaScript.',
+  },
+}[lang];
+
+// Pares: elemento del terreno + pista + id de símbolo (dibujado abajo).
+const pairs = [
+  { id: 'cima', es: 'cima', en: 'summit', hintEs: 'el punto más alto', hintEn: 'the highest point' },
+  { id: 'agua', es: 'curso de agua', en: 'watercourse', hintEs: 'un río o un arroyo', hintEn: 'a river or a stream' },
+  { id: 'sendero', es: 'sendero', en: 'footpath', hintEs: 'un camino a pie', hintEn: 'a path on foot' },
+  { id: 'depresion', es: 'depresión', en: 'depression', hintEs: 'una hondonada', hintEn: 'a hollow' },
+  { id: 'bosque', es: 'bosque', en: 'woodland', hintEs: 'árboles, monte', hintEn: 'trees, woods' },
+  { id: 'coordenada', es: 'coordenada', en: 'coordinate', hintEs: 'una posición exacta', hintEn: 'an exact position' },
+];
+---
+
+<div class="mlg" data-total={pairs.length}>
+  <p class="mlg-instr">{T.instr}</p>
+  <noscript><p class="nota">{T.nojs}</p></noscript>
+
+  <div class="mlg-board">
+    <svg class="mlg-links" aria-hidden="true"></svg>
+
+    <ul class="mlg-col mlg-col--features">
+      {
+        pairs.map((p) => (
+          <li>
+            <button type="button" class="mlg-item mlg-feature" data-id={p.id}>
+              <span class="mlg-feature-name">{lang === 'es' ? p.es : p.en}</span>
+              <span class="mlg-feature-hint">{lang === 'es' ? p.hintEs : p.hintEn}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    <ul class="mlg-col mlg-col--symbols">
+      {
+        pairs.map((p) => (
+          <li>
+            <button type="button" class="mlg-item mlg-symbol" data-id={p.id} aria-label={lang === 'es' ? p.es : p.en}>
+              <svg viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+                {p.id === 'cima' && (
+                  <>
+                    <path d="M20 7 L33 31 L7 31 Z" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <circle cx="20" cy="31" r="2" fill="currentColor" />
+                  </>
+                )}
+                {p.id === 'agua' && (
+                  <>
+                    <path d="M5 15 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <path d="M5 25 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.6" />
+                  </>
+                )}
+                {p.id === 'sendero' && (
+                  <path d="M5 20 h30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3" stroke-linecap="round" />
+                )}
+                {p.id === 'depresion' && (
+                  <>
+                    <circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    <path d="M20 9 v4 M20 27 v4 M9 20 h4 M27 20 h4" stroke="currentColor" stroke-width="1.6" />
+                  </>
+                )}
+                {p.id === 'bosque' && (
+                  <>
+                    <path d="M20 8 l7 14 h-14 z" fill="currentColor" />
+                    <rect x="18.5" y="21" width="3" height="7" fill="currentColor" />
+                  </>
+                )}
+                {p.id === 'coordenada' && (
+                  <>
+                    <path d="M20 6 v28 M6 20 h28" fill="none" stroke="currentColor" stroke-width="1.4" />
+                    <circle cx="20" cy="20" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="mlg-foot">
+    <span class="mlg-status" data-of={T.of} data-done={T.done}>0 {T.of} {pairs.length}</span>
+    <button type="button" class="mlg-again" hidden>{T.again}</button>
+  </div>
+</div>
+
+<style>
+  .mlg { max-width: var(--container); }
+  .mlg-instr { color: var(--color-muted); font-size: var(--text-sm); margin-bottom: var(--space-6); }
+
+  .mlg-board {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2) clamp(2rem, 12vw, 6rem);
+  }
+  .mlg-links {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  /* Nota: las <line> se crean por JS y no reciben el scope de Astro, así que
+     el trazo se fija con estilo inline en el script (soporta var()). */
+
+  .mlg-col { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+  .mlg-col li { display: flex; }
+
+  .mlg-item {
+    font: inherit;
+    color: var(--color-fg);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
+  }
+  .mlg-item:hover { border-color: var(--color-accent); }
+  .mlg-item[aria-pressed='true'] { border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)); }
+  .mlg-item[data-matched] { border-color: var(--color-accent); color: var(--color-muted); cursor: default; }
+  .mlg-item[data-matched]:hover { border-color: var(--color-accent); }
+
+  .mlg-feature { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .mlg-feature-name { font-family: var(--font-heading); font-size: var(--text-lg); font-optical-sizing: auto; }
+  .mlg-feature-hint { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-muted); }
+
+  .mlg-symbol { color: var(--color-accent); display: grid; place-items: center; width: 3.25rem; height: 3.25rem; padding: 0; }
+  .mlg-symbol[data-matched] { color: var(--color-muted); }
+  .mlg-symbol svg { display: block; }
+
+  .mlg-item.mlg-wrong { animation: mlg-shake 0.32s; border-color: var(--color-pop); }
+  @keyframes mlg-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .mlg-foot {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .mlg-status[data-complete] { color: var(--color-pop); }
+  .mlg-again {
+    font: inherit;
+    font-family: var(--font-mono);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.1rem 0.7rem;
+    color: var(--color-accent);
+    cursor: pointer;
+  }
+  .mlg-again:hover { border-color: var(--color-accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mlg-item.mlg-wrong { animation: none; }
+    .mlg-item { transition: none; }
+  }
+</style>
+
+<script>
+  type Item = HTMLButtonElement;
+
+  document.querySelectorAll<HTMLDivElement>('.mlg').forEach((root) => {
+    const board = root.querySelector<HTMLElement>('.mlg-board')!;
+    const svg = root.querySelector<SVGSVGElement>('.mlg-links')!;
+    const featuresCol = root.querySelector<HTMLElement>('.mlg-col--features')!;
+    const symbolsCol = root.querySelector<HTMLElement>('.mlg-col--symbols')!;
+    const status = root.querySelector<HTMLElement>('.mlg-status')!;
+    const again = root.querySelector<HTMLButtonElement>('.mlg-again')!;
+    const total = Number(root.dataset.total || '0');
+    const ofWord = status.dataset.of || 'of';
+    const doneWord = status.dataset.done || 'done';
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let selected: Item | null = null;
+    let matched = 0;
+
+    function shuffleSymbols() {
+      const items = Array.from(symbolsCol.children);
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+      items.forEach((el) => symbolsCol.appendChild(el));
+    }
+
+    function setStatus() {
+      if (matched >= total) {
+        status.textContent = doneWord;
+        status.dataset.complete = 'true';
+        again.hidden = false;
+      } else {
+        status.textContent = `${matched} ${ofWord} ${total}`;
+      }
+    }
+
+    function drawLink(a: HTMLElement, b: HTMLElement) {
+      const br = board.getBoundingClientRect();
+      const ra = a.getBoundingClientRect();
+      const rb = b.getBoundingClientRect();
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', String(ra.right - br.left));
+      line.setAttribute('y1', String(ra.top + ra.height / 2 - br.top));
+      line.setAttribute('x2', String(rb.left - br.left));
+      line.setAttribute('y2', String(rb.top + rb.height / 2 - br.top));
+      line.style.stroke = 'var(--color-accent)';
+      line.style.strokeWidth = '1.5';
+      line.dataset.id = a.dataset.id || '';
+      if (!reduce) {
+        const len = Math.hypot(
+          Number(line.getAttribute('x2')) - Number(line.getAttribute('x1')),
+          Number(line.getAttribute('y2')) - Number(line.getAttribute('y1'))
+        );
+        line.style.strokeDasharray = String(len);
+        line.style.strokeDashoffset = String(len);
+        line.getBoundingClientRect(); // reflow
+        line.style.transition = 'stroke-dashoffset 0.45s ease';
+        line.style.strokeDashoffset = '0';
+      }
+      svg.appendChild(line);
+    }
+
+    function redrawLinks() {
+      svg.querySelectorAll('line').forEach((l) => l.remove());
+      root.querySelectorAll<HTMLElement>('.mlg-feature[data-matched]').forEach((f) => {
+        const s = symbolsCol.querySelector<HTMLElement>(`.mlg-symbol[data-id="${f.dataset.id}"]`);
+        if (s) {
+          const br = board.getBoundingClientRect();
+          const ra = f.getBoundingClientRect();
+          const rb = s.getBoundingClientRect();
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', String(ra.right - br.left));
+          line.setAttribute('y1', String(ra.top + ra.height / 2 - br.top));
+          line.setAttribute('x2', String(rb.left - br.left));
+          line.setAttribute('y2', String(rb.top + rb.height / 2 - br.top));
+          line.style.stroke = 'var(--color-accent)';
+          line.style.strokeWidth = '1.5';
+          svg.appendChild(line);
+        }
+      });
+    }
+
+    function clearSelection() {
+      if (selected) selected.setAttribute('aria-pressed', 'false');
+      selected = null;
+    }
+
+    function onClick(e: Event) {
+      const btn = (e.currentTarget as Item);
+      if (btn.dataset.matched) return;
+
+      if (!selected) {
+        selected = btn;
+        btn.setAttribute('aria-pressed', 'true');
+        return;
+      }
+      if (selected === btn) {
+        clearSelection();
+        return;
+      }
+      const a = selected;
+      const b = btn;
+      const oneFeature = a.classList.contains('mlg-feature') !== b.classList.contains('mlg-feature');
+
+      if (oneFeature && a.dataset.id === b.dataset.id) {
+        a.dataset.matched = 'true';
+        b.dataset.matched = 'true';
+        a.setAttribute('aria-pressed', 'false');
+        const feat = a.classList.contains('mlg-feature') ? a : b;
+        const sym = a.classList.contains('mlg-feature') ? b : a;
+        drawLink(feat, sym);
+        matched++;
+        setStatus();
+        selected = null;
+      } else {
+        b.classList.add('mlg-wrong');
+        a.classList.add('mlg-wrong');
+        setTimeout(() => {
+          a.classList.remove('mlg-wrong');
+          b.classList.remove('mlg-wrong');
+        }, 340);
+        clearSelection();
+      }
+    }
+
+    function wire() {
+      root.querySelectorAll<Item>('.mlg-item').forEach((el) => el.addEventListener('click', onClick));
+    }
+
+    function reset() {
+      matched = 0;
+      clearSelection();
+      svg.querySelectorAll('line').forEach((l) => l.remove());
+      root.querySelectorAll<HTMLElement>('.mlg-item').forEach((el) => {
+        delete el.dataset.matched;
+        el.setAttribute('aria-pressed', 'false');
+      });
+      delete status.dataset.complete;
+      again.hidden = true;
+      shuffleSymbols();
+      setStatus();
+    }
+
+    // init
+    shuffleSymbols();
+    wire();
+    setStatus();
+    again.addEventListener('click', reset);
+    let rt: number | undefined;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(rt);
+      rt = window.setTimeout(redrawLinks, 150);
+    });
+  });
+</script>

@@ -1,20 +1,19 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Coord from '../../components/Coord.astro';
+import MapLegendGame from '../../components/MapLegendGame.astro';
 import { ui } from '../../i18n/ui';
 ---
 
 <BaseLayout
   title="game — Martín Pérez Pollero"
-  description="A small game about playful cartography. Under construction."
+  description="Legend: a mini-game to match each feature of the terrain with its map symbol."
 >
-  <Coord fix="sheet 4 · playing field" />
+  <Coord fix="sheet 4 · legend" />
   <h1>{ui.en['game.title']}</h1>
   <p class="lede">{ui.en['game.lede']}</p>
 
-  <div class="game-frame" aria-hidden="true">
-    <span>unmapped</span>
-  </div>
+  <MapLegendGame lang="en" />
 
-  <p class="nota">{ui.en['game.body']}</p>
+  <p class="nota" style="margin-top: var(--space-12)">{ui.en['game.body']}</p>
 </BaseLayout>
