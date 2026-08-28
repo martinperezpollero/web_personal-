@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationList from '../../components/PublicationList.astro';
 import { ui } from '../../i18n/ui';
 import publications from '../../data/publications.json';
+import type { CslItem } from '../../lib/csl';
 
 // CSL-JSON exported from Zotero (CLAUDE.md §7). Not edited by hand.
-const items = publications as Array<Record<string, any>>;
+const items = publications as CslItem[];
 ---
 
 <BaseLayout
@@ -12,21 +14,9 @@ const items = publications as Array<Record<string, any>>;
   description="Selected publications by Martín Pérez Pollero."
 >
   <h1>publications</h1>
+  {/* TODO §10: add the PDF to public/cv/ with this name. */}
+  <p>A selection. The full CV is a <a href="/cv/cv-martin-perez-pollero-2026.pdf">PDF</a>.</p>
 
-  {
-    items.length === 0 ? (
-      <p><em>{ui.en['publications.empty']}</em></p>
-    ) : (
-      <ul>
-        {items.map((it) => (
-          <li>
-            <span class="pub-title">{it.title}</span>
-            {it.issued?.['date-parts']?.[0]?.[0] && <span> ({it.issued['date-parts'][0][0]})</span>}
-            {it.DOI && <> · <a href={`https://doi.org/${it.DOI}`}>DOI</a></>}
-            {it.URL && <> · <a href={it.URL}>full text</a></>}
-          </li>
-        ))}
-      </ul>
-    )
-  }
+  {items.length === 0 && <p class="nota"><em>{ui.en['publications.empty']}</em></p>}
+  <PublicationList items={items} lang="en" />
 </BaseLayout>

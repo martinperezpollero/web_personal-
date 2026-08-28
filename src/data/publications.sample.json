@@ -1,0 +1,53 @@
+[
+  {
+    "id": "biografia-ludica-2025",
+    "type": "chapter",
+    "title": "La biografía lúdica. Una propuesta teórico-metodológica para el estudio del jugar y de la subjetividad",
+    "container-title": "Cartografía lúdica: un mapa vivo por explorar",
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Monteagudo", "given": "María Jesús" }
+    ],
+    "issued": { "date-parts": [[2025]] },
+    "publisher": "Dykinson",
+    "page": "247-265"
+  },
+  {
+    "id": "ocio-encierro-2024",
+    "type": "article-journal",
+    "title": "Ocio educativo en espacios penitenciarios",
+    "container-title": "Cuadernos del CLAEH",
+    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
+    "issued": { "date-parts": [[2024]] },
+    "volume": "43",
+    "issue": "119"
+  },
+  {
+    "id": "metodologia-recreacion-2024",
+    "type": "article-journal",
+    "title": "Aportes a la construcción de una metodología basada en la recreación educativa",
+    "container-title": "Educació Social",
+    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
+    "issued": { "date-parts": [[2024]] },
+    "volume": "83"
+  },
+  {
+    "id": "ocio-accion-sociocultural-2023",
+    "type": "chapter",
+    "title": "[capítulo — título por confirmar desde Zotero]",
+    "container-title": "Ocio educativo y acción sociocultural",
+    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
+    "issued": { "date-parts": [[2023]] },
+    "publisher": "Graó"
+  },
+  {
+    "id": "juguetes-jugadores-prologo-2023",
+    "type": "chapter",
+    "title": "Prólogo a la reedición de «Juguetes y Jugadores» de Graciela Scheines",
+    "container-title": "Juguetes y Jugadores",
+    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
+    "issued": { "date-parts": [[2023]] },
+    "publisher": "Espíritu Guerrero",
+    "page": "17-42"
+  }
+]

@@ -1,0 +1,51 @@
+---
+/*
+  PublicationList — lista de publicaciones desde CSL-JSON (CLAUDE.md §7).
+  El hub muestra una selección (5–8); el CV completo va en PDF aparte.
+  Títulos y revistas NO se traducen (§5).
+*/
+import { authors, year, venue, doiUrl, openAccessUrl, sortByDateDesc, type CslItem } from '../lib/csl';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  items: CslItem[];
+  lang: Locale;
+  limit?: number;
+}
+
+const { items, lang, limit } = Astro.props;
+const ordered = sortByDateDesc(items).slice(0, limit ?? items.length);
+
+const L = {
+  es: { doi: 'DOI', oa: 'texto en acceso abierto' },
+  en: { doi: 'DOI', oa: 'open-access text' },
+}[lang];
+---
+
+{
+  ordered.length > 0 && (
+    <ol class="pub-list">
+      {ordered.map((item) => {
+        const doi = doiUrl(item);
+        const oa = openAccessUrl(item);
+        const v = venue(item);
+        const y = year(item);
+        return (
+          <li class="pub">
+            {authors(item) && <span class="pub-authors">{authors(item)}</span>}
+            {y && <span class="pub-year"> ({y})</span>}
+            <span class="pub-title">{item.title}</span>
+            {v && <span class="pub-venue">{v}</span>}
+            {(doi || oa) && (
+              <span class="pub-links">
+                {doi && <a href={doi}>{L.doi}</a>}
+                {doi && oa && <span aria-hidden="true"> · </span>}
+                {oa && <a href={oa}>{L.oa}</a>}
+              </span>
+            )}
+          </li>
+        );
+      })}
+    </ol>
+  )
+}

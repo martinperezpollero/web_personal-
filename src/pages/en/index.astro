@@ -1,16 +1,52 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import PublicationList from '../../components/PublicationList.astro';
+import { ui } from '../../i18n/ui';
+import publications from '../../data/publications.json';
+import type { CslItem } from '../../lib/csl';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => !p.data.borrador)
+  .sort((a, b) => a.data.orden - b.data.orden);
+
+const pubs = publications as CslItem[];
 ---
 
 <BaseLayout title="Martín Pérez Pollero" description="Personal hub of Martín Pérez Pollero.">
   <h1>Martín Pérez Pollero</h1>
 
-  {/* CLAUDE.md §5: English is written, not translated. */}
-  <p><em>TODO: one-line intro (hero) — written in English by a person.</em></p>
-  <p>
-    <em>
-      TODO: one-paragraph bio for the home page. Decide «one thread or two» first
-      (CLAUDE.md §11.3).
-    </em>
-  </p>
+  {/* CLAUDE.md §5: English is written, not translated. Decide «one thread or two» first (§11.3). */}
+  <p class="lede"><em>TODO: one-line intro — written in English by a person.</em></p>
+  <p><em>TODO: one-paragraph bio.</em></p>
+
+  <section class="home-block">
+    <h2>projects</h2>
+    {projects.length === 0 && <p class="nota"><em>{ui.en['projects.empty']}</em></p>}
+    <ul class="home-list">
+      {projects.map((p) => (
+        <li>
+          {p.data.enlaceExterno ? <a href={p.data.enlaceExterno}>{p.data.titulo}</a> : p.data.titulo}
+          <span class="meta meta--dato">
+            {' — '}
+            <span class:list={['estado', /curso|progress/i.test(p.data.estado) && 'estado--activo']}>{p.data.estado}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+    <p><a href="/en/projects/">all projects →</a></p>
+  </section>
+
+  <section class="home-block">
+    <h2>publications</h2>
+    {pubs.length === 0 && <p class="nota"><em>{ui.en['publications.empty']}</em></p>}
+    <PublicationList items={pubs} lang="en" limit={4} />
+    <p><a href="/en/publications/">all publications →</a></p>
+  </section>
+
+  <section class="home-block">
+    <h2>contact</h2>
+    {/* TODO §10: public email, ORCID, profiles. */}
+    <p class="nota"><em>TODO: public email and profiles.</em></p>
+  </section>
 </BaseLayout>

@@ -29,7 +29,12 @@ const projects = (await getCollection('projects'))
               p.data.titulo
             )}
           </h2>
-          <p class="meta">{[p.data.estado, p.data.periodo].filter(Boolean).join(' · ')}</p>
+          <p class="meta meta--dato">
+            <span class:list={['estado', /curso|progress/i.test(p.data.estado) && 'estado--activo']}>
+              {p.data.estado}
+            </span>
+            {p.data.periodo && <> · {p.data.periodo}</>}
+          </p>
           <p>{p.data.resumen}</p>
           <Content />
           {p.data.colaboradores.length > 0 && (
