@@ -8,6 +8,8 @@ const segments: Record<string, Record<Locale, string>> = {
   projects: { es: 'proyectos', en: 'projects' },
   publicaciones: { es: 'publicaciones', en: 'publications' },
   publications: { es: 'publicaciones', en: 'publications' },
+  juego: { es: 'juego', en: 'game' },
+  game: { es: 'juego', en: 'game' },
 };
 
 export function getLocaleFromPath(pathname: string): Locale {

@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Coord from '../../components/Coord.astro';
+import { ui } from '../../i18n/ui';
+---
+
+<BaseLayout
+  title="game — Martín Pérez Pollero"
+  description="A small game about playful cartography. Under construction."
+>
+  <Coord fix="sheet 4 · playing field" />
+  <h1>{ui.en['game.title']}</h1>
+  <p class="lede">{ui.en['game.lede']}</p>
+
+  <div class="game-frame" aria-hidden="true">
+    <span>unmapped</span>
+  </div>
+
+  <p class="nota">{ui.en['game.body']}</p>
+</BaseLayout>

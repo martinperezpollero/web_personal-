@@ -14,6 +14,8 @@ const paths = [
   '/en/publications/',
   '/es/bio/',
   '/en/bio/',
+  '/es/juego/',
+  '/en/game/',
 ];
 
 export const GET: APIRoute = ({ site }) => {
