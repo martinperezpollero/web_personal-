@@ -28,14 +28,15 @@ const T = {
   },
 }[lang];
 
-// id -> etiqueta + centro del accidente en unidades del viewBox (0..100 x 0..66).
-const VBH = 66;
+// id -> etiqueta + centro del accidente, en unidades del viewBox (0..120 x 0..78).
+const VBW = 120;
+const VBH = 78;
 const spots = [
-  { id: 'cima', es: 'cima', en: 'summit', vx: 28, vy: 34 },
-  { id: 'agua', es: 'curso de agua', en: 'watercourse', vx: 52, vy: 34 },
-  { id: 'sendero', es: 'sendero', en: 'footpath', vx: 48, vy: 55 },
-  { id: 'bosque', es: 'bosque', en: 'woodland', vx: 79, vy: 50 },
-  { id: 'depresion', es: 'depresión', en: 'depression', vx: 52, vy: 16 },
+  { id: 'cima', es: 'cima', en: 'summit', vx: 32, vy: 38 },
+  { id: 'agua', es: 'curso de agua', en: 'watercourse', vx: 55, vy: 41 },
+  { id: 'sendero', es: 'sendero', en: 'footpath', vx: 72, vy: 51 },
+  { id: 'bosque', es: 'bosque', en: 'woodland', vx: 96, vy: 55 },
+  { id: 'depresion', es: 'depresión', en: 'depression', vx: 46, vy: 13 },
 ];
 
 const symbolSvg: Record<string, string> = {
@@ -52,27 +53,65 @@ const symbolSvg: Record<string, string> = {
   <noscript><p class="nota">{T.nojs}</p></noscript>
 
   <div class="mtg-map">
-    <svg viewBox="0 0 100 66" class="mtg-terrain" role="img" aria-label={lang === 'es' ? 'Mapa del terreno' : 'Terrain map'}>
-      <g fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.55">
-        {/* colina: curvas de nivel, centro ~ (28, 34) */}
-        <path d="M12 42 Q12 22 30 22 Q48 24 44 42 Q40 54 24 52 Q12 50 12 42Z" />
-        <path d="M19 40 Q20 28 30 29 Q40 30 37 40 Q33 48 24 45 Q18 44 19 40Z" />
-        <path d="M24 37 Q26 32 30 34 Q34 37 31 40 Q27 42 25 39Z" />
-        {/* curso de agua: pasa por ~ (52, 34) */}
-        <path d="M84 6 Q70 16 60 26 Q52 34 44 42 Q34 50 18 56" stroke-width="0.7" />
-        {/* sendero: pasa por ~ (48, 55) */}
-        <path d="M8 50 Q28 60 48 55 Q70 51 94 43" stroke-dasharray="2 1.6" stroke-width="0.7" />
-        {/* depresión: centro (52, 16) */}
-        <circle cx="52" cy="16" r="6" />
-        <path d="M52 11 v2 M52 21 v-2 M47 16 h2 M57 16 h-2" stroke-width="0.7" />
-        {/* bosque: centro ~ (79, 50) */}
-        <path d="M66 50 Q64 40 79 40 Q92 40 92 51 Q92 62 79 62 Q66 62 66 50Z" />
+    <svg viewBox="0 0 120 78" class="mtg-terrain" role="img" aria-label={lang === 'es' ? 'Carta topográfica estilizada' : 'Stylised topographic map'}>
+      {/* curvas de nivel normales */}
+      <g fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.4" stroke-linejoin="round">
+        {/* colina, cima ~ (32, 38) */}
+        <path d="M9 46 C6 30 16 18 32 17 C50 16 58 30 52 46 C47 60 26 62 15 52 C11 50 9 48 9 46 Z" />
+        <path d="M15 44 C13 32 22 24 32 24 C46 24 51 34 47 45 C43 56 26 57 18 49 C15 47 15 45 15 44 Z" />
+        <path d="M21 42 C20 34 26 29 32 30 C42 30 45 37 42 44 C39 51 27 51 23 45 C21 44 21 43 21 42 Z" />
+        <path d="M27 40 C27 35 30 32 33 34 C38 35 39 41 36 44 C33 47 28 46 27 42 Z" />
+        {/* cordón sobre el borde derecho */}
+        <path d="M120 6 C104 10 99 22 103 36 C107 50 102 62 110 74" />
+        <path d="M120 15 C107 19 102 29 105 40 C108 51 104 60 111 70" />
+        <path d="M120 24 C110 27 106 34 108 43 C110 52 107 58 113 66" />
+        {/* depresión: anillo exterior + interior con marcas hacia adentro (centro ~ 46,13) */}
+        <path d="M31 6 C33 1 44 -1 53 1 C63 3 65 14 60 21 C55 28 40 27 34 20 C31 17 30 11 31 6 Z" />
+        <path d="M37 8 C39 4 45 3 51 5 C57 7 58 15 54 19 C50 23 41 22 38 17 C36 15 36 11 37 8 Z" />
       </g>
-      <g fill="currentColor" opacity="0.5">
-        <path d="M73 52 l1.4 2.8 h-2.8 z" />
-        <path d="M80 47 l1.4 2.8 h-2.8 z" />
-        <path d="M85 54 l1.4 2.8 h-2.8 z" />
-        <path d="M78 57 l1.4 2.8 h-2.8 z" />
+
+      {/* curva índice (más marcada) */}
+      <g fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.6">
+        <path d="M120 33 C112 35 109 40 110 47 C111 54 109 58 114 63" />
+      </g>
+
+      {/* marcas de la depresión */}
+      <g fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.5">
+        <path d="M42 7 l1.6 2.6 M48 5.6 l-0.6 2.8 M53 10 l-2.6 1 M52 17 l-2 -2 M43 20 l0.9 -2.6 M37 13 l2.6 0.6" />
+      </g>
+
+      {/* curso de agua + un afluente */}
+      <g fill="none" stroke="currentColor" stroke-width="0.55" opacity="0.5" stroke-linecap="round">
+        <path d="M66 4 C64 12 68 17 63 24 C58 31 63 36 56 42 C49 48 52 55 43 60 C37 63 30 66 20 72" />
+        <path d="M84 16 C79 21 74 22 66 24 C64.5 24.4 63.6 24.2 63 24" />
+      </g>
+
+      {/* sendero */}
+      <path d="M8 74 C22 68 30 64 40 63 C52 61 60 55 70 52 C84 48 96 46 120 40"
+        fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.55" stroke-dasharray="2 1.5" stroke-linecap="round" />
+
+      {/* bosque: límite de vegetación + coníferas (centro ~ 98, 56) */}
+      <path d="M82 62 C80 50 92 44 105 46 C118 48 119 60 113 66 C107 73 90 74 84 68 C82 66 82 64 82 62 Z"
+        fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4" stroke-dasharray="0.7 1.1" />
+      <g fill="currentColor" opacity="0.42">
+        <path d="M88 58 l1.5 3 h-3 z" /><path d="M95 52 l1.5 3 h-3 z" /><path d="M102 57 l1.5 3 h-3 z" />
+        <path d="M108 53 l1.5 3 h-3 z" /><path d="M90 66 l1.5 3 h-3 z" /><path d="M98 67 l1.5 3 h-3 z" />
+        <path d="M105 63 l1.5 3 h-3 z" /><path d="M112 60 l1.5 3 h-3 z" /><path d="M100 61 l1.5 3 h-3 z" />
+      </g>
+
+      {/* mobiliario de carta */}
+      <g opacity="0.5" fill="currentColor" stroke="currentColor">
+        <path d="M4 4 v6 M4 4 h6" fill="none" stroke-width="0.5" />
+        <text x="7.5" y="6.6" font-size="2.6" stroke="none">34°55′S</text>
+        <text x="112" y="46" font-size="2.6" stroke="none">180</text>
+        <path d="M115 4 v6 M115 4 l-1.5 2 M115 4 l1.5 2" fill="none" stroke-width="0.5" />
+        <text x="113.5" y="13" font-size="2.8" stroke="none">N</text>
+        <rect x="6" y="74" width="3" height="1.1" stroke="none" />
+        <rect x="9" y="74" width="3" height="1.1" fill="none" stroke-width="0.3" />
+        <rect x="12" y="74" width="3" height="1.1" stroke="none" />
+        <rect x="15" y="74" width="3" height="1.1" fill="none" stroke-width="0.3" />
+        <text x="6" y="72.6" font-size="2.3" stroke="none">0</text>
+        <text x="15.5" y="72.6" font-size="2.3" stroke="none">500 m</text>
       </g>
     </svg>
 
@@ -120,6 +159,7 @@ const symbolSvg: Record<string, string> = {
     touch-action: none;
   }
   .mtg-terrain { display: block; width: 100%; height: auto; }
+  .mtg-terrain text { font-family: var(--font-mono); letter-spacing: -0.02em; }
 
   .mtg-hotspot {
     position: absolute;
