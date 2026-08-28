@@ -1,0 +1,25 @@
+---
+import { EMAIL } from '../consts';
+import { ui } from '../i18n/ui';
+import { getLocaleFromPath } from '../i18n/utils';
+
+const lang = getLocaleFromPath(Astro.url.pathname);
+const t = ui[lang];
+
+// TODO §10: reemplazar cada "pendiente" por la URL real cuando la tengamos.
+const profiles = ['CVUy', 'Google Scholar', 'ORCID', 'LinkedIn', 'Bluesky'];
+---
+
+<ul class="contact-list">
+  <li>
+    <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    <span class="nota">{t['contact.emailNote']}</span>
+  </li>
+  {
+    profiles.map((p) => (
+      <li>
+        {p} — <span class="nota">{t['contact.pending']}</span>
+      </li>
+    ))
+  }
+</ul>

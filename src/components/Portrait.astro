@@ -1,0 +1,20 @@
+---
+import { PORTRAIT } from '../consts';
+import { ui } from '../i18n/ui';
+import { getLocaleFromPath } from '../i18n/utils';
+
+interface Props {
+  size?: 'sm' | 'lg';
+}
+const { size = 'sm' } = Astro.props;
+const lang = getLocaleFromPath(Astro.url.pathname);
+---
+
+<img
+  class:list={['portrait', `portrait--${size}`]}
+  src={PORTRAIT}
+  alt={ui[lang]['portrait.alt']}
+  width="320"
+  height="400"
+  loading="lazy"
+/>

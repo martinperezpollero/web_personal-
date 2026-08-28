@@ -18,6 +18,16 @@ orden: 1
 borrador: false
 ---
 
-TODO: ficha del proyecto — qué es, en qué punto está y qué debería hacer quien
-llega (CLAUDE.md §10). Definir también el idioma del satélite (probablemente
-español) y su URL.
+<!-- BORRADOR DE PRUEBA — armado con datos del CV (§2). Revisar con Martín. -->
+
+Anexo digital de la tesis doctoral. Reúne el material que no entra en un libro:
+visualizaciones interactivas de las trayectorias de juego de los participantes,
+sus fanzines digitalizados, fragmentos de audio de las entrevistas y las
+cartas-frase que cada quien escribió sobre su propio jugar.
+
+La *biografía lúdica* es una propuesta teórico-metodológica para estudiar el
+jugar y la subjetividad: entrar a una vida por la puerta de cómo jugó, cómo
+dejó de jugar y qué de eso sigue ahí. El sustento está en el capítulo escrito
+con María Jesús Monteagudo para *Cartografía lúdica* (Dykinson, 2025).
+
+Vive en su propio sitio, en español. `TODO: definir la URL del satélite.`

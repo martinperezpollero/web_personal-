@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationList from '../../components/PublicationList.astro';
 import Coord from '../../components/Coord.astro';
 import ReliefMark from '../../components/ReliefMark.astro';
+import Portrait from '../../components/Portrait.astro';
+import Contact from '../../components/Contact.astro';
 import { ui } from '../../i18n/ui';
 import { BASE_COORD } from '../../consts';
 import publications from '../../data/publications.json';
@@ -21,13 +23,17 @@ const parrafo = bio?.parrafo?.trim();
 ---
 
 <BaseLayout title="Martín Pérez Pollero" description="Personal hub of Martín Pérez Pollero.">
-  <Coord fix={BASE_COORD.en.fix} place={BASE_COORD.en.place} />
-  <h1>Martín Pérez Pollero</h1>
-
-  {/* Bio lives in src/content/en/bio.md (§7). While empty, TODO. */}
-  {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.en['home.bio.linea']}</em></p>}
-  {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.en['home.bio.parrafo']}</em></p>}
-  <p><a href="/en/bio/">{ui.en['bio.long.link']}</a></p>
+  <div class="hero">
+    <div class="hero-text">
+      <Coord fix={BASE_COORD.en.fix} place={BASE_COORD.en.place} />
+      <h1>Martín Pérez Pollero</h1>
+      {/* Bio lives in src/content/en/bio.md (§7). While empty, TODO. */}
+      {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.en['home.bio.linea']}</em></p>}
+      {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.en['home.bio.parrafo']}</em></p>}
+      <p><a href="/en/bio/">{ui.en['bio.long.link']}</a></p>
+    </div>
+    <Portrait size="sm" />
+  </div>
 
   <section class="home-block">
     <h2>projects</h2>
@@ -56,8 +62,7 @@ const parrafo = bio?.parrafo?.trim();
   </section>
 
   <section class="home-block">
-    <h2>contact</h2>
-    {/* TODO §10: public email, ORCID, profiles. */}
-    <p class="nota"><em>TODO: public email and profiles.</em></p>
+    <h2>{ui.en['contact.title']}</h2>
+    <Contact />
   </section>
 </BaseLayout>

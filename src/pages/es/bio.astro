@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Coord from '../../components/Coord.astro';
+import Portrait from '../../components/Portrait.astro';
 import { ui } from '../../i18n/ui';
 import { BASE_COORD } from '../../consts';
 
@@ -16,11 +17,15 @@ const tieneLarga = !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
   title="bio — Martín Pérez Pollero"
   description="Biografía de Martín Pérez Pollero para prensa, comités y presentaciones."
 >
-  <Coord fix={BASE_COORD.es.fix} place={BASE_COORD.es.place} />
-  <h1>bio</h1>
-
-  {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.es['home.bio.linea']}</em></p>}
-  {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.es['home.bio.parrafo']}</em></p>}
+  <div class="hero">
+    <div class="hero-text">
+      <Coord fix={BASE_COORD.es.fix} place={BASE_COORD.es.place} />
+      <h1>bio</h1>
+      {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.es['home.bio.linea']}</em></p>}
+      {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.es['home.bio.parrafo']}</em></p>}
+    </div>
+    <Portrait size="lg" />
+  </div>
 
   <section class="home-block">
     <h2>larga</h2>

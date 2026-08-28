@@ -4,6 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationList from '../../components/PublicationList.astro';
 import Coord from '../../components/Coord.astro';
 import ReliefMark from '../../components/ReliefMark.astro';
+import Portrait from '../../components/Portrait.astro';
+import Contact from '../../components/Contact.astro';
 import { ui } from '../../i18n/ui';
 import { BASE_COORD } from '../../consts';
 import publications from '../../data/publications.json';
@@ -21,13 +23,17 @@ const parrafo = bio?.parrafo?.trim();
 ---
 
 <BaseLayout title="Martín Pérez Pollero" description="Hub personal de Martín Pérez Pollero.">
-  <Coord fix={BASE_COORD.es.fix} place={BASE_COORD.es.place} />
-  <h1>Martín Pérez Pollero</h1>
-
-  {/* La bio vive en src/content/es/bio.md (§7). Mientras esté vacía, TODO. */}
-  {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.es['home.bio.linea']}</em></p>}
-  {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.es['home.bio.parrafo']}</em></p>}
-  <p><a href="/es/bio/">{ui.es['bio.long.link']}</a></p>
+  <div class="hero">
+    <div class="hero-text">
+      <Coord fix={BASE_COORD.es.fix} place={BASE_COORD.es.place} />
+      <h1>Martín Pérez Pollero</h1>
+      {/* La bio vive en src/content/es/bio.md (§7). Mientras esté vacía, TODO. */}
+      {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.es['home.bio.linea']}</em></p>}
+      {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.es['home.bio.parrafo']}</em></p>}
+      <p><a href="/es/bio/">{ui.es['bio.long.link']}</a></p>
+    </div>
+    <Portrait size="sm" />
+  </div>
 
   <section class="home-block">
     <h2>proyectos</h2>
@@ -56,8 +62,7 @@ const parrafo = bio?.parrafo?.trim();
   </section>
 
   <section class="home-block">
-    <h2>contacto</h2>
-    {/* TODO §10: correo público, ORCID, y perfiles (CVUy, Scholar, LinkedIn, Bluesky). */}
-    <p class="nota"><em>TODO: correo público y perfiles.</em></p>
+    <h2>{ui.es['contact.title']}</h2>
+    <Contact />
   </section>
 </BaseLayout>

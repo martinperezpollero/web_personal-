@@ -11,6 +11,7 @@ export const ui = {
     'nav.aria': 'Navegación principal',
     'nav.projects': 'proyectos',
     'nav.publications': 'publicaciones',
+    'nav.game': 'juego',
     'nav.cv': 'cv',
     'projects.empty': 'TODO: cargar fichas de proyecto (CLAUDE.md §10). Nada publicado todavía.',
     'publications.empty':
@@ -24,6 +25,14 @@ export const ui = {
     'notfound.title': 'no está en la carta',
     'notfound.body': 'Esa página no existe o cambió de lugar.',
     'notfound.home': 'volver al inicio',
+    'contact.title': 'contacto',
+    'contact.emailNote': '(§2: decidir si va este correo o uno institucional)',
+    'contact.pending': 'pendiente',
+    'game.title': 'juego',
+    'game.lede': 'Un juego breve sobre cartografías lúdicas. En construcción.',
+    'game.body':
+      'TODO: definir qué es. Fuerte candidato a satélite (§1, §9): repo propio, su JS y su diseño; el hub quedaría con solo el enlace.',
+    'portrait.alt': 'Foto de Martín Pérez Pollero (marcador de posición)',
   },
   en: {
     'lang.label': 'EN',
@@ -43,6 +52,14 @@ export const ui = {
     'notfound.title': 'off the map',
     'notfound.body': 'That page does not exist or has moved.',
     'notfound.home': 'back to the start',
+    'contact.title': 'contact',
+    'contact.emailNote': '(§2: decide whether to show this address or an institutional one)',
+    'contact.pending': 'pending',
+    'game.title': 'game',
+    'game.lede': 'A small game about playful cartography. Under construction.',
+    'game.body':
+      'TODO: define what it is. A strong candidate for a satellite (§1, §9): its own repo, JS and design; the hub would keep only the link.',
+    'portrait.alt': 'Photo of Martín Pérez Pollero (placeholder)',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

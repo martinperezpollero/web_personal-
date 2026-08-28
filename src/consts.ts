@@ -30,8 +30,15 @@ export const CV_PATH = '/cv/cv-martin-perez-pollero-2026.pdf';
 export const NAV = [
   { key: 'projects', kind: 'route', es: 'proyectos', en: 'projects' },
   { key: 'publications', kind: 'route', es: 'publicaciones', en: 'publications' },
+  { key: 'game', kind: 'route', es: 'juego', en: 'game' },
   { key: 'cv', kind: 'file', es: 'cv', en: 'cv' },
 ] as const;
+
+/** Ruta a la foto (§10). Hoy es un marcador de posición en public/img/. */
+export const PORTRAIT = '/img/martin-perez-pollero.svg';
+
+/** Correo del CV (§2). DECIDIR si se expone este o uno institucional. */
+export const EMAIL = 'martin.ppollero@gmail.com';
 
 /** Afiliación actual (§2), para JSON-LD. */
 export const AFFILIATION = 'Universidad Católica del Uruguay';
