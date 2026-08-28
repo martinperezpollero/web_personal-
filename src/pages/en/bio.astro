@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Coord from '../../components/Coord.astro';
+import { ui } from '../../i18n/ui';
+import { BASE_COORD } from '../../consts';
+
+const entry = (await getCollection('bioEn'))[0];
+const { Content } = entry ? await render(entry) : { Content: null };
+const linea = entry?.data.linea?.trim();
+const parrafo = entry?.data.parrafo?.trim();
+const hasLong = !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
+---
+
+<BaseLayout
+  title="bio — Martín Pérez Pollero"
+  description="Biography of Martín Pérez Pollero for press, committees and talks."
+>
+  <Coord fix={BASE_COORD.en.fix} place={BASE_COORD.en.place} />
+  <h1>bio</h1>
+
+  {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.en['home.bio.linea']}</em></p>}
+  {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.en['home.bio.parrafo']}</em></p>}
+
+  <section class="home-block">
+    <h2>long</h2>
+    {hasLong && Content ? <Content /> : <p class="nota"><em>{ui.en['bio.larga.todo']}</em></p>}
+  </section>
+</BaseLayout>

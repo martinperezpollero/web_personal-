@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Coord from '../components/Coord.astro';
+import { ui } from '../i18n/ui';
+
+// Página estática única: Astro la emite como dist/404.html y Cloudflare
+// Pages la sirve para cualquier ruta desconocida. Como no sabemos el idioma
+// del visitante, se muestra en los dos.
+---
+
+<BaseLayout title={`404 — ${ui.es['notfound.title']}`} description={ui.es['notfound.body']}>
+  <Coord fix="fuera de la carta · 404" />
+  <h1>{ui.es['notfound.title']}</h1>
+  <p>{ui.es['notfound.body']} — <a href="/es/">{ui.es['notfound.home']}</a></p>
+  <p class="nota">{ui.en['notfound.body']} — <a href="/en/">{ui.en['notfound.home']}</a></p>
+</BaseLayout>

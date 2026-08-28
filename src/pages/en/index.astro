@@ -5,6 +5,7 @@ import PublicationList from '../../components/PublicationList.astro';
 import Coord from '../../components/Coord.astro';
 import ReliefMark from '../../components/ReliefMark.astro';
 import { ui } from '../../i18n/ui';
+import { BASE_COORD } from '../../consts';
 import publications from '../../data/publications.json';
 import type { CslItem } from '../../lib/csl';
 
@@ -13,15 +14,20 @@ const projects = (await getCollection('projects'))
   .sort((a, b) => a.data.orden - b.data.orden);
 
 const pubs = publications as CslItem[];
+
+const bio = (await getCollection('bioEn'))[0]?.data;
+const linea = bio?.linea?.trim();
+const parrafo = bio?.parrafo?.trim();
 ---
 
 <BaseLayout title="Martín Pérez Pollero" description="Personal hub of Martín Pérez Pollero.">
-  <Coord fix="34°54′S 56°11′W" place="Montevideo" />
+  <Coord fix={BASE_COORD.en.fix} place={BASE_COORD.en.place} />
   <h1>Martín Pérez Pollero</h1>
 
-  {/* CLAUDE.md §5: English is written, not translated. Decide «one thread or two» first (§11.3). */}
-  <p class="lede"><em>TODO: one-line intro — written in English by a person.</em></p>
-  <p><em>TODO: one-paragraph bio.</em></p>
+  {/* Bio lives in src/content/en/bio.md (§7). While empty, TODO. */}
+  {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.en['home.bio.linea']}</em></p>}
+  {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.en['home.bio.parrafo']}</em></p>}
+  <p><a href="/en/bio/">{ui.en['bio.long.link']}</a></p>
 
   <section class="home-block">
     <h2>projects</h2>

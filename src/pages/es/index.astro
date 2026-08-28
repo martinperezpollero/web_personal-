@@ -5,6 +5,7 @@ import PublicationList from '../../components/PublicationList.astro';
 import Coord from '../../components/Coord.astro';
 import ReliefMark from '../../components/ReliefMark.astro';
 import { ui } from '../../i18n/ui';
+import { BASE_COORD } from '../../consts';
 import publications from '../../data/publications.json';
 import type { CslItem } from '../../lib/csl';
 
@@ -13,16 +14,20 @@ const proyectos = (await getCollection('proyectos'))
   .sort((a, b) => a.data.orden - b.data.orden);
 
 const pubs = publications as CslItem[];
+
+const bio = (await getCollection('bioEs'))[0]?.data;
+const linea = bio?.linea?.trim();
+const parrafo = bio?.parrafo?.trim();
 ---
 
 <BaseLayout title="Martín Pérez Pollero" description="Hub personal de Martín Pérez Pollero.">
-  <Coord fix="34°54′S 56°11′O" place="Montevideo" />
+  <Coord fix={BASE_COORD.es.fix} place={BASE_COORD.es.place} />
   <h1>Martín Pérez Pollero</h1>
 
-  {/* CLAUDE.md §2 «Bio: tres longitudes». No inventar: escribir a mano.
-      Decidir antes «una línea o dos» (§11.3). */}
-  <p class="lede"><em>TODO: una línea de presentación.</em></p>
-  <p><em>TODO: un párrafo de bio (la convergencia de las dos líneas de trabajo).</em></p>
+  {/* La bio vive en src/content/es/bio.md (§7). Mientras esté vacía, TODO. */}
+  {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.es['home.bio.linea']}</em></p>}
+  {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.es['home.bio.parrafo']}</em></p>}
+  <p><a href="/es/bio/">{ui.es['bio.long.link']}</a></p>
 
   <section class="home-block">
     <h2>proyectos</h2>

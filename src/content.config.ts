@@ -29,6 +29,18 @@ const proyecto = z.object({
   borrador: z.boolean().default(false),
 });
 
+/*
+  Bio (CLAUDE.md §2: tres longitudes × dos idiomas). Un archivo por idioma:
+  `es/bio.md` y `en/bio.md`. Las dos cortas van en el frontmatter; la larga
+  (prensa, comités) es el cuerpo del Markdown. Todos los campos opcionales:
+  mientras están vacíos, la web muestra un TODO en su lugar. El inglés se
+  escribe, no se traduce (§5).
+*/
+const bio = z.object({
+  linea: z.string().optional(),
+  parrafo: z.string().optional(),
+});
+
 export const collections = {
   proyectos: defineCollection({
     loader: glob({ pattern: '*.md', base: './src/content/es/proyectos' }),
@@ -37,5 +49,13 @@ export const collections = {
   projects: defineCollection({
     loader: glob({ pattern: '*.md', base: './src/content/en/projects' }),
     schema: proyecto,
+  }),
+  bioEs: defineCollection({
+    loader: glob({ pattern: 'bio.md', base: './src/content/es' }),
+    schema: bio,
+  }),
+  bioEn: defineCollection({
+    loader: glob({ pattern: 'bio.md', base: './src/content/en' }),
+    schema: bio,
   }),
 };
