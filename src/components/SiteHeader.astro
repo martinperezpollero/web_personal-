@@ -2,19 +2,25 @@
 import LanguageSelector from './LanguageSelector.astro';
 import { getLocaleFromPath } from '../i18n/utils';
 import { ui } from '../i18n/ui';
+import { SITE_NAME, NAV, CV_PATH } from '../consts';
 
 const path = Astro.url.pathname;
 const lang = getLocaleFromPath(path);
 const t = ui[lang];
-const projectsSeg = lang === 'es' ? 'proyectos' : 'projects';
-const pubsSeg = lang === 'es' ? 'publicaciones' : 'publications';
 ---
 
 <header class="site-header">
-  <a class="site-name" href={`/${lang}/`}>Martín Pérez Pollero</a>
+  <a class="site-name" href={`/${lang}/`}>{SITE_NAME}</a>
   <nav aria-label={t['nav.aria']}>
-    <a href={`/${lang}/${projectsSeg}/`}>{t['nav.projects']}</a>
-    <a href={`/${lang}/${pubsSeg}/`}>{t['nav.publications']}</a>
+    {
+      NAV.map((item) =>
+        item.kind === 'file' ? (
+          <a href={CV_PATH}>{t[`nav.${item.key}`]}</a>
+        ) : (
+          <a href={`/${lang}/${item[lang]}/`}>{t[`nav.${item.key}`]}</a>
+        )
+      )
+    }
   </nav>
   <LanguageSelector path={path} />
 </header>

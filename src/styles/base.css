@@ -248,3 +248,21 @@ article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
     scroll-behavior: auto !important;
   }
 }
+
+/* ---- Impresión: el hub se cita. Negro sobre blanco, sin relieve. ---- */
+@media print {
+  #relief,
+  .site-header nav,
+  .lang-selector,
+  .skip-link,
+  .scalebar { display: none; }
+  :root {
+    --color-bg: #ffffff;
+    --color-fg: #000000;
+    --color-muted: #333333;
+    --color-accent: #000000;
+  }
+  a { text-decoration: underline; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; word-break: break-all; }
+  .site-header, .site-footer { border-color: #000; }
+}

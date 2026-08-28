@@ -5,16 +5,36 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ReliefCanvas from '../components/ReliefCanvas.astro';
 import { alternatePath, getLocaleFromPath, locales } from '../i18n/utils';
+import { SITE_NAME, SIGN, AFFILIATION } from '../consts';
 
 interface Props {
   title: string;
   description?: string;
+  /** Ruta a una imagen social dentro de public/ (opcional). */
+  ogImage?: string;
+  /** Salta la cabecera y el pie (para páginas mínimas como 404). */
+  bare?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogImage, bare = false } = Astro.props;
 const path = Astro.url.pathname;
 const lang = getLocaleFromPath(path);
 const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const canonical = site + path;
+const ogImageUrl = ogImage ? site + ogImage : undefined;
+
+// Persona (schema.org). Solo datos verificados del CV (§2). sameAs queda para
+// cuando estén las URLs de perfiles (§10).
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE_NAME,
+  alternateName: SIGN,
+  jobTitle: 'Director de la Licenciatura en Recreación Educativa',
+  affiliation: { '@type': 'Organization', name: AFFILIATION },
+  homeLocation: { '@type': 'Place', name: 'Montevideo, Uruguay' },
+  ...(site ? { url: site } : {}),
+};
 ---
 
 <!doctype html>
@@ -22,6 +42,8 @@ const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {/* TODO §6: evaluar autohospedar las fuentes (dependencia) para no depender de un tercero. */}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,23 +52,40 @@ const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,560;9..144,600&family=Spline+Sans+Mono:wght@400;500&family=Spline+Sans:wght@400;500;600&display=swap"
     />
+
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <meta name="author" content={SITE_NAME} />
+
+    <link rel="canonical" href={canonical} />
     {
       locales.map((loc) => (
         <link rel="alternate" hreflang={loc} href={site + alternatePath(path, loc)} />
       ))
     }
     <link rel="alternate" hreflang="x-default" href={site + alternatePath(path, 'es')} />
-    <link rel="canonical" href={site + path} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_UY' : 'en'} />
+    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    {description && <meta name="twitter:description" content={description} />}
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   </head>
   <body>
     <a class="skip-link" href="#main">Saltar al contenido</a>
     <ReliefCanvas />
-    <SiteHeader />
+    {!bare && <SiteHeader />}
     <main id="main" class="container">
       <slot />
     </main>
-    <SiteFooter />
+    {!bare && <SiteFooter />}
   </body>
 </html>
