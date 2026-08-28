@@ -139,6 +139,53 @@ article:last-of-type { border-bottom: 0; }
 /* Nota / marcador de pendiente. */
 .nota { color: var(--color-muted); }
 
+/* ---- Señales de carta (dirección "relieve luminoso", §6) ---- */
+
+/* Eyebrow de coordenada, arriba del título de cada página. */
+.coord {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+.coord + h1,
+.coord + h2 { margin-top: var(--space-1); }
+
+/* Símbolo de estado del proyecto (▲ / ○ / ·). */
+.relief-mark {
+  display: inline-block;
+  width: 0.82em;
+  height: 0.82em;
+  vertical-align: -0.03em;
+  margin-right: 0.45em;
+  color: var(--color-accent);
+}
+.relief-mark[data-kind='unsurveyed'] { color: var(--color-muted); }
+
+/* Fila fantasma: terreno reservado, [otros]. */
+article.fantasma { border-bottom: 0; }
+article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
+.home-list li.fantasma { color: var(--color-muted); }
+
+/* Barra de escala del pie. */
+.scalebar { display: inline-flex; align-items: center; gap: var(--space-2); }
+.scalebar-bar {
+  display: inline-flex;
+  height: 6px;
+  border: 1px solid var(--color-muted);
+}
+.scalebar-bar span { width: 15px; height: 100%; }
+.scalebar-bar span:nth-child(odd) { background: var(--color-muted); }
+.scalebar-label { font-family: var(--font-mono); font-size: var(--text-xs); }
+.site-footer-scale {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
 /* Entradilla de la home. */
 .lede { font-size: var(--text-lg); }
 

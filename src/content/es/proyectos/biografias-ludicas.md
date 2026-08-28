@@ -6,6 +6,8 @@ resumen: >-
   Anexo digital de la tesis doctoral: visualizaciones interactivas, fanzines
   digitalizados, fragmentos de audio y cartas-frase de los participantes.
 idiomasDisponibles: ["es"]
+sede: "Bilbao"
+coordenada: "43°15′N 2°56′O"
 anclaje:
   cita: >-
     Pérez-Pollero, M. y Monteagudo, M. J. (2025). «La biografía lúdica. Una

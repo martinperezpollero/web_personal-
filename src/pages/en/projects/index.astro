@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Coord from '../../../components/Coord.astro';
+import ReliefMark from '../../../components/ReliefMark.astro';
 import { ui } from '../../../i18n/ui';
 
 const projects = (await getCollection('projects'))
@@ -12,10 +14,11 @@ const projects = (await getCollection('projects'))
   title="projects — Martín Pérez Pollero"
   description="Projects by Martín Pérez Pollero. Each one lives on its own site."
 >
+  <Coord fix="sheet 2 · index of features" />
   <h1>projects</h1>
   <p>Each project has its own site, design and pace. This is the index.</p>
 
-  {projects.length === 0 && <p><em>{ui.en['projects.empty']}</em></p>}
+  {projects.length === 0 && <p class="nota"><em>{ui.en['projects.empty']}</em></p>}
 
   {
     projects.map(async (p) => {
@@ -23,6 +26,7 @@ const projects = (await getCollection('projects'))
       return (
         <article>
           <h2>
+            <ReliefMark estado={p.data.estado} />
             {p.data.enlaceExterno ? (
               <a href={p.data.enlaceExterno}>{p.data.titulo}</a>
             ) : (
@@ -34,6 +38,12 @@ const projects = (await getCollection('projects'))
               {p.data.estado}
             </span>
             {p.data.periodo && <> · {p.data.periodo}</>}
+            {' · '}
+            {p.data.coordenada
+              ? `${p.data.coordenada}${p.data.sede ? ` ${p.data.sede}` : ''}`
+              : 'coordinate TBD'}
+            {' · '}
+            {p.data.idiomasDisponibles.join('/')}
           </p>
           <p>{p.data.resumen}</p>
           <Content />
@@ -53,4 +63,9 @@ const projects = (await getCollection('projects'))
       );
     })
   }
+
+  <article class="fantasma">
+    <h2><ReliefMark estado="sin relevar" />[otros]</h2>
+    <p class="meta meta--dato">unsurveyed</p>
+  </article>
 </BaseLayout>

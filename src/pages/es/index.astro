@@ -2,6 +2,8 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationList from '../../components/PublicationList.astro';
+import Coord from '../../components/Coord.astro';
+import ReliefMark from '../../components/ReliefMark.astro';
 import { ui } from '../../i18n/ui';
 import publications from '../../data/publications.json';
 import type { CslItem } from '../../lib/csl';
@@ -14,6 +16,7 @@ const pubs = publications as CslItem[];
 ---
 
 <BaseLayout title="Martín Pérez Pollero" description="Hub personal de Martín Pérez Pollero.">
+  <Coord fix="34°54′S 56°11′O" place="Montevideo" />
   <h1>Martín Pérez Pollero</h1>
 
   {/* CLAUDE.md §2 «Bio: tres longitudes». No inventar: escribir a mano.
@@ -27,6 +30,7 @@ const pubs = publications as CslItem[];
     <ul class="home-list">
       {proyectos.map((p) => (
         <li>
+          <ReliefMark estado={p.data.estado} />
           {p.data.enlaceExterno ? <a href={p.data.enlaceExterno}>{p.data.titulo}</a> : p.data.titulo}
           <span class="meta meta--dato">
             {' — '}
@@ -34,6 +38,7 @@ const pubs = publications as CslItem[];
           </span>
         </li>
       ))}
+      <li class="fantasma"><ReliefMark estado="sin relevar" />[otros]<span class="meta meta--dato"> — sin relevar</span></li>
     </ul>
     <p><a href="/es/proyectos/">todos los proyectos →</a></p>
   </section>

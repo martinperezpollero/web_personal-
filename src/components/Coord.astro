@@ -1,0 +1,23 @@
+---
+/*
+  Coord — el eyebrow de coordenada (latitud/longitud) que encabeza cada
+  página, como una carta. Señal de la dirección "relieve luminoso" (§6).
+  El texto lo pasa cada página: no se traduce el número, solo cambia el
+  cardinal (O en español, W en inglés) y el lugar.
+*/
+interface Props {
+  /** p. ej. "34°54′S 56°11′O" */
+  fix: string;
+  /** lugar, p. ej. "Montevideo" */
+  place?: string;
+  /** dato extra a la izquierda, p. ej. "hoja 2" o "cota 43" */
+  sheet?: string;
+}
+const { fix, place, sheet } = Astro.props;
+---
+
+<p class="coord">
+  {sheet && <span>{sheet} · </span>}
+  <span class="coord-fix">{fix}</span>
+  {place && <span> · {place}</span>}
+</p>

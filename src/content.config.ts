@@ -15,6 +15,10 @@ const proyecto = z.object({
   colaboradores: z.array(z.string()).default([]),
   enlaceExterno: z.string().url().optional(),
   idiomasDisponibles: z.array(z.enum(['es', 'en'])).default(['es']),
+  // Geo-etiqueta decorativa (dirección "relieve luminoso", §6): la sede del
+  // proyecto como coordenada. Opcional; sin ella se muestra "sin coordenada".
+  coordenada: z.string().optional(),
+  sede: z.string().optional(),
   anclaje: z
     .object({
       cita: z.string(),

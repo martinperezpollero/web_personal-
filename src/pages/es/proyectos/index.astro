@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Coord from '../../../components/Coord.astro';
+import ReliefMark from '../../../components/ReliefMark.astro';
 import { ui } from '../../../i18n/ui';
 
 const proyectos = (await getCollection('proyectos'))
@@ -12,10 +14,11 @@ const proyectos = (await getCollection('proyectos'))
   title="proyectos — Martín Pérez Pollero"
   description="Proyectos de Martín Pérez Pollero. Cada uno vive en su propio sitio."
 >
+  <Coord fix="hoja 2 · índice de accidentes" />
   <h1>proyectos</h1>
   <p>Cada proyecto tiene su propio sitio, su diseño y su ritmo. Este es el índice.</p>
 
-  {proyectos.length === 0 && <p><em>{ui.es['projects.empty']}</em></p>}
+  {proyectos.length === 0 && <p class="nota"><em>{ui.es['projects.empty']}</em></p>}
 
   {
     proyectos.map(async (p) => {
@@ -23,6 +26,7 @@ const proyectos = (await getCollection('proyectos'))
       return (
         <article>
           <h2>
+            <ReliefMark estado={p.data.estado} />
             {p.data.enlaceExterno ? (
               <a href={p.data.enlaceExterno}>{p.data.titulo}</a>
             ) : (
@@ -34,6 +38,12 @@ const proyectos = (await getCollection('proyectos'))
               {p.data.estado}
             </span>
             {p.data.periodo && <> · {p.data.periodo}</>}
+            {' · '}
+            {p.data.coordenada
+              ? `${p.data.coordenada}${p.data.sede ? ` ${p.data.sede}` : ''}`
+              : 'coordenada por asignar'}
+            {' · '}
+            {p.data.idiomasDisponibles.join('/')}
           </p>
           <p>{p.data.resumen}</p>
           <Content />
@@ -53,4 +63,10 @@ const proyectos = (await getCollection('proyectos'))
       );
     })
   }
+
+  {/* Terreno reservado: si una sección del hub crece, se releva como satélite. */}
+  <article class="fantasma">
+    <h2><ReliefMark estado="sin relevar" />[otros]</h2>
+    <p class="meta meta--dato">sin relevar</p>
+  </article>
 </BaseLayout>

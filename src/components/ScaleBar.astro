@@ -1,0 +1,18 @@
+---
+/*
+  ScaleBar — la barra de escala del pie, guiño de carta topográfica
+  (dirección "relieve luminoso", §6). Puramente decorativa. aria-hidden.
+*/
+interface Props {
+  /** etiqueta a la derecha, p. ej. "equidistancia 10 m" */
+  label?: string;
+}
+const { label } = Astro.props;
+---
+
+<span class="scalebar">
+  <span class="scalebar-bar" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+  </span>
+  {label && <span class="scalebar-label">{label}</span>}
+</span>

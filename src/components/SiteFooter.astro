@@ -1,11 +1,19 @@
 ---
 import { getLocaleFromPath } from '../i18n/utils';
 import { ui } from '../i18n/ui';
+import ScaleBar from './ScaleBar.astro';
 
 const lang = getLocaleFromPath(Astro.url.pathname);
+const cvHref = '/cv/cv-martin-perez-pollero-2026.pdf';
+const equi = lang === 'es' ? 'equidistancia 10 m' : 'contour interval 10 m';
 ---
 
 <footer class="site-footer">
   <span>Martín Pérez Pollero · Montevideo</span>
-  <span>{ui[lang]['footer.todo']}</span>
+  <span class="site-footer-scale">
+    <ScaleBar label={equi} />
+    {/* TODO §10: subir el PDF del CV a public/cv/. */}
+    <a href={cvHref}>CV (PDF)</a>
+  </span>
+  <span class="nota">{ui[lang]['footer.todo']}</span>
 </footer>

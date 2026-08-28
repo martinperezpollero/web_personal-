@@ -5,31 +5,34 @@
   editar este archivo y nada más.
 
   DIRECCIÓN ESTÉTICA: "relieve luminoso" (topográfica, en claro).
-  - Fondo blanco azulado, tipo carta batimétrica.
+  - Fondo BLANCO puro. Sobre él, una carta de relieve.
   - Curvas de nivel irregulares generadas por ruido, como TEXTURA de fondo:
-    trazo hairline uniforme, sin curvas índice ni cotas (ver ReliefCanvas.astro).
+    trazo hairline uniforme, tinte marino muy tenue (ver ReliefCanvas.astro).
+  - Señales de carta, en Spline Sans Mono: coordenada (lat/long) como eyebrow
+    de cada página, símbolo de estado por proyecto (▲ en curso · ○ en armado ·
+    · sin relevar), y barra de escala + equidistancia en el pie.
   - Un solo acento: azul marino. Un solo "pop" cálido: naranja de punto trig,
-    reservado a un único uso (el estado «En curso» en la lista de proyectos).
+    reservado a un único uso (el estado «En curso»).
   - Tipografía: Fraunces (títulos, con calidez de mapa dibujado a mano) +
     Spline Sans (cuerpo) + Spline Sans Mono (datos: fechas, coordenadas).
-  No es ninguno de los tres vetos de §6: el blanco es #F6F9FB (no crema), la
-  serif es blanda (no de alto contraste) y el acento es marino (no terracota).
+  No es ninguno de los tres vetos de §6: fondo blanco (no crema), serif blanda
+  (no de alto contraste) y acento marino (no terracota).
 */
 
 :root {
   /* ---- Color ------------------------------------------------------ */
-  --color-bg:        #f6f9fb; /* fondo: blanco azulado */
+  --color-bg:        #ffffff; /* fondo: blanco puro */
   --color-fg:        #1f2a33; /* texto principal: pizarra */
   --color-muted:     #71808f; /* texto secundario: fechas, estados, metadatos */
-  --color-border:    #e2e9ee; /* filetes y separadores */
+  --color-border:    #e4e8eb; /* filetes y separadores */
   --color-accent:    #155a7a; /* enlaces, foco, nombre; azul marino */
   --color-accent-fg: #ffffff; /* texto sobre el acento */
   --color-pop:       #d9663f; /* naranja de punto trig. UN SOLO USO: estado «En curso» */
 
   /* ---- Relieve (consumido por ReliefCanvas.astro) --------------- */
-  --relief-line:   rgba(90, 110, 125, 0.13); /* color de las curvas: hairline frío */
-  --relief-weight: 0.8;                       /* grosor de trazo */
-  --relief-opacity: 0.55;                     /* opacidad del lienzo entero */
+  --relief-line:   rgba(26, 92, 122, 0.11); /* curvas: hairline marino muy tenue */
+  --relief-weight: 0.8;                      /* grosor de trazo */
+  --relief-opacity: 0.6;                     /* opacidad del lienzo entero */
 
   /* ---- Tipografía ------------------------------------------------- */
   --font-body:    "Spline Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -94,7 +97,7 @@
     --color-accent:    #6fb7cf;
     --color-accent-fg: #14171a;
     --color-pop:       #e0784f;
-    --relief-line:     rgba(150, 175, 190, 0.14);
+    --relief-line:     rgba(150, 178, 195, 0.13);
   }
 }
 
@@ -106,5 +109,5 @@
   --color-accent:    #6fb7cf;
   --color-accent-fg: #14171a;
   --color-pop:       #e0784f;
-  --relief-line:     rgba(150, 175, 190, 0.14);
+  --relief-line:     rgba(150, 178, 195, 0.13);
 }
