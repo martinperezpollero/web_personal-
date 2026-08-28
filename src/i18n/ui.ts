@@ -29,7 +29,9 @@ export const ui = {
     'contact.emailNote': '(§2: decidir si va este correo o uno institucional)',
     'contact.pending': 'pendiente',
     'game.title': 'juego',
-    'game.lede': 'Un ejercicio breve sobre cartografía: leer una leyenda.',
+    'game.lede': 'Dos ejercicios breves sobre cartografía: leer una leyenda y reconocer un terreno.',
+    'game.l1': 'nivel 1 — leyenda',
+    'game.l2': 'nivel 2 — el terreno',
     'game.body':
       'Primera ronda de un juego sobre cartografías lúdicas. Si crece (más rondas, niveles), pasa a satélite (§1, §9): repo y diseño propios, y el hub queda con el enlace.',
     'portrait.alt': 'Foto de Martín Pérez Pollero (marcador de posición)',
@@ -56,7 +58,9 @@ export const ui = {
     'contact.emailNote': '(§2: decide whether to show this address or an institutional one)',
     'contact.pending': 'pending',
     'game.title': 'game',
-    'game.lede': 'A short exercise about cartography: reading a legend.',
+    'game.lede': 'Two short exercises about cartography: reading a legend and recognising a terrain.',
+    'game.l1': 'level 1 — legend',
+    'game.l2': 'level 2 — the terrain',
     'game.body':
       'The first round of a game about playful cartography. If it grows (more rounds, levels), it becomes a satellite (§1, §9): its own repo and design, with the hub keeping the link.',
     'portrait.alt': 'Photo of Martín Pérez Pollero (placeholder)',

@@ -1,0 +1,389 @@
+---
+/*
+  MapTerrainGame — nivel 2 del juego. Un mapa en lenguaje cartográfico (trazo
+  tenue, sin color) con cinco accidentes sin rotular; hay que arrastrar cada
+  símbolo al lugar que le corresponde. También sirve tocar el símbolo y después
+  el lugar (fallback de touch y de teclado). Isla de JS (§4). Sin animación con
+  prefers-reduced-motion.
+*/
+interface Props {
+  lang: 'es' | 'en';
+}
+const { lang } = Astro.props;
+
+const T = {
+  es: {
+    instr: 'Arrastrá cada símbolo hasta el accidente del mapa que le corresponde. También podés tocar el símbolo y después el lugar.',
+    again: 'de nuevo',
+    done: 'terreno reconocido',
+    of: 'de',
+    nojs: 'Este nivel necesita JavaScript.',
+  },
+  en: {
+    instr: 'Drag each symbol onto the feature of the map it belongs to. You can also tap the symbol and then the place.',
+    again: 'again',
+    done: 'terrain read',
+    of: 'of',
+    nojs: 'This level needs JavaScript.',
+  },
+}[lang];
+
+// id -> etiqueta + centro del accidente en unidades del viewBox (0..100 x 0..66).
+const VBH = 66;
+const spots = [
+  { id: 'cima', es: 'cima', en: 'summit', vx: 28, vy: 34 },
+  { id: 'agua', es: 'curso de agua', en: 'watercourse', vx: 52, vy: 34 },
+  { id: 'sendero', es: 'sendero', en: 'footpath', vx: 48, vy: 55 },
+  { id: 'bosque', es: 'bosque', en: 'woodland', vx: 79, vy: 50 },
+  { id: 'depresion', es: 'depresión', en: 'depression', vx: 52, vy: 16 },
+];
+
+const symbolSvg: Record<string, string> = {
+  cima: '<path d="M20 7 L33 31 L7 31 Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="20" cy="31" r="2" fill="currentColor"/>',
+  agua: '<path d="M5 15 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 25 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.6"/>',
+  sendero: '<path d="M5 20 h30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3" stroke-linecap="round"/>',
+  depresion: '<circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M20 9 v4 M20 27 v4 M9 20 h4 M27 20 h4" stroke="currentColor" stroke-width="1.6"/>',
+  bosque: '<path d="M20 8 l7 14 h-14 z" fill="currentColor"/><rect x="18.5" y="21" width="3" height="7" fill="currentColor"/>',
+};
+---
+
+<div class="mtg" data-total={spots.length}>
+  <p class="mtg-instr">{T.instr}</p>
+  <noscript><p class="nota">{T.nojs}</p></noscript>
+
+  <div class="mtg-map">
+    <svg viewBox="0 0 100 66" class="mtg-terrain" role="img" aria-label={lang === 'es' ? 'Mapa del terreno' : 'Terrain map'}>
+      <g fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.55">
+        {/* colina: curvas de nivel, centro ~ (28, 34) */}
+        <path d="M12 42 Q12 22 30 22 Q48 24 44 42 Q40 54 24 52 Q12 50 12 42Z" />
+        <path d="M19 40 Q20 28 30 29 Q40 30 37 40 Q33 48 24 45 Q18 44 19 40Z" />
+        <path d="M24 37 Q26 32 30 34 Q34 37 31 40 Q27 42 25 39Z" />
+        {/* curso de agua: pasa por ~ (52, 34) */}
+        <path d="M84 6 Q70 16 60 26 Q52 34 44 42 Q34 50 18 56" stroke-width="0.7" />
+        {/* sendero: pasa por ~ (48, 55) */}
+        <path d="M8 50 Q28 60 48 55 Q70 51 94 43" stroke-dasharray="2 1.6" stroke-width="0.7" />
+        {/* depresión: centro (52, 16) */}
+        <circle cx="52" cy="16" r="6" />
+        <path d="M52 11 v2 M52 21 v-2 M47 16 h2 M57 16 h-2" stroke-width="0.7" />
+        {/* bosque: centro ~ (79, 50) */}
+        <path d="M66 50 Q64 40 79 40 Q92 40 92 51 Q92 62 79 62 Q66 62 66 50Z" />
+      </g>
+      <g fill="currentColor" opacity="0.5">
+        <path d="M73 52 l1.4 2.8 h-2.8 z" />
+        <path d="M80 47 l1.4 2.8 h-2.8 z" />
+        <path d="M85 54 l1.4 2.8 h-2.8 z" />
+        <path d="M78 57 l1.4 2.8 h-2.8 z" />
+      </g>
+    </svg>
+
+    {
+      spots.map((s) => (
+        <button
+          type="button"
+          class="mtg-hotspot"
+          data-id={s.id}
+          style={`left:${s.vx}%;top:${(s.vy / VBH) * 100}%`}
+          aria-label={lang === 'es' ? s.es : s.en}
+        />
+      ))
+    }
+  </div>
+
+  <ul class="mtg-tray">
+    {
+      spots.map((s) => (
+        <li>
+          <button type="button" class="mtg-tile" data-id={s.id}>
+            <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" set:html={symbolSvg[s.id]} />
+            <span>{lang === 'es' ? s.es : s.en}</span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mtg-foot">
+    <span class="mtg-status" data-of={T.of} data-done={T.done}>0 {T.of} {spots.length}</span>
+    <button type="button" class="mtg-again" hidden>{T.again}</button>
+  </div>
+</div>
+
+<style>
+  .mtg { max-width: var(--container); }
+  .mtg-instr { color: var(--color-muted); font-size: var(--text-sm); margin-bottom: var(--space-4); }
+
+  .mtg-map {
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-fg);
+    touch-action: none;
+  }
+  .mtg-terrain { display: block; width: 100%; height: auto; }
+
+  .mtg-hotspot {
+    position: absolute;
+    width: 2.6rem;
+    height: 2.6rem;
+    transform: translate(-50%, -50%);
+    border: 1px dashed transparent;
+    border-radius: 50%;
+    background: none;
+    padding: 0;
+    cursor: default;
+  }
+  .mtg.is-active .mtg-hotspot { border-color: color-mix(in srgb, var(--color-accent) 45%, transparent); }
+  .mtg-hotspot.is-near { border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+  .mtg-hotspot[data-filled] { border-color: var(--color-accent); }
+  .mtg-hotspot:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+  /* .mtg-placed y su <svg> se crean por JS: no reciben el scope de Astro,
+     así que se estilan con estilo inline en place(). */
+
+  .mtg-tray {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .mtg-tile {
+    font: inherit;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    cursor: grab;
+    touch-action: none;
+  }
+  .mtg-tile svg { color: var(--color-accent); flex: none; }
+  .mtg-tile span { font-family: var(--font-mono); font-size: var(--text-xs); }
+  .mtg-tile:hover { border-color: var(--color-accent); }
+  .mtg-tile[aria-pressed='true'] { border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)); }
+  .mtg-tile[data-done] { opacity: 0.4; cursor: default; }
+  .mtg-tile.mtg-wrong { animation: mtg-shake 0.32s; border-color: var(--color-pop); }
+  @keyframes mtg-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
+  .mtg-ghost {
+    position: fixed;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.9;
+    box-shadow: 0 8px 20px -8px rgba(20, 30, 40, 0.4);
+  }
+
+  .mtg-foot {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+  .mtg-status[data-complete] { color: var(--color-pop); }
+  .mtg-again {
+    font: inherit;
+    font-family: var(--font-mono);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.1rem 0.7rem;
+    color: var(--color-accent);
+    cursor: pointer;
+  }
+  .mtg-again:hover { border-color: var(--color-accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mtg-tile.mtg-wrong { animation: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLDivElement>('.mtg').forEach((root) => {
+    const map = root.querySelector<HTMLElement>('.mtg-map')!;
+    const tray = root.querySelector<HTMLElement>('.mtg-tray')!;
+    const hotspots = Array.from(root.querySelectorAll<HTMLButtonElement>('.mtg-hotspot'));
+    const tiles = Array.from(root.querySelectorAll<HTMLButtonElement>('.mtg-tile'));
+    const status = root.querySelector<HTMLElement>('.mtg-status')!;
+    const again = root.querySelector<HTMLButtonElement>('.mtg-again')!;
+    const total = Number(root.dataset.total || '0');
+    const ofWord = status.dataset.of || 'of';
+    const doneWord = status.dataset.done || 'done';
+
+    let picked: HTMLButtonElement | null = null;
+    let solved = 0;
+    let drag: { tile: HTMLButtonElement; id: string; ghost: HTMLElement | null; sx: number; sy: number; moved: boolean } | null = null;
+    let justDragged = false;
+
+    function setStatus() {
+      if (solved >= total) {
+        status.textContent = doneWord;
+        status.dataset.complete = 'true';
+        again.hidden = false;
+        root.classList.remove('is-active');
+      } else {
+        status.textContent = `${solved} ${ofWord} ${total}`;
+      }
+    }
+
+    function place(tile: HTMLButtonElement, hs: HTMLButtonElement) {
+      hs.dataset.filled = 'true';
+      tile.dataset.done = 'true';
+      tile.setAttribute('aria-pressed', 'false');
+      const mark = document.createElement('div');
+      mark.className = 'mtg-placed';
+      Object.assign(mark.style, {
+        position: 'absolute',
+        left: hs.style.left,
+        top: hs.style.top,
+        width: '2rem',
+        height: '2rem',
+        transform: 'translate(-50%, -50%)',
+        color: 'var(--color-accent)',
+        pointerEvents: 'none',
+      });
+      const svg = tile.querySelector('svg');
+      if (svg) {
+        const c = svg.cloneNode(true) as SVGElement;
+        c.setAttribute('width', '100%');
+        c.setAttribute('height', '100%');
+        c.style.display = 'block';
+        mark.appendChild(c);
+      }
+      map.appendChild(mark);
+      solved++;
+      setStatus();
+    }
+
+    function shake(tile: HTMLButtonElement) {
+      tile.classList.add('mtg-wrong');
+      setTimeout(() => tile.classList.remove('mtg-wrong'), 340);
+    }
+
+    function hotspotAt(x: number, y: number): HTMLButtonElement | null {
+      let best: HTMLButtonElement | null = null;
+      let bestD = 44; // radio de tolerancia en px
+      for (const hs of hotspots) {
+        if (hs.dataset.filled) continue;
+        const r = hs.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const d = Math.hypot(x - cx, y - cy);
+        if (d < bestD) {
+          bestD = d;
+          best = hs;
+        }
+      }
+      return best;
+    }
+
+    function clearNear() {
+      hotspots.forEach((h) => h.classList.remove('is-near'));
+    }
+
+    // ---- arrastre con pointer events ----
+    tiles.forEach((tile) => {
+      tile.addEventListener('pointerdown', (e) => {
+        if (tile.dataset.done) return;
+        tile.setPointerCapture(e.pointerId);
+        drag = { tile, id: tile.dataset.id || '', ghost: null, sx: e.clientX, sy: e.clientY, moved: false };
+      });
+
+      tile.addEventListener('pointermove', (e) => {
+        if (!drag || drag.tile !== tile) return;
+        const dist = Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy);
+        if (!drag.moved && dist < 6) return;
+        drag.moved = true;
+        root.classList.add('is-active');
+        if (!drag.ghost) {
+          const g = tile.cloneNode(true) as HTMLElement;
+          g.className = 'mtg-tile mtg-ghost';
+          document.body.appendChild(g);
+          drag.ghost = g;
+        }
+        const r = drag.ghost.getBoundingClientRect();
+        drag.ghost.style.left = e.clientX - r.width / 2 + 'px';
+        drag.ghost.style.top = e.clientY - r.height / 2 + 'px';
+        clearNear();
+        const hs = hotspotAt(e.clientX, e.clientY);
+        if (hs) hs.classList.add('is-near');
+      });
+
+      tile.addEventListener('pointerup', (e) => {
+        if (!drag || drag.tile !== tile) return;
+        const wasDrag = drag.moved;
+        if (drag.ghost) drag.ghost.remove();
+        if (wasDrag) {
+          const hs = hotspotAt(e.clientX, e.clientY);
+          if (hs && hs.dataset.id === drag.id) place(tile, hs);
+          else shake(tile);
+          justDragged = true;
+          setTimeout(() => (justDragged = false), 60);
+        }
+        clearNear();
+        if (solved < total) root.classList.toggle('is-active', !!picked);
+        drag = null;
+      });
+    });
+
+    // ---- fallback: tocar símbolo, después lugar ----
+    tiles.forEach((tile) => {
+      tile.addEventListener('click', () => {
+        if (justDragged || tile.dataset.done) return;
+        if (picked === tile) {
+          picked = null;
+          tile.setAttribute('aria-pressed', 'false');
+          root.classList.remove('is-active');
+          return;
+        }
+        if (picked) picked.setAttribute('aria-pressed', 'false');
+        picked = tile;
+        tile.setAttribute('aria-pressed', 'true');
+        root.classList.add('is-active');
+      });
+    });
+
+    hotspots.forEach((hs) => {
+      hs.addEventListener('click', () => {
+        if (!picked || hs.dataset.filled) return;
+        if (hs.dataset.id === picked.dataset.id) place(picked, hs);
+        else shake(picked);
+        picked.setAttribute('aria-pressed', 'false');
+        picked = null;
+        if (solved < total) root.classList.remove('is-active');
+      });
+    });
+
+    function reset() {
+      solved = 0;
+      picked = null;
+      drag = null;
+      map.querySelectorAll('.mtg-placed').forEach((m) => m.remove());
+      hotspots.forEach((h) => {
+        delete h.dataset.filled;
+        h.classList.remove('is-near');
+      });
+      tiles.forEach((t) => {
+        delete t.dataset.done;
+        t.setAttribute('aria-pressed', 'false');
+      });
+      delete status.dataset.complete;
+      again.hidden = true;
+      root.classList.remove('is-active');
+      setStatus();
+    }
+
+    again.addEventListener('click', reset);
+    setStatus();
+  });
+</script>

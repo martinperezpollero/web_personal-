@@ -249,6 +249,20 @@ article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
   .portrait--sm, .portrait--lg { width: 6.5rem; }
 }
 
+/* ---- Juego: niveles ------------------------------------- */
+.game-level { margin-top: var(--space-16); }
+.game-level:first-of-type { margin-top: var(--space-8); }
+.game-level-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-6);
+}
+
 /* ---- Contacto ------------------------------------------- */
 .contact-list {
   list-style: none;
