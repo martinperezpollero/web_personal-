@@ -35,11 +35,11 @@ const T = {
 // id -> etiqueta + centro del accidente, en % del mapa (public/img/juego-mapa.jpg).
 // El mapa es un redibujo con IA de una carta de la zona de los cerros Campanero.
 const spots = [
-  { id: 'cima', es: 'cima', en: 'summit', x: 53.5, y: 65 },
-  { id: 'agua', es: 'curso de agua', en: 'watercourse', x: 17, y: 46 },
-  { id: 'sendero', es: 'sendero', en: 'footpath', x: 13.5, y: 71 },
-  { id: 'bosque', es: 'bosque', en: 'woodland', x: 62, y: 76 },
-  { id: 'depresion', es: 'depresión', en: 'depression', x: 74, y: 48 },
+  { id: 'cima', es: 'cima', en: 'summit', x: 52, y: 66 },
+  { id: 'agua', es: 'curso de agua', en: 'watercourse', x: 16, y: 44 },
+  { id: 'sendero', es: 'sendero', en: 'footpath', x: 10, y: 60 },
+  { id: 'bosque', es: 'bosque', en: 'woodland', x: 60, y: 80 },
+  { id: 'depresion', es: 'depresión', en: 'depression', x: 78, y: 50 },
 ];
 
 const symbolSvg: Record<string, string> = {
@@ -112,27 +112,37 @@ const symbolSvg: Record<string, string> = {
   }
   .mtg-terrain { display: block; width: 100%; height: auto; user-select: none; }
 
+  /* Los 5 destinos son visibles desde el arranque: un anillo con punto al
+     centro. Así el juego es "poné cada símbolo en su punto", no "adiviná
+     el pixel exacto". */
   .mtg-hotspot {
     position: absolute;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 2.6rem;
+    height: 2.6rem;
     transform: translate(-50%, -50%);
-    border: 1.5px dashed transparent;
+    border: 1.5px solid var(--color-accent);
     border-radius: 50%;
-    background: none;
+    background: color-mix(in srgb, var(--color-bg) 45%, transparent);
     padding: 0;
-    cursor: default;
+    cursor: pointer;
+    transition: background var(--transition-fast), transform var(--transition-fast);
   }
-  .mtg.is-active .mtg-hotspot {
-    border-color: var(--color-accent);
-    background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  .mtg-hotspot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-accent);
   }
-  .mtg-hotspot.is-near {
-    border-style: solid;
-    background: color-mix(in srgb, var(--color-accent) 18%, var(--color-bg));
-  }
-  .mtg-hotspot[data-filled] { border-color: transparent; background: none; }
-  .mtg-hotspot:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  .mtg.is-active .mtg-hotspot,
+  .mtg-hotspot:hover { background: color-mix(in srgb, var(--color-accent) 16%, var(--color-bg)); }
+  .mtg-hotspot.is-near { background: color-mix(in srgb, var(--color-accent) 30%, var(--color-bg)); transform: translate(-50%, -50%) scale(1.12); }
+  .mtg-hotspot[data-filled] { border-color: transparent; background: none; cursor: default; }
+  .mtg-hotspot[data-filled]::after { display: none; }
+  .mtg-hotspot:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
   /* .mtg-placed y su <svg> se crean por JS: no reciben el scope de Astro,
      así que se estilan con estilo inline en place(). */
@@ -157,7 +167,11 @@ const symbolSvg: Record<string, string> = {
     color: var(--color-fg);
     cursor: grab;
     touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
   }
+  .mtg-tile * { -webkit-user-drag: none; user-select: none; }
+  .mtg-tile:active { cursor: grabbing; }
   .mtg-tile svg { color: var(--color-accent); flex: none; }
   .mtg-tile span { font-family: var(--font-mono); font-size: var(--text-xs); }
   .mtg-tile:hover { border-color: var(--color-accent); }
@@ -274,7 +288,7 @@ const symbolSvg: Record<string, string> = {
 
     function hotspotAt(x: number, y: number): HTMLButtonElement | null {
       let best: HTMLButtonElement | null = null;
-      let bestD = 52; // radio de tolerancia en px
+      let bestD = 70; // radio de tolerancia en px
       for (const hs of hotspots) {
         if (hs.dataset.filled) continue;
         const r = hs.getBoundingClientRect();
@@ -297,7 +311,8 @@ const symbolSvg: Record<string, string> = {
     tiles.forEach((tile) => {
       tile.addEventListener('pointerdown', (e) => {
         if (tile.dataset.done) return;
-        tile.setPointerCapture(e.pointerId);
+        e.preventDefault();
+        try { tile.setPointerCapture(e.pointerId); } catch (_) {}
         drag = { tile, id: tile.dataset.id || '', ghost: null, sx: e.clientX, sy: e.clientY, moved: false };
       });
 
@@ -330,11 +345,17 @@ const symbolSvg: Record<string, string> = {
           if (hs && hs.dataset.id === drag.id) place(tile, hs);
           else shake(tile);
           justDragged = true;
-          setTimeout(() => (justDragged = false), 60);
+          setTimeout(() => (justDragged = false), 80);
         }
         clearNear();
         if (solved < total) root.classList.toggle('is-active', !!picked);
         drag = null;
+      });
+
+      tile.addEventListener('pointercancel', () => {
+        if (drag && drag.ghost) drag.ghost.remove();
+        drag = null;
+        clearNear();
       });
     });
 
