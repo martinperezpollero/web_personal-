@@ -1,10 +1,14 @@
 ---
 /*
-  MapTerrainGame — nivel 2 del juego. Un mapa en lenguaje cartográfico (trazo
-  tenue, sin color) con cinco accidentes sin rotular; hay que arrastrar cada
-  símbolo al lugar que le corresponde. También sirve tocar el símbolo y después
-  el lugar (fallback de touch y de teclado). Isla de JS (§4). Sin animación con
+  MapTerrainGame — nivel 2 del juego. Sobre una carta topográfica
+  (public/img/juego-mapa.jpg, redibujo con IA de la zona de los cerros
+  Campanero) hay que llevar cada símbolo al accidente que le corresponde:
+  arrastrando (pointer events) o tocando el símbolo y después el lugar
+  (fallback de touch y de teclado). Isla de JS (§4). Sin animación con
   prefers-reduced-motion.
+
+  Los cinco destinos están en `spots`, en % del mapa; si se cambia la
+  imagen hay que recalibrarlos.
 */
 interface Props {
   lang: 'es' | 'en';
@@ -28,15 +32,14 @@ const T = {
   },
 }[lang];
 
-// id -> etiqueta + centro del accidente, en unidades del viewBox (0..120 x 0..78).
-const VBW = 120;
-const VBH = 78;
+// id -> etiqueta + centro del accidente, en % del mapa (public/img/juego-mapa.jpg).
+// El mapa es un redibujo con IA de una carta de la zona de los cerros Campanero.
 const spots = [
-  { id: 'cima', es: 'cima', en: 'summit', vx: 32, vy: 38 },
-  { id: 'agua', es: 'curso de agua', en: 'watercourse', vx: 55, vy: 41 },
-  { id: 'sendero', es: 'sendero', en: 'footpath', vx: 72, vy: 51 },
-  { id: 'bosque', es: 'bosque', en: 'woodland', vx: 96, vy: 55 },
-  { id: 'depresion', es: 'depresión', en: 'depression', vx: 46, vy: 13 },
+  { id: 'cima', es: 'cima', en: 'summit', x: 53.5, y: 65 },
+  { id: 'agua', es: 'curso de agua', en: 'watercourse', x: 17, y: 46 },
+  { id: 'sendero', es: 'sendero', en: 'footpath', x: 13.5, y: 71 },
+  { id: 'bosque', es: 'bosque', en: 'woodland', x: 62, y: 76 },
+  { id: 'depresion', es: 'depresión', en: 'depression', x: 74, y: 48 },
 ];
 
 const symbolSvg: Record<string, string> = {
@@ -53,67 +56,14 @@ const symbolSvg: Record<string, string> = {
   <noscript><p class="nota">{T.nojs}</p></noscript>
 
   <div class="mtg-map">
-    <svg viewBox="0 0 120 78" class="mtg-terrain" role="img" aria-label={lang === 'es' ? 'Carta topográfica estilizada' : 'Stylised topographic map'}>
-      {/* curvas de nivel normales */}
-      <g fill="none" stroke="currentColor" stroke-width="0.45" opacity="0.4" stroke-linejoin="round">
-        {/* colina, cima ~ (32, 38) */}
-        <path d="M9 46 C6 30 16 18 32 17 C50 16 58 30 52 46 C47 60 26 62 15 52 C11 50 9 48 9 46 Z" />
-        <path d="M15 44 C13 32 22 24 32 24 C46 24 51 34 47 45 C43 56 26 57 18 49 C15 47 15 45 15 44 Z" />
-        <path d="M21 42 C20 34 26 29 32 30 C42 30 45 37 42 44 C39 51 27 51 23 45 C21 44 21 43 21 42 Z" />
-        <path d="M27 40 C27 35 30 32 33 34 C38 35 39 41 36 44 C33 47 28 46 27 42 Z" />
-        {/* cordón sobre el borde derecho */}
-        <path d="M120 6 C104 10 99 22 103 36 C107 50 102 62 110 74" />
-        <path d="M120 15 C107 19 102 29 105 40 C108 51 104 60 111 70" />
-        <path d="M120 24 C110 27 106 34 108 43 C110 52 107 58 113 66" />
-        {/* depresión: anillo exterior + interior con marcas hacia adentro (centro ~ 46,13) */}
-        <path d="M31 6 C33 1 44 -1 53 1 C63 3 65 14 60 21 C55 28 40 27 34 20 C31 17 30 11 31 6 Z" />
-        <path d="M37 8 C39 4 45 3 51 5 C57 7 58 15 54 19 C50 23 41 22 38 17 C36 15 36 11 37 8 Z" />
-      </g>
-
-      {/* curva índice (más marcada) */}
-      <g fill="none" stroke="currentColor" stroke-width="0.85" opacity="0.6">
-        <path d="M120 33 C112 35 109 40 110 47 C111 54 109 58 114 63" />
-      </g>
-
-      {/* marcas de la depresión */}
-      <g fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.5">
-        <path d="M42 7 l1.6 2.6 M48 5.6 l-0.6 2.8 M53 10 l-2.6 1 M52 17 l-2 -2 M43 20 l0.9 -2.6 M37 13 l2.6 0.6" />
-      </g>
-
-      {/* curso de agua + un afluente */}
-      <g fill="none" stroke="currentColor" stroke-width="0.55" opacity="0.5" stroke-linecap="round">
-        <path d="M66 4 C64 12 68 17 63 24 C58 31 63 36 56 42 C49 48 52 55 43 60 C37 63 30 66 20 72" />
-        <path d="M84 16 C79 21 74 22 66 24 C64.5 24.4 63.6 24.2 63 24" />
-      </g>
-
-      {/* sendero */}
-      <path d="M8 74 C22 68 30 64 40 63 C52 61 60 55 70 52 C84 48 96 46 120 40"
-        fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.55" stroke-dasharray="2 1.5" stroke-linecap="round" />
-
-      {/* bosque: límite de vegetación + coníferas (centro ~ 98, 56) */}
-      <path d="M82 62 C80 50 92 44 105 46 C118 48 119 60 113 66 C107 73 90 74 84 68 C82 66 82 64 82 62 Z"
-        fill="none" stroke="currentColor" stroke-width="0.5" opacity="0.4" stroke-dasharray="0.7 1.1" />
-      <g fill="currentColor" opacity="0.42">
-        <path d="M88 58 l1.5 3 h-3 z" /><path d="M95 52 l1.5 3 h-3 z" /><path d="M102 57 l1.5 3 h-3 z" />
-        <path d="M108 53 l1.5 3 h-3 z" /><path d="M90 66 l1.5 3 h-3 z" /><path d="M98 67 l1.5 3 h-3 z" />
-        <path d="M105 63 l1.5 3 h-3 z" /><path d="M112 60 l1.5 3 h-3 z" /><path d="M100 61 l1.5 3 h-3 z" />
-      </g>
-
-      {/* mobiliario de carta */}
-      <g opacity="0.5" fill="currentColor" stroke="currentColor">
-        <path d="M4 4 v6 M4 4 h6" fill="none" stroke-width="0.5" />
-        <text x="7.5" y="6.6" font-size="2.6" stroke="none">34°55′S</text>
-        <text x="112" y="46" font-size="2.6" stroke="none">180</text>
-        <path d="M115 4 v6 M115 4 l-1.5 2 M115 4 l1.5 2" fill="none" stroke-width="0.5" />
-        <text x="113.5" y="13" font-size="2.8" stroke="none">N</text>
-        <rect x="6" y="74" width="3" height="1.1" stroke="none" />
-        <rect x="9" y="74" width="3" height="1.1" fill="none" stroke-width="0.3" />
-        <rect x="12" y="74" width="3" height="1.1" stroke="none" />
-        <rect x="15" y="74" width="3" height="1.1" fill="none" stroke-width="0.3" />
-        <text x="6" y="72.6" font-size="2.3" stroke="none">0</text>
-        <text x="15.5" y="72.6" font-size="2.3" stroke="none">500 m</text>
-      </g>
-    </svg>
+    <img
+      class="mtg-terrain"
+      src="/img/juego-mapa.jpg"
+      width="1800"
+      height="979"
+      alt={lang === 'es' ? 'Carta topográfica de la zona de los cerros Campanero (redibujo con IA)' : 'Topographic map of the Campanero hills area (AI redraw)'}
+      draggable="false"
+    />
 
     {
       spots.map((s) => (
@@ -121,7 +71,7 @@ const symbolSvg: Record<string, string> = {
           type="button"
           class="mtg-hotspot"
           data-id={s.id}
-          style={`left:${s.vx}%;top:${(s.vy / VBH) * 100}%`}
+          style={`left:${s.x}%;top:${s.y}%`}
           aria-label={lang === 'es' ? s.es : s.en}
         />
       ))
@@ -155,26 +105,33 @@ const symbolSvg: Record<string, string> = {
     position: relative;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    overflow: hidden;
     color: var(--color-fg);
     touch-action: none;
+    line-height: 0;
   }
-  .mtg-terrain { display: block; width: 100%; height: auto; }
-  .mtg-terrain text { font-family: var(--font-mono); letter-spacing: -0.02em; }
+  .mtg-terrain { display: block; width: 100%; height: auto; user-select: none; }
 
   .mtg-hotspot {
     position: absolute;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.8rem;
+    height: 2.8rem;
     transform: translate(-50%, -50%);
-    border: 1px dashed transparent;
+    border: 1.5px dashed transparent;
     border-radius: 50%;
     background: none;
     padding: 0;
     cursor: default;
   }
-  .mtg.is-active .mtg-hotspot { border-color: color-mix(in srgb, var(--color-accent) 45%, transparent); }
-  .mtg-hotspot.is-near { border-color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
-  .mtg-hotspot[data-filled] { border-color: var(--color-accent); }
+  .mtg.is-active .mtg-hotspot {
+    border-color: var(--color-accent);
+    background: color-mix(in srgb, var(--color-bg) 55%, transparent);
+  }
+  .mtg-hotspot.is-near {
+    border-style: solid;
+    background: color-mix(in srgb, var(--color-accent) 18%, var(--color-bg));
+  }
+  .mtg-hotspot[data-filled] { border-color: transparent; background: none; }
   .mtg-hotspot:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 
   /* .mtg-placed y su <svg> se crean por JS: no reciben el scope de Astro,
@@ -286,10 +243,15 @@ const symbolSvg: Record<string, string> = {
         position: 'absolute',
         left: hs.style.left,
         top: hs.style.top,
-        width: '2rem',
-        height: '2rem',
+        width: '1.9rem',
+        height: '1.9rem',
+        padding: '0.28rem',
         transform: 'translate(-50%, -50%)',
         color: 'var(--color-accent)',
+        background: 'var(--color-bg)',
+        border: '1.5px solid var(--color-accent)',
+        borderRadius: '50%',
+        boxShadow: '0 1px 4px rgba(20,30,40,0.25)',
         pointerEvents: 'none',
       });
       const svg = tile.querySelector('svg');
@@ -312,7 +274,7 @@ const symbolSvg: Record<string, string> = {
 
     function hotspotAt(x: number, y: number): HTMLButtonElement | null {
       let best: HTMLButtonElement | null = null;
-      let bestD = 44; // radio de tolerancia en px
+      let bestD = 52; // radio de tolerancia en px
       for (const hs of hotspots) {
         if (hs.dataset.filled) continue;
         const r = hs.getBoundingClientRect();

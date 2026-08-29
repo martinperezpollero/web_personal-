@@ -14,6 +14,11 @@ import { ui } from '../../i18n/ui';
   <h1>{ui.en['game.title']}</h1>
   <p class="lede">{ui.en['game.lede']}</p>
 
+  <figure class="juego-mapa">
+    <img src="/img/juego-mapa.jpg" width="1800" height="979" alt={ui.en['game.mapCaption']} loading="lazy" />
+    <figcaption>{ui.en['game.mapCaption']}</figcaption>
+  </figure>
+
   <section class="game-level">
     <p class="game-level-label">{ui.en['game.l1']}</p>
     <MapLegendGame lang="en" />
