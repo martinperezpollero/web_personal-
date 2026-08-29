@@ -233,7 +233,9 @@ const symbolSvg: Record<string, string> = {
 
     let picked: HTMLButtonElement | null = null;
     let solved = 0;
-    let drag: { tile: HTMLButtonElement; id: string; ghost: HTMLElement | null; sx: number; sy: number; moved: boolean } | null = null;
+    let drag:
+      | { tile: HTMLButtonElement; id: string; ghost: HTMLElement | null; sx: number; sy: number; moved: boolean; gw: number; gh: number }
+      | null = null;
     let justDragged = false;
 
     function setStatus() {
@@ -307,55 +309,63 @@ const symbolSvg: Record<string, string> = {
       hotspots.forEach((h) => h.classList.remove('is-near'));
     }
 
-    // ---- arrastre con pointer events ----
+    // ---- arrastre: listeners en window (no depende de pointer capture) ----
+    function onDragMove(e: PointerEvent) {
+      if (!drag) return;
+      const dist = Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy);
+      if (!drag.moved && dist < 5) return;
+      drag.moved = true;
+      root.classList.add('is-active');
+      if (!drag.ghost) {
+        const rect = drag.tile.getBoundingClientRect();
+        drag.gw = rect.width;
+        drag.gh = rect.height;
+        const g = drag.tile.cloneNode(true) as HTMLElement;
+        g.className = 'mtg-tile mtg-ghost';
+        g.removeAttribute('aria-pressed');
+        g.style.width = rect.width + 'px';
+        g.style.height = rect.height + 'px';
+        g.style.left = '-9999px';
+        g.style.top = '-9999px';
+        document.body.appendChild(g);
+        drag.ghost = g;
+      }
+      drag.ghost.style.left = e.clientX - drag.gw / 2 + 'px';
+      drag.ghost.style.top = e.clientY - drag.gh / 2 + 'px';
+      clearNear();
+      const hs = hotspotAt(e.clientX, e.clientY);
+      if (hs) hs.classList.add('is-near');
+    }
+
+    function onDragEnd(e: PointerEvent) {
+      window.removeEventListener('pointermove', onDragMove);
+      window.removeEventListener('pointerup', onDragEnd);
+      window.removeEventListener('pointercancel', onDragEnd);
+      if (!drag) return;
+      const tile = drag.tile;
+      const wasDrag = drag.moved;
+      const dragId = drag.id;
+      if (drag.ghost) drag.ghost.remove();
+      drag = null;
+      if (wasDrag) {
+        const hs = e.type === 'pointercancel' ? null : hotspotAt(e.clientX, e.clientY);
+        if (hs && hs.dataset.id === dragId) place(tile, hs);
+        else if (e.type !== 'pointercancel') shake(tile);
+        justDragged = true;
+        setTimeout(() => (justDragged = false), 80);
+      }
+      clearNear();
+      if (solved < total) root.classList.toggle('is-active', !!picked);
+    }
+
     tiles.forEach((tile) => {
       tile.addEventListener('pointerdown', (e) => {
         if (tile.dataset.done) return;
         e.preventDefault();
-        try { tile.setPointerCapture(e.pointerId); } catch (_) {}
-        drag = { tile, id: tile.dataset.id || '', ghost: null, sx: e.clientX, sy: e.clientY, moved: false };
-      });
-
-      tile.addEventListener('pointermove', (e) => {
-        if (!drag || drag.tile !== tile) return;
-        const dist = Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy);
-        if (!drag.moved && dist < 6) return;
-        drag.moved = true;
-        root.classList.add('is-active');
-        if (!drag.ghost) {
-          const g = tile.cloneNode(true) as HTMLElement;
-          g.className = 'mtg-tile mtg-ghost';
-          document.body.appendChild(g);
-          drag.ghost = g;
-        }
-        const r = drag.ghost.getBoundingClientRect();
-        drag.ghost.style.left = e.clientX - r.width / 2 + 'px';
-        drag.ghost.style.top = e.clientY - r.height / 2 + 'px';
-        clearNear();
-        const hs = hotspotAt(e.clientX, e.clientY);
-        if (hs) hs.classList.add('is-near');
-      });
-
-      tile.addEventListener('pointerup', (e) => {
-        if (!drag || drag.tile !== tile) return;
-        const wasDrag = drag.moved;
-        if (drag.ghost) drag.ghost.remove();
-        if (wasDrag) {
-          const hs = hotspotAt(e.clientX, e.clientY);
-          if (hs && hs.dataset.id === drag.id) place(tile, hs);
-          else shake(tile);
-          justDragged = true;
-          setTimeout(() => (justDragged = false), 80);
-        }
-        clearNear();
-        if (solved < total) root.classList.toggle('is-active', !!picked);
-        drag = null;
-      });
-
-      tile.addEventListener('pointercancel', () => {
-        if (drag && drag.ghost) drag.ghost.remove();
-        drag = null;
-        clearNear();
+        drag = { tile, id: tile.dataset.id || '', ghost: null, sx: e.clientX, sy: e.clientY, moved: false, gw: 0, gh: 0 };
+        window.addEventListener('pointermove', onDragMove);
+        window.addEventListener('pointerup', onDragEnd);
+        window.addEventListener('pointercancel', onDragEnd);
       });
     });
 
