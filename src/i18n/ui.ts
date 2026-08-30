@@ -34,7 +34,7 @@ export const ui = {
     'game.l2': 'nivel 2 — el terreno',
     'game.body':
       'Primera ronda de un juego sobre cartografías lúdicas. Si crece (más rondas, niveles), pasa a satélite (§1, §9): repo y diseño propios, y el hub queda con el enlace.',
-    'portrait.alt': 'Foto de Martín Pérez Pollero (marcador de posición)',
+    'portrait.alt': 'Martín Pérez Pollero, retrato en blanco y negro',
   },
   en: {
     'lang.label': 'EN',
@@ -63,7 +63,7 @@ export const ui = {
     'game.l2': 'level 2 — the terrain',
     'game.body':
       'The first round of a game about playful cartography. If it grows (more rounds, levels), it becomes a satellite (§1, §9): its own repo and design, with the hub keeping the link.',
-    'portrait.alt': 'Photo of Martín Pérez Pollero (placeholder)',
+    'portrait.alt': 'Martín Pérez Pollero, black-and-white portrait',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 

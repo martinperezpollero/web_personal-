@@ -39,8 +39,8 @@ export const NAV = [
   { key: 'cv', kind: 'external', es: 'cv', en: 'cv' },
 ] as const;
 
-/** Ruta a la foto (§10). Hoy es un marcador de posición en public/img/. */
-export const PORTRAIT = '/img/martin-perez-pollero.svg';
+/** Ruta a la foto (§10). Retrato en blanco y negro, 453×551. */
+export const PORTRAIT = '/img/martin-perez-pollero.jpg';
 
 /** Correo del CV (§2). DECIDIR si se expone este o uno institucional. */
 export const EMAIL = 'martin.ppollero@gmail.com';
