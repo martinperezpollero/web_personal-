@@ -24,7 +24,7 @@ const canonical = site + path;
 const ogImageUrl = ogImage ? site + ogImage : undefined;
 
 // Persona (schema.org). Solo datos verificados del CV (§2). sameAs: perfiles
-// con URL canónica confirmada; LinkedIn y Bluesky quedan pendientes (§10).
+// con URL confirmada; Bluesky queda pendiente (§10).
 const jsonld = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -36,6 +36,7 @@ const jsonld = {
   sameAs: [
     'https://orcid.org/0000-0002-5772-8719',
     'https://scholar.google.com/citations?user=WMAE3soAAAAJ',
+    'https://www.linkedin.com/in/mart%C3%ADn-p%C3%A9rez-pollero/',
   ],
   ...(site ? { url: site } : {}),
 };
