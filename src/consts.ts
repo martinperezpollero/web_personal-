@@ -13,10 +13,13 @@ export const SITE_NAME = 'Martín Pérez Pollero';
 /** Firma académica: "Pérez Pollero, M." — sin guion (§2). Para metadatos y citas. */
 export const SIGN = 'Pérez Pollero, M.';
 
-/** Base de Martín (§2). Coordenada decorativa del eyebrow de la home. */
+/**
+ * Base de Martín (§2). Coordenada del eyebrow de la home y de /bio/.
+ * El número no se traduce; solo cambia el cardinal (O en español, W en inglés).
+ */
 export const BASE_COORD: Record<Locale, { fix: string; place: string }> = {
-  es: { fix: '34°54′S 56°11′O', place: 'Montevideo' },
-  en: { fix: '34°54′S 56°11′W', place: 'Montevideo' },
+  es: { fix: '34°54′36.194″S 56°10′48.420″O', place: 'Montevideo' },
+  en: { fix: '34°54′36.194″S 56°10′48.420″W', place: 'Montevideo' },
 };
 
 /**
