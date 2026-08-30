@@ -211,17 +211,42 @@ article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
   padding-left: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-8);
 }
-.pub { max-width: var(--measure); font-size: var(--text-sm); line-height: 1.5; }
-.pub-authors { color: var(--color-fg); }
-.pub-year { color: var(--color-muted); }
-.pub-title { font-style: italic; display: block; }
-.pub-venue { color: var(--color-muted); }
-.pub-venue::before { content: " "; }
-.pub-links {
+.pub {
+  display: grid;
+  grid-template-columns: 1.1rem 1fr;
+  gap: 0 var(--space-3);
+  align-items: start;
+  max-width: var(--measure);
+}
+/* El punto trigonométrico del juego como viñeta de la carta. */
+.pub-mark {
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-top: 0.32rem;
+  color: var(--color-accent);
+}
+.pub-body > * + * { margin-top: var(--space-1); }
+.pub-title {
   display: block;
-  margin-top: var(--space-1);
+  font-family: var(--font-heading);
+  font-optical-sizing: auto;
+  font-weight: var(--weight-heading);
+  font-style: normal;
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  color: var(--color-fg);
+  text-wrap: balance;
+}
+.pub-meta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+.pub-venue { font-size: var(--text-sm); color: var(--color-muted); }
+.pub-links {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
 }

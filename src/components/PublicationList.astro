@@ -3,6 +3,10 @@
   PublicationList — lista de publicaciones desde CSL-JSON (CLAUDE.md §7).
   El hub muestra una selección (5–8); el CV completo va en PDF aparte.
   Títulos y revistas NO se traducen (§5).
+
+  Cada entrada abre con el símbolo de punto trigonométrico (▲) del juego,
+  como un accidente marcado en la carta; el título va grande y los autores
+  quedan en la línea de datos.
 */
 import { authors, year, venue, doiUrl, openAccessUrl, sortByDateDesc, type CslItem } from '../lib/csl';
 import type { Locale } from '../i18n/utils';
@@ -30,19 +34,25 @@ const L = {
         const oa = openAccessUrl(item);
         const v = venue(item);
         const y = year(item);
+        const meta = [authors(item), y].filter(Boolean).join(' · ');
         return (
           <li class="pub">
-            {authors(item) && <span class="pub-authors">{authors(item)}</span>}
-            {y && <span class="pub-year"> ({y})</span>}
-            <span class="pub-title">{item.title}</span>
-            {v && <span class="pub-venue">{v}</span>}
-            {(doi || oa) && (
-              <span class="pub-links">
-                {doi && <a href={doi}>{L.doi}</a>}
-                {doi && oa && <span aria-hidden="true"> · </span>}
-                {oa && <a href={oa}>{L.oa}</a>}
-              </span>
-            )}
+            <svg class="pub-mark" viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 2 L14 13 L2 13 Z" fill="none" stroke="currentColor" stroke-width="1.4" />
+              <circle cx="8" cy="13" r="1.4" fill="currentColor" />
+            </svg>
+            <div class="pub-body">
+              <cite class="pub-title">{item.title}</cite>
+              {meta && <p class="pub-meta">{meta}</p>}
+              {v && <p class="pub-venue">{v}</p>}
+              {(doi || oa) && (
+                <p class="pub-links">
+                  {doi && <a href={doi}>{L.doi}</a>}
+                  {doi && oa && <span aria-hidden="true"> · </span>}
+                  {oa && <a href={oa}>{L.oa}</a>}
+                </p>
+              )}
+            </div>
           </li>
         );
       })}
