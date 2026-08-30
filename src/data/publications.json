@@ -21,11 +21,11 @@
     "title": "Ocio educativo en espacios penitenciarios: deporte, cultura y recreación en los procesos de reinserción social",
     "container-title": "Cuadernos del CLAEH",
     "author": [
+      { "family": "Enjuanes", "given": "J." },
       { "family": "Pérez-Pollero", "given": "Martín" },
-      { "family": "Lema", "given": "Ricardo" },
-      { "family": "Morata", "given": "T." },
       { "family": "Palasí", "given": "E." },
-      { "family": "Enjuanes", "given": "J." }
+      { "family": "Lema", "given": "Ricardo" },
+      { "family": "Morata", "given": "T." }
     ],
     "issued": { "date-parts": [[2024]] },
     "volume": "43",
@@ -41,8 +41,8 @@
     "title": "Jóvenes, apropiación y socialización de la información política en un contexto electoral",
     "container-title": "Desacatos. Revista de Ciencias Sociales",
     "author": [
-      { "family": "Pérez-Pollero", "given": "Martín" },
       { "family": "Winocur", "given": "Rosalía" },
+      { "family": "Pérez-Pollero", "given": "Martín" },
       { "family": "Rojas Torres", "given": "C." }
     ],
     "issued": { "date-parts": [[2024]] },
@@ -55,8 +55,8 @@
     "title": "Aportes a la construcción de una metodología basada en la recreación educativa. La experiencia de la Universidad Católica del Uruguay",
     "container-title": "Educació Social",
     "author": [
-      { "family": "Pérez-Pollero", "given": "Martín" },
-      { "family": "Lema", "given": "Ricardo" }
+      { "family": "Lema", "given": "Ricardo" },
+      { "family": "Pérez-Pollero", "given": "Martín" }
     ],
     "issued": { "date-parts": [[2024]] },
     "volume": "83",
@@ -72,7 +72,9 @@
       { "family": "Pérez-Pollero", "given": "Martín" },
       { "family": "Monteagudo", "given": "María Jesús" }
     ],
-    "editor": [{ "family": "Camino Carrasco", "given": "Marina" }],
+    "editor": [
+      { "family": "Camino Carrasco", "given": "Marina" }
+    ],
     "issued": { "date-parts": [[2025]] },
     "publisher": "Dykinson",
     "page": "247-265",
@@ -84,11 +86,14 @@
     "title": "Espacios públicos recreativos y presupuesto participativo en la ciudad de Montevideo",
     "container-title": "Ciudades para vivir. Habitar y transitar",
     "author": [
-      { "family": "Pérez-Pollero", "given": "Martín" },
       { "family": "Lema", "given": "Ricardo" },
-      { "family": "Pérez", "given": "J." }
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Velázquez", "given": "José Pablo" },
+      { "family": "Martirene", "given": "J. P." }
     ],
-    "editor": [{ "family": "Monteagudo", "given": "María Jesús" }],
+    "editor": [
+      { "family": "Monteagudo", "given": "María Jesús" }
+    ],
     "issued": { "date-parts": [[2024]] },
     "publisher": "Catarata",
     "publisher-place": "Bilbao",
@@ -117,8 +122,8 @@
     "title": "Ocio educativo con personas privadas de libertad en Uruguay. Aportes desde la recreación educativa",
     "container-title": "Ocio educativo y acción sociocultural. Construyendo modelos para el desarrollo de personas y comunidades",
     "author": [
-      { "family": "Pérez-Pollero", "given": "Martín" },
-      { "family": "Lema", "given": "Ricardo" }
+      { "family": "Lema", "given": "Ricardo" },
+      { "family": "Pérez-Pollero", "given": "Martín" }
     ],
     "issued": { "date-parts": [[2023]] },
     "publisher": "Graó",
@@ -130,8 +135,12 @@
     "type": "chapter",
     "title": "Usos estratégicos de Internet en dos organizaciones ambientales uruguayas",
     "container-title": "Tecnologías Digitales en Sociedad: análisis empíricos y reflexiones teóricas",
-    "author": [{ "family": "Pérez-Pollero", "given": "Martín" }],
-    "editor": [{ "literal": "Observatic" }],
+    "author": [
+      { "family": "Pérez-Pollero", "given": "Martín" }
+    ],
+    "editor": [
+      { "literal": "Observatic" }
+    ],
     "issued": { "date-parts": [[2016]] },
     "publisher": "Universidad de la República",
     "publisher-place": "Uruguay",
