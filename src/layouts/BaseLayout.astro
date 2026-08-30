@@ -23,8 +23,8 @@ const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
 const canonical = site + path;
 const ogImageUrl = ogImage ? site + ogImage : undefined;
 
-// Persona (schema.org). Solo datos verificados del CV (§2). sameAs queda para
-// cuando estén las URLs de perfiles (§10).
+// Persona (schema.org). Solo datos verificados del CV (§2). sameAs: perfiles
+// con URL canónica confirmada; LinkedIn y Bluesky quedan pendientes (§10).
 const jsonld = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -33,6 +33,10 @@ const jsonld = {
   jobTitle: 'Director de la Licenciatura en Recreación Educativa',
   affiliation: { '@type': 'Organization', name: AFFILIATION },
   homeLocation: { '@type': 'Place', name: 'Montevideo, Uruguay' },
+  sameAs: [
+    'https://orcid.org/0000-0002-5772-8719',
+    'https://scholar.google.com/citations?user=WMAE3soAAAAJ',
+  ],
   ...(site ? { url: site } : {}),
 };
 ---
