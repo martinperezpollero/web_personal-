@@ -215,17 +215,18 @@ article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
 }
 .pub {
   display: grid;
-  grid-template-columns: 1.1rem 1fr;
+  grid-template-columns: 1.4rem 1fr;
   gap: 0 var(--space-3);
   align-items: start;
   max-width: var(--measure);
 }
-/* El punto trigonométrico del juego como viñeta de la carta. */
+/* Uno de los cinco símbolos del juego como viñeta de la carta (rota). */
 .pub-mark {
-  width: 0.85rem;
-  height: 0.85rem;
-  margin-top: 0.32rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-top: 0.3rem;
   color: var(--color-accent);
+  overflow: visible;
 }
 .pub-body > * + * { margin-top: var(--space-1); }
 .pub-title {

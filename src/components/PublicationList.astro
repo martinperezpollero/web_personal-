@@ -2,11 +2,12 @@
 /*
   PublicationList — lista de publicaciones desde CSL-JSON (CLAUDE.md §7).
   El hub muestra una selección (5–8); el CV completo va en PDF aparte.
-  Títulos y revistas NO se traducen (§5).
+  Títulos y revistas NO se traducen (§5). El orden de autores se respeta
+  tal como figura en cada trabajo (authors() no reordena).
 
-  Cada entrada abre con el símbolo de punto trigonométrico (▲) del juego,
-  como un accidente marcado en la carta; el título va grande y los autores
-  quedan en la línea de datos.
+  Cada entrada abre con uno de los cinco símbolos del juego, rotando
+  cima → curso de agua → sendero → depresión → bosque; el título va
+  grande y los autores quedan en la línea de datos.
 */
 import { authors, year, venue, doiUrl, openAccessUrl, sortByDateDesc, type CslItem } from '../lib/csl';
 import type { Locale } from '../i18n/utils';
@@ -24,12 +25,21 @@ const L = {
   es: { doi: 'DOI', oa: 'texto en acceso abierto' },
   en: { doi: 'DOI', oa: 'open-access text' },
 }[lang];
+
+// Los mismos cinco símbolos del juego (viewBox 0 0 40 40).
+const MARKS = [
+  '<path d="M20 7 L33 31 L7 31 Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="20" cy="31" r="2.2" fill="currentColor"/>',
+  '<path d="M5 15 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 25 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+  '<path d="M5 20 h30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"/>',
+  '<circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M20 9 v4 M20 27 v4 M9 20 h4 M27 20 h4" stroke="currentColor" stroke-width="1.8"/>',
+  '<path d="M20 8 l7 14 h-14 z" fill="currentColor"/><rect x="18.5" y="21" width="3" height="7" fill="currentColor"/>',
+];
 ---
 
 {
   ordered.length > 0 && (
     <ol class="pub-list">
-      {ordered.map((item) => {
+      {ordered.map((item, i) => {
         const doi = doiUrl(item);
         const oa = openAccessUrl(item);
         const v = venue(item);
@@ -37,10 +47,7 @@ const L = {
         const meta = [authors(item), y].filter(Boolean).join(' · ');
         return (
           <li class="pub">
-            <svg class="pub-mark" viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M8 2 L14 13 L2 13 Z" fill="none" stroke="currentColor" stroke-width="1.4" />
-              <circle cx="8" cy="13" r="1.4" fill="currentColor" />
-            </svg>
+            <svg class="pub-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS[i % MARKS.length]} />
             <div class="pub-body">
               <cite class="pub-title">{item.title}</cite>
               {meta && <p class="pub-meta">{meta}</p>}
