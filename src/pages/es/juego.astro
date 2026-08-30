@@ -3,15 +3,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Coord from '../../components/Coord.astro';
 import MapLegendGame from '../../components/MapLegendGame.astro';
 import MapTerrainGame from '../../components/MapTerrainGame.astro';
-import MapContourGame from '../../components/MapContourGame.astro';
 import { ui } from '../../i18n/ui';
 ---
 
 <BaseLayout
   title="juego — Martín Pérez Pollero"
-  description="Ejercicios breves sobre cartografía: leer una leyenda, reconocer un terreno, leer las cotas."
+  description="Dos ejercicios breves sobre cartografía: leer una leyenda y reconocer un terreno."
 >
-  <Coord fix="hoja 4 · leyenda, terreno, cotas" />
+  <Coord fix="hoja 4 · leyenda y terreno" />
   <h1>{ui.es['game.title']}</h1>
   <p class="lede">{ui.es['game.lede']}</p>
 
@@ -23,11 +22,6 @@ import { ui } from '../../i18n/ui';
   <section class="game-level">
     <p class="game-level-label">{ui.es['game.l2']}</p>
     <MapTerrainGame lang="es" />
-  </section>
-
-  <section class="game-level">
-    <p class="game-level-label">{ui.es['game.l3']}</p>
-    <MapContourGame lang="es" />
   </section>
 
   <p class="nota">{ui.es['game.body']}</p>
