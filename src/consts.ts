@@ -45,8 +45,8 @@ export const NAV = [
 /** Ruta a la foto (§10). Retrato en blanco y negro, 453×551. */
 export const PORTRAIT = '/img/martin-perez-pollero.jpg';
 
-/** Correo del CV (§2). DECIDIR si se expone este o uno institucional. */
-export const EMAIL = 'martin.ppollero@gmail.com';
+/** Correo público: el institucional de la UCU (§2). */
+export const EMAIL = 'martin.perez@ucu.edu.uy';
 
 /** Afiliación actual (§2), para JSON-LD. */
 export const AFFILIATION = 'Universidad Católica del Uruguay';

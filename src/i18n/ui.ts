@@ -16,7 +16,7 @@ export const ui = {
     'projects.empty': 'TODO: cargar fichas de proyecto (CLAUDE.md §10). Nada publicado todavía.',
     'publications.empty':
       'TODO: exportar la colección de Zotero a src/data/publications.json en CSL-JSON (CLAUDE.md §7).',
-    'footer.todo': 'TODO: correo público y perfiles (CLAUDE.md §10).',
+    'footer.todo': 'TODO: dominio propio y perfil de Bluesky (CLAUDE.md §10).',
     'home.bio.linea': 'TODO: una línea de presentación (§2, §11.3).',
     'home.bio.parrafo': 'TODO: un párrafo de bio — la convergencia de las dos líneas de trabajo (§2).',
     'bio.title': 'bio',
@@ -26,7 +26,6 @@ export const ui = {
     'notfound.body': 'Esa página no existe o cambió de lugar.',
     'notfound.home': 'volver al inicio',
     'contact.title': 'contacto',
-    'contact.emailNote': '(§2: decidir si va este correo o uno institucional)',
     'contact.pending': 'pendiente',
     'game.title': 'juego',
     'game.lede': 'Dos ejercicios breves sobre cartografía: leer una leyenda y reconocer un terreno.',
@@ -45,7 +44,7 @@ export const ui = {
     'projects.empty': 'TODO: add project entries (CLAUDE.md §10). Nothing published yet.',
     'publications.empty':
       'TODO: export the Zotero library to src/data/publications.json as CSL-JSON (CLAUDE.md §7).',
-    'footer.todo': 'TODO: public email and profiles (CLAUDE.md §10).',
+    'footer.todo': 'TODO: own domain and Bluesky profile (CLAUDE.md §10).',
     'home.bio.linea': 'TODO: a one-line intro, written in English (§2, §5).',
     'home.bio.parrafo': 'TODO: a one-paragraph bio, written in English (§2, §5).',
     'bio.title': 'bio',
@@ -55,7 +54,6 @@ export const ui = {
     'notfound.body': 'That page does not exist or has moved.',
     'notfound.home': 'back to the start',
     'contact.title': 'contact',
-    'contact.emailNote': '(§2: decide whether to show this address or an institutional one)',
     'contact.pending': 'pending',
     'game.title': 'game',
     'game.lede': 'Two short exercises about cartography: reading a legend and recognising a terrain.',
