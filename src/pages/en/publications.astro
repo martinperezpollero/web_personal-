@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PublicationList from '../../components/PublicationList.astro';
 import Coord from '../../components/Coord.astro';
 import { ui } from '../../i18n/ui';
+import { CV_URL } from '../../consts';
 import publications from '../../data/publications.json';
 import type { CslItem } from '../../lib/csl';
 
@@ -16,8 +17,7 @@ const items = publications as CslItem[];
 >
   <Coord fix="sheet 3 · record" />
   <h1>publications</h1>
-  {/* TODO §10: add the PDF to public/cv/ with this name. */}
-  <p>A selection. The full CV is a <a href="/cv/cv-martin-perez-pollero-2026.pdf">PDF</a>.</p>
+  <p>A selection. The full CV is on <a href={CV_URL} rel="noopener">CVUy</a>.</p>
 
   {items.length === 0 && <p class="nota"><em>{ui.en['publications.empty']}</em></p>}
   <PublicationList items={items} lang="en" />

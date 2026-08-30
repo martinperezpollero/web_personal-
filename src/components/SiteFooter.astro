@@ -2,7 +2,7 @@
 import { getLocaleFromPath } from '../i18n/utils';
 import { ui } from '../i18n/ui';
 import ScaleBar from './ScaleBar.astro';
-import { SITE_NAME, CV_PATH } from '../consts';
+import { SITE_NAME, CV_URL } from '../consts';
 
 const lang = getLocaleFromPath(Astro.url.pathname);
 const equi = lang === 'es' ? 'equidistancia 10 m' : 'contour interval 10 m';
@@ -12,8 +12,7 @@ const equi = lang === 'es' ? 'equidistancia 10 m' : 'contour interval 10 m';
   <span>{SITE_NAME} · Montevideo</span>
   <span class="site-footer-scale">
     <ScaleBar label={equi} />
-    {/* TODO §10: subir el PDF del CV a public/cv/. */}
-    <a href={CV_PATH}>CV (PDF)</a>
+    <a href={CV_URL} rel="noopener">CV · CVUy</a>
   </span>
   <span class="nota">{ui[lang]['footer.todo']}</span>
 </footer>

@@ -2,7 +2,7 @@
 import LanguageSelector from './LanguageSelector.astro';
 import { getLocaleFromPath } from '../i18n/utils';
 import { ui } from '../i18n/ui';
-import { SITE_NAME, NAV, CV_PATH } from '../consts';
+import { SITE_NAME, NAV, CV_URL } from '../consts';
 
 const path = Astro.url.pathname;
 const lang = getLocaleFromPath(path);
@@ -14,8 +14,8 @@ const t = ui[lang];
   <nav aria-label={t['nav.aria']}>
     {
       NAV.map((item) =>
-        item.kind === 'file' ? (
-          <a href={CV_PATH}>{t[`nav.${item.key}`]}</a>
+        item.kind === 'external' ? (
+          <a href={CV_URL} rel="noopener">{t[`nav.${item.key}`]}</a>
         ) : (
           <a href={`/${lang}/${item[lang]}/`}>{t[`nav.${item.key}`]}</a>
         )

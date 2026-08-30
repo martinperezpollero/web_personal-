@@ -1,5 +1,5 @@
 ---
-import { EMAIL } from '../consts';
+import { EMAIL, CV_URL } from '../consts';
 import { ui } from '../i18n/ui';
 import { getLocaleFromPath } from '../i18n/utils';
 
@@ -8,11 +8,8 @@ const t = ui[lang];
 
 // TODO §10: completar las URLs que faltan.
 const profiles: { label: string; href?: string }[] = [
-  {
-    label: 'CVUy',
-    href: 'https://exportcvuy.anii.org.uy/cv/?7ed9909c3cbde1b8004c19b4613454d8d86bc4f2feb04e77e3dc358d91bd94a82a94a44cb1824e8564a3ac4781ffff721437e6ecec64a9b3329b362b090f4849',
-  },
-  { label: 'Google Scholar' },
+  { label: 'CVUy', href: CV_URL },
+  { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=WMAE3soAAAAJ' },
   { label: 'ORCID' },
   { label: 'LinkedIn' },
   { label: 'Bluesky' },
@@ -27,7 +24,11 @@ const profiles: { label: string; href?: string }[] = [
   {
     profiles.map((p) => (
       <li>
-        {p.href ? <a href={p.href}>{p.label}</a> : <>{p.label} — <span class="nota">{t['contact.pending']}</span></>}
+        {p.href ? (
+          <a href={p.href} rel="noopener">{p.label}</a>
+        ) : (
+          <>{p.label} — <span class="nota">{t['contact.pending']}</span></>
+        )}
       </li>
     ))
   }

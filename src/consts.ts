@@ -10,8 +10,8 @@ import type { Locale } from './i18n/utils';
 /** El nombre, una de las tres constantes que viajan a todos los sitios (§3). */
 export const SITE_NAME = 'Martín Pérez Pollero';
 
-/** Firma académica, unificada con guion (§2). Para metadatos y citas. */
-export const SIGN = 'Pérez-Pollero, M.';
+/** Firma académica: "Pérez Pollero, M." — sin guion (§2). Para metadatos y citas. */
+export const SIGN = 'Pérez Pollero, M.';
 
 /** Base de Martín (§2). Coordenada decorativa del eyebrow de la home. */
 export const BASE_COORD: Record<Locale, { fix: string; place: string }> = {
@@ -19,19 +19,24 @@ export const BASE_COORD: Record<Locale, { fix: string; place: string }> = {
   en: { fix: '34°54′S 56°11′W', place: 'Montevideo' },
 };
 
-/** CV público en PDF (§7, §10). El archivo todavía no existe: ver public/cv/. */
-export const CV_PATH = '/cv/cv-martin-perez-pollero-2026.pdf';
+/**
+ * El CV completo vive en CVUy (el CV público de Martín en la red uruguaya).
+ * El hub no aloja un PDF; enlaza acá. Confirmar que es el permalink que se
+ * quiere público.
+ */
+export const CV_URL =
+  'https://exportcvuy.anii.org.uy/cv/?7ed9909c3cbde1b8004c19b4613454d8d86bc4f2feb04e77e3dc358d91bd94a82a94a44cb1824e8564a3ac4781ffff721437e6ecec64a9b3329b362b090f4849';
 
 /**
  * Navegación del encabezado. `route` se resuelve a `/{lang}/{segmento}/`;
- * `cv` es un enlace directo al PDF. El hub es breve (§1): esta lista no crece
- * sin conversarlo.
+ * `cv` es el enlace al CVUy. El hub es breve (§1): esta lista no crece sin
+ * conversarlo.
  */
 export const NAV = [
   { key: 'projects', kind: 'route', es: 'proyectos', en: 'projects' },
   { key: 'publications', kind: 'route', es: 'publicaciones', en: 'publications' },
   { key: 'game', kind: 'route', es: 'juego', en: 'game' },
-  { key: 'cv', kind: 'file', es: 'cv', en: 'cv' },
+  { key: 'cv', kind: 'external', es: 'cv', en: 'cv' },
 ] as const;
 
 /** Ruta a la foto (§10). Hoy es un marcador de posición en public/img/. */
