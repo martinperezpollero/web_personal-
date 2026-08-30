@@ -6,13 +6,11 @@ import { getLocaleFromPath } from '../i18n/utils';
 const lang = getLocaleFromPath(Astro.url.pathname);
 const t = ui[lang];
 
-// TODO §10: falta Bluesky.
 const profiles: { label: string; href?: string }[] = [
   { label: 'CVUy', href: CV_URL },
   { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=WMAE3soAAAAJ' },
   { label: 'ORCID', href: 'https://orcid.org/0000-0002-5772-8719' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mart%C3%ADn-p%C3%A9rez-pollero/' },
-  { label: 'Bluesky' },
 ];
 ---
 
