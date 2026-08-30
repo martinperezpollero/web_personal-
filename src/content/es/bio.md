@@ -1,13 +1,20 @@
 ---
-# BORRADOR DE PRUEBA — armado con datos del CV (§2) para ver cómo queda la
-# página. Revisar y reescribir con Martín antes de publicar. Decisión abierta:
-# «una línea o dos» (§11.3). Voseo, tono directo y cálido, sin jerga (§2).
-linea: "Soy sociólogo: pasé diez años estudiando cómo los jóvenes se apropian de internet, y ahora investigo el juego, el ocio y la biografía lúdica."
-parrafo: "Dirijo la Licenciatura en Recreación Educativa de la Universidad Católica del Uruguay. Vengo de la sociología de la apropiación de tecnologías —los jóvenes, internet, la información política—; mi tesis de maestría, sobre el tiempo libre de estudiantes universitarios mediado por tecnologías, fue el puente hacia lo que hago hoy: pensar el juego, el ocio y la biografía lúdica, esa historia de cómo cada quien fue jugando y dejando de jugar. Es también el tema de mi doctorado, en la Universidad de Deusto. Vivo en Montevideo."
+# Bio corta: texto de Martín (§2). El nombre no va acá — lo pone el <h1>.
+# `linea` es el lede; `parrafo` desarrolla los dos métodos y la afiliación.
+linea: "Investigo desigualdad lúdica y derecho al juego: quién juega, con qué y en qué condiciones."
+parrafo: >-
+  Ese trabajo toma dos formas concretas: biografías lúdicas, para reconstruir
+  cómo se jugó, y dispositivos lúdicos, para abrir situaciones donde jugar sea
+  posible. Soy profesor del Departamento de Educación de la Universidad Católica
+  del Uruguay, donde enseño en la Licenciatura en Recreación Educativa y en la
+  Licenciatura en Educación, y doctorando en Ocio, Cultura y Comunicación para
+  el Desarrollo Humano por la Universidad de Deusto.
 ---
 
 <!--
-  BORRADOR DE PRUEBA. Reescribir con Martín (§2). En español, voseo.
+  BORRADOR DE PRUEBA — el cuerpo de abajo (bio larga) todavía es el texto viejo
+  y no coincide con el nuevo marco («desigualdad lúdica», «dispositivos
+  lúdicos»). Reescribir con Martín (§2). En español, voseo.
 -->
 
 Nací para la sociología estudiando internet y terminé mirando juguetes. En el
