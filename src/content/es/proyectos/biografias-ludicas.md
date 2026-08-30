@@ -10,7 +10,7 @@ sede: "Bilbao"
 coordenada: "43°15′N 2°56′O"
 anclaje:
   cita: >-
-    Pérez-Pollero, M. y Monteagudo, M. J. (2025). «La biografía lúdica. Una
+    Pérez Pollero, M. y Monteagudo, M. J. (2025). «La biografía lúdica. Una
     propuesta teórico-metodológica para el estudio del jugar y de la
     subjetividad», en Cartografía lúdica: un mapa vivo por explorar. Dykinson,
     pp. 247–265.

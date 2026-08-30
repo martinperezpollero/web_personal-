@@ -36,7 +36,7 @@ export interface CslItem {
   genre?: string;
 }
 
-/** "Pérez-Pollero, M." — inicial del nombre, apellido primero. */
+/** "Pérez Pollero, M." — inicial del nombre, apellido primero. */
 function formatName(n: CslName): string {
   if (n.literal) return n.literal;
   const family = (n.family ?? '').trim();
