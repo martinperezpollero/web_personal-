@@ -33,6 +33,7 @@ export interface CslItem {
   publisher?: string;
   'publisher-place'?: string;
   edition?: string;
+  genre?: string;
 }
 
 /** "Pérez-Pollero, M." — inicial del nombre, apellido primero. */
@@ -49,10 +50,16 @@ function formatName(n: CslName): string {
   return initials ? `${family}, ${initials}` : family;
 }
 
-/** Lista de autores: "A, X.; B, Y." — sin recortar, el hub muestra pocas piezas. */
+/**
+ * Lista de autores: "A, X.; B, Y." — sin recortar, el hub muestra pocas piezas.
+ * Si no hay autores pero sí editores (obra editada), se listan con "(ed.)".
+ */
 export function authors(item: CslItem): string {
-  const list = (item.author ?? []).map(formatName).filter(Boolean);
-  return list.join('; ');
+  const a = (item.author ?? []).map(formatName).filter(Boolean);
+  if (a.length) return a.join('; ');
+  const e = (item.editor ?? []).map(formatName).filter(Boolean);
+  if (e.length) return e.join('; ') + (e.length > 1 ? ' (eds.)' : ' (ed.)');
+  return '';
 }
 
 export function year(item: CslItem): string {
@@ -65,6 +72,7 @@ export function year(item: CslItem): string {
 /** Dónde salió: revista vol(nº), pp. — o editorial para capítulos y libros. */
 export function venue(item: CslItem): string {
   const parts: string[] = [];
+  if (item.genre) parts.push(item.genre);
   const container = item['container-title'];
   if (container) {
     let c = container;

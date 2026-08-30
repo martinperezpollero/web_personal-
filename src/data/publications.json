@@ -1,5 +1,21 @@
 [
   {
+    "id": "tejidos-nuevas-plumas-2025",
+    "type": "book",
+    "title": "Tejidos. Aportes al campo de la Recreación desde el telar uruguayo",
+    "genre": "Número monográfico",
+    "container-title": "Nuevas Plumas. Teorías y experiencias en Recreación, Tiempo Libre y Juego",
+    "editor": [
+      { "family": "Pérez-Pollero", "given": "Martín" },
+      { "family": "Di Fabio Rocca", "given": "P." }
+    ],
+    "issued": { "date-parts": [[2025]] },
+    "volume": "6",
+    "issue": "6",
+    "publisher": "Espíritu Guerrero Editor",
+    "ISSN": "2683-794"
+  },
+  {
     "id": "ocio-penitenciario-claeh-2024",
     "type": "article-journal",
     "title": "Ocio educativo en espacios penitenciarios: deporte, cultura y recreación en los procesos de reinserción social",

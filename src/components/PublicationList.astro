@@ -7,11 +7,11 @@
   Cada entrada abre con uno de los cinco símbolos del juego, rotando
   cima → curso de agua → sendero → depresión → bosque; el título va grande.
 
-  TODO: no se muestran los autores. Los datos actuales salieron del CVUy,
-  que pone a Martín primero en casi todas aunque no sea el orden real de
-  autoría. Vuelven cuando esté el export de Zotero (§7), con el orden bien.
+  OJO: el orden de autores viene del CVUy y no es el real de autoría en
+  varias (Martín no siempre es primero). Martín pasa el orden correcto y
+  se corrige en publications.json.
 */
-import { year, venue, doiUrl, openAccessUrl, sortByDateDesc, type CslItem } from '../lib/csl';
+import { authors, year, venue, doiUrl, openAccessUrl, sortByDateDesc, type CslItem } from '../lib/csl';
 import type { Locale } from '../i18n/utils';
 
 interface Props {
@@ -46,12 +46,13 @@ const MARKS = [
         const oa = openAccessUrl(item);
         const v = venue(item);
         const y = year(item);
+        const meta = [authors(item), y].filter(Boolean).join(' · ');
         return (
           <li class="pub">
             <svg class="pub-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS[i % MARKS.length]} />
             <div class="pub-body">
               <cite class="pub-title">{item.title}</cite>
-              {y && <p class="pub-meta">{y}</p>}
+              {meta && <p class="pub-meta">{meta}</p>}
               {v && <p class="pub-venue">{v}</p>}
               {(doi || oa) && (
                 <p class="pub-links">
