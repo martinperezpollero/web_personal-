@@ -215,17 +215,17 @@ article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
 }
 .pub {
   display: grid;
-  grid-template-columns: 1.4rem 1fr;
+  grid-template-columns: 1.7rem 1fr;
   gap: 0 var(--space-3);
   align-items: start;
   max-width: var(--measure);
 }
 /* Uno de los cinco símbolos del juego como viñeta de la carta (rota). */
 .pub-mark {
-  width: 1.05rem;
-  height: 1.05rem;
-  margin-top: 0.3rem;
-  color: var(--color-accent);
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.2rem;
+  color: var(--color-pop);
   overflow: visible;
 }
 .pub-body > * + * { margin-top: var(--space-1); }

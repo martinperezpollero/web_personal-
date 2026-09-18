@@ -12,7 +12,7 @@
     de cada página, símbolo de estado por proyecto (▲ en curso · ○ en armado ·
     · sin relevar), y barra de escala + equidistancia en el pie.
   - Un solo acento: azul marino. Un solo "pop" cálido: naranja de punto trig,
-    reservado a un único uso (el estado «En curso»).
+    usado en el estado «En curso» y en los íconos de publicaciones.
   - Tipografía: Fraunces (títulos, con calidez de mapa dibujado a mano) +
     Spline Sans (cuerpo) + Spline Sans Mono (datos: fechas, coordenadas).
   No es ninguno de los tres vetos de §6: fondo blanco (no crema), serif blanda
@@ -34,7 +34,7 @@
   --color-border:    #e4e8eb; /* filetes y separadores */
   --color-accent:    #155a7a; /* enlaces, foco, nombre; azul marino */
   --color-accent-fg: #ffffff; /* texto sobre el acento */
-  --color-pop:       #d9663f; /* naranja de punto trig. UN SOLO USO: estado «En curso» */
+  --color-pop:       #d9663f; /* naranja de punto trig: estado «En curso» + íconos de publicaciones */
 
   /* ---- Relieve (consumido por ReliefCanvas.astro) --------------- */
   /* Presencia de las curvas = alpha de --relief-line × --relief-opacity.

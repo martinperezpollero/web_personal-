@@ -14,3 +14,13 @@ node_modules/
 .DS_Store
 *.log
 npm-debug.log*
+
+# preview para compartir (build comprimido)
+hub-preview-netlify.zip
+
+# herramientas personales, no son parte del sitio
+.obsidian/
+23.png
+
+# borradores de contenido en proceso (se suben a mano cuando están listos)
+borrador-*.md
