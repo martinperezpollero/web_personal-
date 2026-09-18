@@ -6,21 +6,33 @@ import { getLocaleFromPath } from '../i18n/utils';
 const lang = getLocaleFromPath(Astro.url.pathname);
 const t = ui[lang];
 
-const profiles: { label: string; href?: string }[] = [
-  { label: 'CVUy', href: CV_URL },
-  { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=WMAE3soAAAAJ' },
-  { label: 'ORCID', href: 'https://orcid.org/0000-0002-5772-8719' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mart%C3%ADn-p%C3%A9rez-pollero/' },
+// Mismos símbolos de carta que PublicationList y el juego (§6): cada ítem
+// de contacto toma uno prestado, sin agregar un lenguaje de íconos nuevo.
+const MARKS = {
+  coordenada: '<path d="M20 6 v28 M6 20 h28" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/>',
+  sendero: '<path d="M5 20 h30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"/>',
+  cima: '<path d="M20 7 L33 31 L7 31 Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="20" cy="31" r="2.2" fill="currentColor"/>',
+  depresion: '<circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M20 9 v4 M20 27 v4 M9 20 h4 M27 20 h4" stroke="currentColor" stroke-width="1.8"/>',
+  agua: '<path d="M5 15 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 25 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+};
+
+const profiles: { label: string; href?: string; mark: keyof typeof MARKS }[] = [
+  { label: 'CVUy', href: CV_URL, mark: 'sendero' },
+  { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=WMAE3soAAAAJ', mark: 'cima' },
+  { label: 'ORCID', href: 'https://orcid.org/0000-0002-5772-8719', mark: 'depresion' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mart%C3%ADn-p%C3%A9rez-pollero/', mark: 'agua' },
 ];
 ---
 
 <ul class="contact-list">
   <li>
+    <svg class="contact-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS.coordenada} />
     <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
   </li>
   {
     profiles.map((p) => (
       <li>
+        <svg class="contact-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS[p.mark]} />
         {p.href ? (
           <a href={p.href} rel="noopener">{p.label}</a>
         ) : (
