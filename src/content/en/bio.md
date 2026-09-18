@@ -1,28 +1,31 @@
 ---
-# DRAFT FOR PREVIEW — written from the CV (§2) to see the page, NOT translated
-# from the Spanish. A person must review and rework this before publishing (§5).
-linea: "I'm a sociologist: I spent ten years studying how young people appropriate the internet, and now I research play, leisure and the ludic biography."
-parrafo: "I direct the BA in Educational Recreation at the Universidad Católica del Uruguay. I come from the sociology of technology appropriation — young people, the internet, political information; my master's thesis, on university students' free time as mediated by technology, was the bridge to what I do now: thinking about play, leisure and the ludic biography, the story of how each person went on playing and stopped playing. It's also the subject of my doctorate, at the University of Deusto. I live in Montevideo."
+# DRAFT — written directly in English to match the new frame (§11.3), NOT
+# translated from the Spanish. Martín writes English well but isn't a native
+# speaker: a person must review this before publishing (§5). "Ludic devices"
+# is named but not defined yet — left for later, same as in the Spanish.
+linea: "I study play inequality and the right to play: who gets to play, with what, and under what conditions."
+parrafo: "That work takes two concrete forms: the ludic biography, to reconstruct how someone played, and ludic devices, to open up situations where play becomes possible. I'm on the faculty of the Department of Education at the Universidad Católica del Uruguay, where I teach in the BA in Educational Recreation and the BA in Education, and I'm doing a PhD in Leisure, Culture and Communication for Human Development at the University of Deusto."
 ---
 
-<!--
-  DRAFT FOR PREVIEW. To be reviewed and rewritten by a person (§2, §5). Not a
-  translation of the Spanish.
--->
+<!-- DRAFT — pending Martín's final read and a native-speaker check (§5). -->
 
-I started out in sociology studying the internet and ended up looking at toys.
-In between there is a single question, held with two different tools: how people
-appropriate the things around them — a technology, a stretch of free time, a
-game — and what that does to their way of being in the world.
+What I study, at bottom, is a single question: who gets to play, with what,
+and under what conditions. I work on it with two tools: the ludic biography
+and ludic devices.
 
-The first phase was technology appropriation: I worked on interactive digital
-television and on research about young people and political information during
-election cycles. The second, ongoing, is leisure and play: educational
-recreation, leisure in confinement settings, the material culture of play, and
-what I call the *ludic biography* — a way into a life through the door of how it
-played.
+I got here by a roundabout route. I started out in technology appropriation:
+I worked on Observatic, on interactive digital television, and on research
+about young people and political information during election cycles. Then I
+moved into leisure and play: educational recreation, leisure in confinement
+settings, the material culture of play, and the *ludic biography* — a way
+into a life through the door of how someone played, how they stopped, and
+what of that stays with them. My master's thesis, on university students'
+free time beyond the online/offline divide, was the stitch between the two
+stages.
 
 I have been at the Department of Education of the Universidad Católica del
-Uruguay since 2012, and have directed the BA in Educational Recreation since
-2021. My doctorate, at the University of Deusto, is in Leisure, Culture and
-Communication for Human Development.
+Uruguay since 2012. I have directed the BA in Educational Recreation since
+2021, I coordinate the Artistic Expression area, and I teach Centers of
+Interest and Professional Practice II. Before that I was Director of Student
+Affairs. I'm doing my PhD in Leisure, Culture and Communication for Human
+Development at the University of Deusto.
