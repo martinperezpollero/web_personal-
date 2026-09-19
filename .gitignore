@@ -24,3 +24,7 @@ hub-preview-netlify.zip
 
 # borradores de contenido en proceso (se suben a mano cuando están listos)
 borrador-*.md
+
+# documento de trabajo interno (decisiones, notas de sesión): no es para
+# el repo público, queda solo local (decisión 19/09/2026)
+CLAUDE.md
