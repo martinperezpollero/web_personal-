@@ -16,7 +16,6 @@ export const ui = {
     'projects.empty': 'TODO: cargar fichas de proyecto (CLAUDE.md §10). Nada publicado todavía.',
     'publications.empty':
       'TODO: exportar la colección de Zotero a src/data/publications.json en CSL-JSON (CLAUDE.md §7).',
-    'footer.todo': 'TODO: dominio propio (CLAUDE.md §10).',
     'home.bio.linea': 'TODO: una línea de presentación (§2, §11.3).',
     'home.bio.parrafo': 'TODO: un párrafo de bio — la convergencia de las dos líneas de trabajo (§2).',
     'bio.title': 'bio',
@@ -44,7 +43,6 @@ export const ui = {
     'projects.empty': 'TODO: add project entries (CLAUDE.md §10). Nothing published yet.',
     'publications.empty':
       'TODO: export the Zotero library to src/data/publications.json as CSL-JSON (CLAUDE.md §7).',
-    'footer.todo': 'TODO: own domain (CLAUDE.md §10).',
     'home.bio.linea': 'TODO: a one-line intro, written in English (§2, §5).',
     'home.bio.parrafo': 'TODO: a one-paragraph bio, written in English (§2, §5).',
     'bio.title': 'bio',

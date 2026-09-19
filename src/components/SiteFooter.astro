@@ -1,6 +1,5 @@
 ---
 import { getLocaleFromPath } from '../i18n/utils';
-import { ui } from '../i18n/ui';
 import ScaleBar from './ScaleBar.astro';
 import { SITE_NAME, CV_URL } from '../consts';
 
@@ -14,5 +13,4 @@ const equi = lang === 'es' ? 'equidistancia 10 m' : 'contour interval 10 m';
     <ScaleBar label={equi} />
     <a href={CV_URL} rel="noopener">CV · CVUy</a>
   </span>
-  <span class="nota">{ui[lang]['footer.todo']}</span>
 </footer>
