@@ -1,11 +1,10 @@
 ---
-titulo: "Investigación doctoral — Biografías Lúdicas"
+titulo: "Biografías lúdicas: jugar como puerta de entrada a la subjetividad"
 estado: "En curso"
 periodo: "Universidad de Deusto, desde 2023"
-resumen: >-
-  Anexo digital de la tesis doctoral: visualizaciones interactivas, fanzines
-  digitalizados, fragmentos de audio y cartas-frase de los participantes.
-idiomasDisponibles: ["es"]
+resumen: ""
+idiomasDisponibles: ["es", "en"]
+logo: "/img/biografias-ludicas-logo.png"
 sede: "Bilbao"
 coordenada: "43°15′N 2°56′O"
 anclaje:
@@ -18,16 +17,19 @@ orden: 1
 borrador: false
 ---
 
-<!-- BORRADOR DE PRUEBA — armado con datos del CV (§2). Revisar con Martín. -->
+<!-- Texto de Martín (19/09/2026), definitivo. -->
 
-Anexo digital de la tesis doctoral. Reúne el material que no entra en un libro:
-visualizaciones interactivas de las trayectorias de juego de los participantes,
-sus fanzines digitalizados, fragmentos de audio de las entrevistas y las
-cartas-frase que cada quien escribió sobre su propio jugar.
+Estoy trabajando en mi tesis doctoral sobre cómo el jugar —y el dejar de
+jugar— participa en la construcción de quiénes somos: una investigación
+cualitativa, hecha con jóvenes uruguayos, que no da por sentado que el
+jugar sea inocente, sino atravesado por el género, el mercado y lo digital,
+y sostiene esa mirada crítica de principio a fin.
 
-La *biografía lúdica* es una propuesta teórico-metodológica para estudiar el
-jugar y la subjetividad: entrar a una vida por la puerta de cómo jugó, cómo
-dejó de jugar y qué de eso sigue ahí. El sustento está en el capítulo escrito
-con María Jesús Monteagudo para *Cartografía lúdica* (Dykinson, 2025).
+De esa investigación nace también un anexo digital: el material que no
+entra en un libro. Visualizaciones interactivas de las trayectorias de
+juego de los participantes, sus fanzines digitalizados, fragmentos de audio
+de las entrevistas y las cartas-frase que cada quien escribió sobre su
+propio jugar.
 
-Vive en su propio sitio, en español. `TODO: definir la URL del satélite.`
+El sustento teórico-metodológico de la propuesta está en el capítulo
+escrito junto a María Jesús Monteagudo:

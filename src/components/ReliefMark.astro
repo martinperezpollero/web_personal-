@@ -5,6 +5,7 @@
 
     ▲  punto trig   → en curso
     ○  collado      → en armado
+    ▪  mojón        → finalizado
     ·  sin relevar  → todo lo demás / [otros]
 
   Decorativo: el estado también va escrito al lado. aria-hidden.
@@ -14,11 +15,18 @@ interface Props {
 }
 const { estado } = Astro.props;
 const s = estado.toLowerCase();
-const kind = /curso|progress/.test(s) ? 'trig' : /armado|building|armar/.test(s) ? 'saddle' : 'unsurveyed';
+const kind = /curso|progress/.test(s)
+  ? 'trig'
+  : /armado|building|armar/.test(s)
+    ? 'saddle'
+    : /finalizado|finished/.test(s)
+      ? 'mojon'
+      : 'unsurveyed';
 ---
 
 <svg class="relief-mark" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" data-kind={kind}>
   {kind === 'trig' && <path d="M8 2 L14 13 L2 13 Z" fill="none" stroke="currentColor" stroke-width="1.4" />}
   {kind === 'saddle' && <circle cx="8" cy="8" r="5.4" fill="none" stroke="currentColor" stroke-width="1.4" />}
+  {kind === 'mojon' && <rect x="4" y="4" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.4" />}
   {kind === 'unsurveyed' && <circle cx="8" cy="8" r="1.8" fill="currentColor" />}
 </svg>

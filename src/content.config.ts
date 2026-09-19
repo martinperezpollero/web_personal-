@@ -12,8 +12,18 @@ const proyecto = z.object({
   estado: z.string(),
   periodo: z.string().optional(),
   resumen: z.string(),
+  // Rol de Martín en el proyecto, cuando corresponde nombrarlo (ej. "diseño
+  // de juego y gestión de proyecto"). Va en el copete, junto a la coordenada.
+  rol: z.string().optional(),
   colaboradores: z.array(z.string()).default([]),
   enlaceExterno: z.string().url().optional(),
+  // Logo propio del proyecto (ruta en public/, §6: excepción puntual, no es
+  // parte del sistema de señales del hub). Opcional; la mayoría no lo usa.
+  logo: z.string().optional(),
+  // Para proyectos sin logo: uno de los símbolos de carta (mismo set que
+  // Contact.astro / PublicationList.astro / el juego), como marca distintiva
+  // en vez del símbolo de estado genérico. Opcional.
+  mark: z.enum(['cima', 'agua', 'sendero', 'depresion', 'bosque', 'coordenada']).optional(),
   idiomasDisponibles: z.array(z.enum(['es', 'en'])).default(['es']),
   // Geo-etiqueta decorativa (dirección "relieve luminoso", §6): la sede del
   // proyecto como coordenada. Opcional; sin ella se muestra "sin coordenada".

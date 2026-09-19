@@ -8,6 +8,17 @@ import { ui } from '../../../i18n/ui';
 const projects = (await getCollection('projects'))
   .filter((p) => !p.data.borrador)
   .sort((a, b) => a.data.orden - b.data.orden);
+
+// Same card symbols as Contact.astro / PublicationList.astro / the game:
+// a distinctive mark for projects without their own logo (§6).
+const MARKS: Record<string, string> = {
+  coordenada: '<path d="M20 6 v28 M6 20 h28" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/>',
+  sendero: '<path d="M5 20 h30" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"/>',
+  cima: '<path d="M20 7 L33 31 L7 31 Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="20" cy="31" r="2.2" fill="currentColor"/>',
+  depresion: '<circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M20 9 v4 M20 27 v4 M9 20 h4 M27 20 h4" stroke="currentColor" stroke-width="1.8"/>',
+  agua: '<path d="M5 15 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 25 q5 -6 10 0 t10 0 t10 0" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+  bosque: '<path d="M20 8 l7 14 h-14 z" fill="currentColor"/><rect x="18.5" y="21" width="3" height="7" fill="currentColor"/>',
+};
 ---
 
 <BaseLayout
@@ -26,7 +37,13 @@ const projects = (await getCollection('projects'))
       return (
         <article>
           <h2>
-            <ReliefMark estado={p.data.estado} />
+            {p.data.logo ? (
+              <img class="project-logo" src={p.data.logo} alt="" aria-hidden="true" />
+            ) : p.data.mark ? (
+              <svg class="project-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS[p.data.mark]} />
+            ) : (
+              <ReliefMark estado={p.data.estado} />
+            )}
             {p.data.enlaceExterno ? (
               <a href={p.data.enlaceExterno}>{p.data.titulo}</a>
             ) : (
@@ -42,10 +59,11 @@ const projects = (await getCollection('projects'))
             {p.data.coordenada
               ? `${p.data.coordenada}${p.data.sede ? ` ${p.data.sede}` : ''}`
               : 'coordinate TBD'}
+            {p.data.rol && <> · {p.data.rol}</>}
             {' · '}
             {p.data.idiomasDisponibles.join('/')}
           </p>
-          <p>{p.data.resumen}</p>
+          {p.data.resumen && <p>{p.data.resumen}</p>}
           <Content />
           {p.data.colaboradores.length > 0 && (
             <p class="meta">with {p.data.colaboradores.join(', ')}</p>
@@ -64,8 +82,4 @@ const projects = (await getCollection('projects'))
     })
   }
 
-  <article class="fantasma">
-    <h2><ReliefMark estado="sin relevar" />[otros]</h2>
-    <p class="meta meta--dato">unsurveyed</p>
-  </article>
 </BaseLayout>

@@ -39,7 +39,7 @@ const parrafo = bio?.parrafo?.trim();
     <h2>proyectos</h2>
     {proyectos.length === 0 && <p class="nota"><em>{ui.es['projects.empty']}</em></p>}
     <ul class="home-list">
-      {proyectos.map((p) => (
+      {proyectos.slice(0, 3).map((p) => (
         <li>
           <ReliefMark estado={p.data.estado} />
           {p.data.enlaceExterno ? <a href={p.data.enlaceExterno}>{p.data.titulo}</a> : p.data.titulo}
@@ -49,7 +49,6 @@ const parrafo = bio?.parrafo?.trim();
           </span>
         </li>
       ))}
-      <li class="fantasma"><ReliefMark estado="sin relevar" />[otros]<span class="meta meta--dato"> — sin relevar</span></li>
     </ul>
     <p><a href="/es/proyectos/">todos los proyectos →</a></p>
   </section>
@@ -57,7 +56,7 @@ const parrafo = bio?.parrafo?.trim();
   <section class="home-block">
     <h2>publicaciones</h2>
     {pubs.length === 0 && <p class="nota"><em>{ui.es['publications.empty']}</em></p>}
-    <PublicationList items={pubs} lang="es" limit={4} />
+    <PublicationList items={pubs} lang="es" limit={3} />
     <p><a href="/es/publicaciones/">todas las publicaciones →</a></p>
   </section>
 

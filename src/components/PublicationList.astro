@@ -36,6 +36,13 @@ const MARKS = [
   '<circle cx="20" cy="20" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M20 9 v4 M20 27 v4 M9 20 h4 M27 20 h4" stroke="currentColor" stroke-width="1.8"/>',
   '<path d="M20 8 l7 14 h-14 z" fill="currentColor"/><rect x="18.5" y="21" width="3" height="7" fill="currentColor"/>',
 ];
+
+// Logo propio para alguna publicación puntual (excepción, §6). Vive acá y
+// no en publications.json para no tocar el export de Zotero (§7). Clave:
+// id CSL de la publicación.
+const LOGOS: Record<string, string> = {
+  'biografia-ludica-cartografia-2025': '/img/biografias-ludicas-logo.png',
+};
 ---
 
 {
@@ -49,7 +56,11 @@ const MARKS = [
         const meta = [authors(item), y].filter(Boolean).join(' · ');
         return (
           <li class="pub">
-            <svg class="pub-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS[i % MARKS.length]} />
+            {item.id && LOGOS[item.id] ? (
+              <img class="pub-mark pub-mark--logo" src={LOGOS[item.id]} alt="" aria-hidden="true" />
+            ) : (
+              <svg class="pub-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS[i % MARKS.length]} />
+            )}
             <div class="pub-body">
               <cite class="pub-title">{item.title}</cite>
               {meta && <p class="pub-meta">{meta}</p>}

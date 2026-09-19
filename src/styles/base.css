@@ -164,10 +164,29 @@ article:last-of-type { border-bottom: 0; }
 }
 .relief-mark[data-kind='unsurveyed'] { color: var(--color-muted); }
 
-/* Fila fantasma: terreno reservado, [otros]. */
-article.fantasma { border-bottom: 0; }
-article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
-.home-list li.fantasma { color: var(--color-muted); }
+/* Logo propio de un proyecto (excepción puntual, §6): viñeta chica junto al
+   título, del porte del símbolo de estado, no una imagen destacada. */
+.project-logo {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  vertical-align: -0.35em;
+  margin-right: 0.35em;
+  border-radius: 50%;
+}
+
+/* Símbolo de carta como marca distintiva de un proyecto sin logo propio
+   (§6): mismo porte que .project-logo, para que la fila de título no salte
+   de tamaño entre proyectos con y sin imagen. */
+.project-mark {
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  vertical-align: -0.35em;
+  margin-right: 0.35em;
+  color: var(--color-accent);
+  overflow: visible;
+}
 
 /* Barra de escala del pie. */
 .scalebar { display: inline-flex; align-items: center; gap: var(--space-2); }
@@ -228,6 +247,9 @@ article.fantasma h2 { font-size: var(--text-lg); color: var(--color-muted); }
   color: var(--color-pop);
   overflow: visible;
 }
+/* Logo propio de una publicación puntual (excepción, §6), en vez del
+   símbolo que rota. */
+.pub-mark--logo { border-radius: 50%; }
 .pub-body > * + * { margin-top: var(--space-1); }
 .pub-title {
   display: block;
