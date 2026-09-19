@@ -1,11 +1,11 @@
 ---
 # Bio corta: texto de Martín (§2). El nombre no va acá — lo pone el <h1>.
-# `linea` es el lede; `parrafo` desarrolla los dos métodos y la afiliación.
-linea: "Investigo desigualdad lúdica y derecho al juego: quién juega, con qué y en qué condiciones."
+# `linea` es el lede (18/09/2026: derivada de la larga, con la educación
+# sumada como tercer elemento); `parrafo` desarrolla la afiliación (18/09/2026:
+# se sacó la mención a "dos formas concretas" / dispositivos lúdicos).
+linea: "Pienso el juego, el ocio y la educación como dimensiones fundamentales de la experiencia humana."
 parrafo: >-
-  Ese trabajo toma dos formas concretas: biografías lúdicas, para reconstruir
-  cómo se jugó, y dispositivos lúdicos, para abrir situaciones donde jugar sea
-  posible. Soy profesor del Departamento de Educación de la Universidad Católica
+  Soy profesor del Departamento de Educación de la Universidad Católica
   del Uruguay, donde enseño en la Licenciatura en Recreación Educativa y en la
   Licenciatura en Educación, y doctorando en Ocio, Cultura y Comunicación para
   el Desarrollo Humano por la Universidad de Deusto.
