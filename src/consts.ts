@@ -38,6 +38,7 @@ export const CV_URL =
 export const NAV = [
   { key: 'projects', kind: 'route', es: 'proyectos', en: 'projects' },
   { key: 'publications', kind: 'route', es: 'publicaciones', en: 'publications' },
+  { key: 'collaborate', kind: 'route', es: 'colaboremos', en: 'collaborate' },
   { key: 'game', kind: 'route', es: 'juego', en: 'game' },
   { key: 'cv', kind: 'external', es: 'cv', en: 'cv' },
 ] as const;
@@ -45,8 +46,28 @@ export const NAV = [
 /** Ruta a la foto (§10). Retrato en blanco y negro, 453×551. */
 export const PORTRAIT = '/img/martin-perez-pollero.jpg';
 
+/**
+ * Imagen por defecto para og:image/twitter:image, una por idioma (mismo
+ * diseño, tagline traducida). 1200×630. Las páginas pueden pisarla con su
+ * propia `ogImage` si hace falta.
+ */
+export const OG_IMAGE: Record<Locale, string> = {
+  es: '/img/og-es.jpg',
+  en: '/img/og-en.jpg',
+};
+
 /** Correo público: el institucional de la UCU (§2). */
 export const EMAIL = 'martin.perez@ucu.edu.uy';
 
 /** Afiliación actual (§2), para JSON-LD. */
 export const AFFILIATION = 'Universidad Católica del Uruguay';
+
+/**
+ * Capítulo que sustenta el proyecto doctoral (§2, anclaje de
+ * biografias-ludicas.md): Pérez Pollero, M. y Monteagudo, M. J. (2025).
+ * «La biografía lúdica...», en Cartografía lúdica: un mapa vivo por
+ * explorar. Dykinson, pp. 247–265. Página del libro en la editorial
+ * (verificada por ISBN, no hay DOI propio del capítulo).
+ */
+export const BIOGRAFIA_LUDICA_URL =
+  'https://www.dykinson.com/libros/cartografia-ludica-un-mapa-vivo-por-explorar/9791370062736/';

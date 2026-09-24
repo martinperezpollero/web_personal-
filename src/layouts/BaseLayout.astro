@@ -6,7 +6,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import ReliefCanvas from '../components/ReliefCanvas.astro';
 import { alternatePath, getLocaleFromPath, locales } from '../i18n/utils';
 import { ui } from '../i18n/ui';
-import { SITE_NAME, SIGN, AFFILIATION } from '../consts';
+import { SITE_NAME, SIGN, AFFILIATION, OG_IMAGE } from '../consts';
 
 interface Props {
   title: string;
@@ -22,7 +22,7 @@ const path = Astro.url.pathname;
 const lang = getLocaleFromPath(path);
 const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
 const canonical = site + path;
-const ogImageUrl = ogImage ? site + ogImage : undefined;
+const ogImageUrl = site + (ogImage ?? OG_IMAGE[lang]);
 
 // Persona (schema.org). Solo datos verificados del CV (§2). sameAs: perfiles
 // con URL confirmada.
@@ -77,11 +77,14 @@ const jsonld = {
     {description && <meta property="og:description" content={description} />}
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={lang === 'es' ? 'es_UY' : 'en'} />
-    {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
-    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={SITE_NAME} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     {description && <meta name="twitter:description" content={description} />}
-    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   </head>

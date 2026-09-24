@@ -3,6 +3,11 @@
 // Salida estática => no hay servidor que lea cabeceras: se resuelve con un
 // script mínimo en cliente. Es una de las excepciones de JS permitidas
 // (CLAUDE.md §4). Sin JS, el <meta refresh> lleva a /es/ y quedan los dos enlaces.
+// GitHub Pages es hosting estático puro (sin motor de reglas de servidor):
+// no hay forma de emitir un 301/302 real para "/". El <meta refresh content="0">
+// es la mejor aproximación disponible con este hosting — Google lo trata como
+// una redirección a efectos de indexación.
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
 ---
 
 <!doctype html>
@@ -12,9 +17,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Martín Pérez Pollero</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" hreflang="es" href="/es/" />
-    <link rel="alternate" hreflang="en" href="/en/" />
-    <link rel="alternate" hreflang="x-default" href="/es/" />
+    <link rel="canonical" href={`${site}/es/`} />
+    <link rel="alternate" hreflang="es" href={`${site}/es/`} />
+    <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`${site}/es/`} />
     <script is:inline>
       (function () {
         try {
