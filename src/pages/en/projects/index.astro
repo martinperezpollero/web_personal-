@@ -35,7 +35,7 @@ const MARKS: Record<string, string> = {
     projects.map(async (p) => {
       const { Content } = await render(p);
       return (
-        <article>
+        <article id={p.id}>
           <h2>
             {p.data.logo ? (
               <img class="project-logo" src={p.data.logo} alt="" aria-hidden="true" />

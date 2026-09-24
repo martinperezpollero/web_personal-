@@ -1,7 +1,7 @@
 ---
 import { getLocaleFromPath } from '../i18n/utils';
 import ScaleBar from './ScaleBar.astro';
-import { SITE_NAME, CV_URL } from '../consts';
+import { SITE_NAME } from '../consts';
 
 const lang = getLocaleFromPath(Astro.url.pathname);
 const equi = lang === 'es' ? 'equidistancia 10 m' : 'contour interval 10 m';
@@ -11,6 +11,5 @@ const equi = lang === 'es' ? 'equidistancia 10 m' : 'contour interval 10 m';
   <span>{SITE_NAME} · Montevideo</span>
   <span class="site-footer-scale">
     <ScaleBar label={equi} />
-    <a href={CV_URL} rel="noopener">CV · CVUy</a>
   </span>
 </footer>

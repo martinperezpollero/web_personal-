@@ -4,6 +4,7 @@ import Coord from '../../components/Coord.astro';
 import MapLegendGame from '../../components/MapLegendGame.astro';
 import MapTerrainGame from '../../components/MapTerrainGame.astro';
 import { ui } from '../../i18n/ui';
+import { BIOGRAFIA_LUDICA_URL } from '../../consts';
 ---
 
 <BaseLayout
@@ -13,6 +14,12 @@ import { ui } from '../../i18n/ui';
   <Coord fix="hoja 4 · leyenda y terreno" />
   <h1>{ui.es['game.title']}</h1>
   <p class="lede">{ui.es['game.lede']}</p>
+  <p>
+    Este juego nace de la misma pregunta que atraviesa mi investigación
+    doctoral: cómo el jugar se vuelve puerta de entrada a la subjetividad.
+    Desarrollo la idea en{' '}
+    <a href={BIOGRAFIA_LUDICA_URL}>«La biografía lúdica» (Cartografía lúdica, Dykinson, 2025)</a>.
+  </p>
 
   <section class="game-level">
     <p class="game-level-label">{ui.es['game.l1']}</p>

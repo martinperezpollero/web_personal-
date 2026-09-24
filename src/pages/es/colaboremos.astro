@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Coord from '../../components/Coord.astro';
+import { EMAIL } from '../../consts';
+
+// Borrador pendiente de confirmar con Martín: textos antes de publicar (§9).
+const colaborar = [
+  {
+    titulo: 'co-diseñar dispositivos lúdicos',
+    linea: 'Armamos juegos y experiencias a medida con instituciones y equipos, pensados para trabajar un tema concreto.',
+    enlaceTexto: 'kit lúdico Colateral, con la Intendencia de Montevideo',
+    enlaceHref: '/es/proyectos/#kit-co-lateral',
+  },
+  {
+    titulo: 'prototipar propuestas educativas',
+    linea: 'Acompañamos equipos que quieren repensar una propuesta educativa desde el juego y el diseño.',
+    enlaceTexto: 'Eutopía 2035',
+    enlaceHref: '/es/proyectos/#eutopia-2035',
+  },
+  {
+    titulo: 'investigar juntos',
+    linea: 'Sumamos proyectos, coautorías y redes sobre juego, ocio, desigualdad lúdica y biografías lúdicas.',
+    enlaceTexto: 'biografías lúdicas, con María Jesús Monteagudo',
+    enlaceHref: '/es/proyectos/#biografias-ludicas',
+  },
+  {
+    titulo: 'pensar en voz alta',
+    linea: 'Armamos talleres, charlas y encuentros pensados como conversación, no como exposición.',
+    enlaceTexto: 'El juego y lo sagrado',
+    enlaceHref: '/es/proyectos/#el-juego-y-lo-sagrado',
+  },
+];
+---
+
+<BaseLayout
+  title="colaboremos — Martín Pérez Pollero"
+  description="Formas de colaborar con Martín Pérez Pollero: co-diseño de dispositivos lúdicos, prototipado educativo, investigación y talleres."
+>
+  <Coord fix="hoja 5 · rutas compartidas" />
+  <h1>
+    <svg class="page-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M8 8 L32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3" stroke-linecap="round" />
+      <path d="M32 8 L8 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3" stroke-linecap="round" />
+    </svg>
+    colaboremos
+  </h1>
+  <p class="lede">Colaborar es parte fundamental de construir nuevos mapas y explorar nuevos territorios. Acá algunas ideas de cómo podríamos trabajar en conjunto:</p>
+
+  <div class="colab-list">
+    {colaborar.map((c) => (
+      <div class="colab-item">
+        <h2>{c.titulo}</h2>
+        <p>{c.linea} <a href={c.enlaceHref}>{c.enlaceTexto} →</a></p>
+      </div>
+    ))}
+  </div>
+
+  <p>
+    Si tenés una idea, una pregunta o un proyecto en el que el juego pueda sumar,{' '}
+    <a href={`mailto:${EMAIL}`}>escribime</a> y lo pensamos.
+  </p>
+</BaseLayout>

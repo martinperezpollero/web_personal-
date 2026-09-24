@@ -34,7 +34,15 @@ const profiles: { label: string; href?: string; mark: keyof typeof MARKS }[] = [
       <li>
         <svg class="contact-mark" viewBox="0 0 40 40" aria-hidden="true" set:html={MARKS[p.mark]} />
         {p.href ? (
-          <a href={p.href} rel="noopener">{p.label}</a>
+          p.label === 'CVUy' ? (
+            <a href={p.href} target="_blank" rel="noopener">
+              {p.label}
+              <span class="ext-mark" aria-hidden="true">↗</span>
+              <span class="sr-only">{t['cv.newtab']}</span>
+            </a>
+          ) : (
+            <a href={p.href} rel="noopener">{p.label}</a>
+          )
         ) : (
           <>{p.label} — <span class="nota">{t['contact.pending']}</span></>
         )}

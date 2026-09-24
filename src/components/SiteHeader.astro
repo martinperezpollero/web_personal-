@@ -15,7 +15,11 @@ const t = ui[lang];
     {
       NAV.map((item) =>
         item.kind === 'external' ? (
-          <a href={CV_URL} rel="noopener">{t[`nav.${item.key}`]}</a>
+          <a href={CV_URL} target="_blank" rel="noopener">
+            {t[`nav.${item.key}`]}
+            <span class="ext-mark" aria-hidden="true">↗</span>
+            <span class="sr-only">{t['cv.newtab']}</span>
+          </a>
         ) : (
           <a href={`/${lang}/${item[lang]}/`}>{t[`nav.${item.key}`]}</a>
         )

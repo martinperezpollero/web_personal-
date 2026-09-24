@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Coord from '../../components/Coord.astro';
+import { EMAIL } from '../../consts';
+
+// Draft, pending Martín's sign-off (§9). Written directly in English, not
+// translated (§5).
+const collaborate = [
+  {
+    titulo: 'co-design play-based tools',
+    linea: 'We build games and experiences with institutions and teams, tailored to work through a specific issue.',
+    enlaceTexto: 'Kit lúdico Colateral, with the Municipality of Montevideo',
+    enlaceHref: '/en/projects/#kit-co-lateral',
+  },
+  {
+    titulo: 'prototype educational proposals',
+    linea: 'We work alongside teams who want to rethink an educational proposal through play and design.',
+    enlaceTexto: 'Eutopía 2035',
+    enlaceHref: '/en/projects/#eutopia-2035',
+  },
+  {
+    titulo: 'research together',
+    linea: 'We take on projects, co-authorships and networks on play, leisure, ludic inequality and ludic biographies.',
+    enlaceTexto: 'Ludic biographies, with María Jesús Monteagudo',
+    enlaceHref: '/en/projects/#biografias-ludicas',
+  },
+  {
+    titulo: 'think out loud',
+    linea: 'We put together workshops, talks and gatherings built as conversation, not as a lecture.',
+    enlaceTexto: 'El juego y lo sagrado',
+    enlaceHref: '/en/projects/#el-juego-y-lo-sagrado',
+  },
+];
+---
+
+<BaseLayout
+  title="collaborate — Martín Pérez Pollero"
+  description="Ways to collaborate with Martín Pérez Pollero: co-designing play-based tools, prototyping education, research and workshops."
+>
+  <Coord fix="sheet 5 · shared routes" />
+  <h1>
+    <svg class="page-mark" viewBox="0 0 40 40" aria-hidden="true">
+      <path d="M8 8 L32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3" stroke-linecap="round" />
+      <path d="M32 8 L8 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-dasharray="4 3" stroke-linecap="round" />
+    </svg>
+    collaborate
+  </h1>
+  <p class="lede">Collaborating is a key part of building new maps and exploring new territories. Here are some ideas for how we could work together:</p>
+
+  <div class="colab-list">
+    {collaborate.map((c) => (
+      <div class="colab-item">
+        <h2>{c.titulo}</h2>
+        <p>{c.linea} <a href={c.enlaceHref}>{c.enlaceTexto} →</a></p>
+      </div>
+    ))}
+  </div>
+
+  <p>
+    If you have an idea, a question, or a project where play could help,{' '}
+    <a href={`mailto:${EMAIL}`}>write to me</a> and we'll think it through together.
+  </p>
+</BaseLayout>

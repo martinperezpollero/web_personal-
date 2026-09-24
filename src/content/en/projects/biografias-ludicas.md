@@ -13,6 +13,7 @@ anclaje:
     propuesta teórico-metodológica para el estudio del jugar y de la
     subjetividad», en Cartografía lúdica: un mapa vivo por explorar. Dykinson,
     pp. 247–265.
+  url: "https://www.dykinson.com/libros/cartografia-ludica-un-mapa-vivo-por-explorar/9791370062736/"
 orden: 1
 borrador: false
 ---

@@ -4,6 +4,7 @@ import Coord from '../../components/Coord.astro';
 import MapLegendGame from '../../components/MapLegendGame.astro';
 import MapTerrainGame from '../../components/MapTerrainGame.astro';
 import { ui } from '../../i18n/ui';
+import { BIOGRAFIA_LUDICA_URL } from '../../consts';
 ---
 
 <BaseLayout
@@ -13,6 +14,12 @@ import { ui } from '../../i18n/ui';
   <Coord fix="sheet 4 · legend and terrain" />
   <h1>{ui.en['game.title']}</h1>
   <p class="lede">{ui.en['game.lede']}</p>
+  <p>
+    This game grows out of the same question running through my doctoral
+    research: how playing becomes a way into subjectivity. I develop the
+    idea in{' '}
+    <a href={BIOGRAFIA_LUDICA_URL}>«La biografía lúdica» (Cartografía lúdica, Dykinson, 2025)</a>.
+  </p>
 
   <section class="game-level">
     <p class="game-level-label">{ui.en['game.l1']}</p>
