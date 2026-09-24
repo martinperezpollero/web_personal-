@@ -40,15 +40,17 @@ const proyecto = z.object({
 });
 
 /*
-  Bio (CLAUDE.md §2: tres longitudes × dos idiomas). Un archivo por idioma:
-  `es/bio.md` y `en/bio.md`. Las dos cortas van en el frontmatter; la larga
-  (prensa, comités) es el cuerpo del Markdown. Todos los campos opcionales:
-  mientras están vacíos, la web muestra un TODO en su lugar. El inglés se
-  escribe, no se traduce (§5).
+  Bio (CLAUDE.md §2). Un archivo por idioma: `es/bio.md` y `en/bio.md`.
+  linea/parrafo son en primera persona (home); corta es en tercera persona,
+  ~50 palabras, pensada para que la copien comités y organizadores de
+  eventos; larga (prensa, comités) es el cuerpo del Markdown. Todos los
+  campos opcionales: mientras están vacíos, la web muestra un TODO en su
+  lugar. El inglés se escribe, no se traduce (§5).
 */
 const bio = z.object({
   linea: z.string().optional(),
   parrafo: z.string().optional(),
+  corta: z.string().optional(),
 });
 
 export const collections = {

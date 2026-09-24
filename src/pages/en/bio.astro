@@ -3,13 +3,15 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Coord from '../../components/Coord.astro';
 import Portrait from '../../components/Portrait.astro';
+import CopyButton from '../../components/CopyButton.astro';
 import { ui } from '../../i18n/ui';
-import { BASE_COORD } from '../../consts';
+import { BASE_COORD, PORTRAIT } from '../../consts';
 
 const entry = (await getCollection('bioEn'))[0];
 const { Content } = entry ? await render(entry) : { Content: null };
 const linea = entry?.data.linea?.trim();
 const parrafo = entry?.data.parrafo?.trim();
+const short = entry?.data.corta?.trim();
 const hasLong = !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
 ---
 
@@ -24,11 +26,37 @@ const hasLong = !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
       {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.en['home.bio.linea']}</em></p>}
       {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.en['home.bio.parrafo']}</em></p>}
     </div>
-    <Portrait size="lg" />
+    <div>
+      <Portrait size="lg" />
+      <p class="meta"><a href={PORTRAIT} download>{ui.en['bio.photo.download']}</a></p>
+    </div>
   </div>
 
   <section class="home-block">
-    <h2>long</h2>
-    {hasLong && Content ? <Content /> : <p class="nota"><em>{ui.en['bio.larga.todo']}</em></p>}
+    <div class="section-head">
+      <h2>short</h2>
+      {short && <CopyButton target="bio-corta" label={ui.en['copy.button']} labelDone={ui.en['copy.done']} />}
+    </div>
+    {short ? <p id="bio-corta">{short}</p> : <p class="nota"><em>{ui.en['bio.corta.todo']}</em></p>}
+  </section>
+
+  <section class="home-block">
+    <div class="section-head">
+      <h2>long</h2>
+      {hasLong && (
+        <CopyButton target="bio-larga" label={ui.en['copy.button']} labelDone={ui.en['copy.done']} />
+      )}
+    </div>
+    {
+      hasLong && Content ? (
+        <div id="bio-larga">
+          <Content />
+        </div>
+      ) : (
+        <p class="nota">
+          <em>{ui.en['bio.larga.todo']}</em>
+        </p>
+      )
+    }
   </section>
 </BaseLayout>

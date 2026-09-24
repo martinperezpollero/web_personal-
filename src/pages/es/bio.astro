@@ -3,13 +3,15 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Coord from '../../components/Coord.astro';
 import Portrait from '../../components/Portrait.astro';
+import CopyButton from '../../components/CopyButton.astro';
 import { ui } from '../../i18n/ui';
-import { BASE_COORD } from '../../consts';
+import { BASE_COORD, PORTRAIT } from '../../consts';
 
 const entry = (await getCollection('bioEs'))[0];
 const { Content } = entry ? await render(entry) : { Content: null };
 const linea = entry?.data.linea?.trim();
 const parrafo = entry?.data.parrafo?.trim();
+const corta = entry?.data.corta?.trim();
 const tieneLarga = !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
 ---
 
@@ -24,11 +26,37 @@ const tieneLarga = !!entry?.body?.replace(/<!--[\s\S]*?-->/g, '').trim();
       {linea ? <p class="lede">{linea}</p> : <p class="lede nota"><em>{ui.es['home.bio.linea']}</em></p>}
       {parrafo ? <p>{parrafo}</p> : <p class="nota"><em>{ui.es['home.bio.parrafo']}</em></p>}
     </div>
-    <Portrait size="lg" />
+    <div>
+      <Portrait size="lg" />
+      <p class="meta"><a href={PORTRAIT} download>{ui.es['bio.photo.download']}</a></p>
+    </div>
   </div>
 
   <section class="home-block">
-    <h2>larga</h2>
-    {tieneLarga && Content ? <Content /> : <p class="nota"><em>{ui.es['bio.larga.todo']}</em></p>}
+    <div class="section-head">
+      <h2>corta</h2>
+      {corta && <CopyButton target="bio-corta" label={ui.es['copy.button']} labelDone={ui.es['copy.done']} />}
+    </div>
+    {corta ? <p id="bio-corta">{corta}</p> : <p class="nota"><em>{ui.es['bio.corta.todo']}</em></p>}
+  </section>
+
+  <section class="home-block">
+    <div class="section-head">
+      <h2>larga</h2>
+      {tieneLarga && (
+        <CopyButton target="bio-larga" label={ui.es['copy.button']} labelDone={ui.es['copy.done']} />
+      )}
+    </div>
+    {
+      tieneLarga && Content ? (
+        <div id="bio-larga">
+          <Content />
+        </div>
+      ) : (
+        <p class="nota">
+          <em>{ui.es['bio.larga.todo']}</em>
+        </p>
+      )
+    }
   </section>
 </BaseLayout>

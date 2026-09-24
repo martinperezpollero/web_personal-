@@ -9,6 +9,15 @@ parrafo: >-
   del Uruguay, donde enseño en la Licenciatura en Recreación Educativa y en la
   Licenciatura en Educación, y doctorando en Ocio, Cultura y Comunicación para
   el Desarrollo Humano por la Universidad de Deusto.
+# `corta`: tercera persona, para prensa/comités. Texto de Martín (23/09/2026),
+# definitivo.
+corta: >-
+  Martín Pérez Pollero es profesor del Departamento de Educación de la
+  Universidad Católica del Uruguay, donde enseña en las licenciaturas en
+  Recreación Educativa y en Educación, y doctorando en Ocio, Cultura y
+  Comunicación para el Desarrollo Humano (Universidad de Deusto). Investiga
+  desigualdad lúdica y derecho al juego, con foco en biografías lúdicas y
+  diseño de dispositivos lúdicos.
 ---
 
 <!-- Texto de Martín (18/09/2026), definitivo. Nota para cuando se revise el

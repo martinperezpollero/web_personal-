@@ -4,6 +4,9 @@
 # a native speaker: a person must review this before publishing (§5).
 linea: "I think of play, leisure and education as fundamental dimensions of human experience."
 parrafo: "I'm on the faculty of the Department of Education at the Universidad Católica del Uruguay, where I teach in the BA in Educational Recreation and the BA in Education, and I'm doing a PhD in Leisure, Culture and Communication for Human Development at the University of Deusto."
+# `corta`: third person, for press/committees. Martín's own text (23/09/2026),
+# definitive — written by him directly in English.
+corta: "Martín Pérez Pollero is a faculty member in the Department of Education at the Universidad Católica del Uruguay, where he teaches in the Educational Recreation and Education degree programs, and a PhD candidate in Leisure, Culture and Communication for Human Development (University of Deusto). His research focuses on ludic inequality and the right to play, with an emphasis on ludic biographies and the design of play-based interventions."
 ---
 
 <!-- DRAFT — pending Martín's final read and a native-speaker check (§5). -->
