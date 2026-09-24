@@ -5,6 +5,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ReliefCanvas from '../components/ReliefCanvas.astro';
 import { alternatePath, getLocaleFromPath, locales } from '../i18n/utils';
+import { ui } from '../i18n/ui';
 import { SITE_NAME, SIGN, AFFILIATION } from '../consts';
 
 interface Props {
@@ -85,7 +86,7 @@ const jsonld = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Saltar al contenido</a>
+    <a class="skip-link" href="#main">{ui[lang]['skip.link']}</a>
     <ReliefCanvas />
     {!bare && <SiteHeader />}
     <main id="main" class="container">

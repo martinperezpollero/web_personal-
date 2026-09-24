@@ -1,7 +1,7 @@
 ---
 titulo: "Kit lúdico Colateral"
 estado: "Finished"
-periodo: "Municipality of Montevideo and UCU, 2024–2026"
+periodo: "Municipality of Montevideo and UCU — designed 2024–2025, piloted summer 2025–2026"
 resumen: >-
   A play-based kit for drug-use prevention with adolescents, co-designed
   with the Municipality of Montevideo and UCU (2024–2025): five box games

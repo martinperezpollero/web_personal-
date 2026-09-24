@@ -1,7 +1,7 @@
 ---
 titulo: "Kit lúdico Colateral"
 estado: "Finalizado"
-periodo: "Intendencia de Montevideo y UCU, 2024–2026"
+periodo: "Intendencia de Montevideo y UCU — diseño 2024–2025, piloto verano 2025–2026"
 resumen: >-
   Kit lúdico para la prevención del consumo de drogas con adolescentes,
   co-diseñado entre la Intendencia de Montevideo y la UCU (2024–2025):

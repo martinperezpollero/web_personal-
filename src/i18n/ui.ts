@@ -30,15 +30,16 @@ export const ui = {
     'game.lede': 'Dos ejercicios breves sobre cartografía: leer una leyenda y reconocer un terreno.',
     'game.l1': 'nivel 1 — leyenda',
     'game.l2': 'nivel 2 — el terreno',
-    'game.body':
-      'Primera ronda de un juego sobre cartografías lúdicas. Si crece (más rondas, niveles), pasa a satélite (§1, §9): repo y diseño propios, y el hub queda con el enlace.',
+    'game.body': 'Primera ronda de un juego sobre cartografías lúdicas. Vienen más niveles.',
     'portrait.alt': 'Martín Pérez Pollero, retrato en blanco y negro',
+    'skip.link': 'Saltar al contenido',
   },
   en: {
     'lang.label': 'EN',
     'nav.aria': 'Main navigation',
     'nav.projects': 'projects',
     'nav.publications': 'publications',
+    'nav.game': 'game',
     'nav.cv': 'cv',
     'projects.empty': 'TODO: add project entries (CLAUDE.md §10). Nothing published yet.',
     'publications.empty':
@@ -57,9 +58,9 @@ export const ui = {
     'game.lede': 'Two short exercises about cartography: reading a legend and recognising a terrain.',
     'game.l1': 'level 1 — legend',
     'game.l2': 'level 2 — the terrain',
-    'game.body':
-      'The first round of a game about playful cartography. If it grows (more rounds, levels), it becomes a satellite (§1, §9): its own repo and design, with the hub keeping the link.',
+    'game.body': 'The first round of a game about playful cartography. More levels are coming.',
     'portrait.alt': 'Martín Pérez Pollero, black-and-white portrait',
+    'skip.link': 'Skip to content',
   },
 } as const satisfies Record<Locale, Record<string, string>>;
 
