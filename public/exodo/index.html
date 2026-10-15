@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="El Éxodo de las Sillas: resolvé el misterio y descubrí el bando del cumpleaños de Martín.">
+<meta property="og:title" content="El Éxodo de las Sillas">
+<meta property="og:description" content="23 de octubre de 1811: comenzaba el Éxodo del Pueblo Oriental. Resolvé el misterio.">
+<meta property="og:image" content="https://martinperezpollero.com/exodo/exodo.jpg">
+<meta property="og:url" content="https://martinperezpollero.com/exodo/">
+<meta property="og:type" content="website">
+<style>[hidden]{display:none!important}body{margin:0}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}</style>
+<title>El Éxodo de las Sillas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: sala de museo. El óleo enmarcado en oro es el juego; debajo, la cartela con el diálogo y la alforja con los objetos. Look único: pared de nogal y pergamino. */
+:root{
+  --wall:#1d1712;
+  --wall-2:#2a2119;
+  --gold:#c39a45;
+  --gold-dark:#6e4e1a;
+  --parch:#efe3c4;
+  --parch-2:#e2d1a8;
+  --ink:#2b1f14;
+  --sepia:#7a5a36;
+  --red:#9e3424;
+  --dim:#bfa982;
+  --display:"IM Fell English SC", "Iowan Old Style", Georgia, serif;
+  --fell:"IM Fell English", "Iowan Old Style", Georgia, serif;
+  --body:"EB Garamond", Garamond, Georgia, serif;
+  color-scheme:dark;
+}
+html,body{background:var(--wall);color:var(--parch)}
+body{font-family:var(--body);font-size:18px;line-height:1.4;background:radial-gradient(ellipse at 50% 0%,var(--wall-2),var(--wall) 70%)}
+.wrap{max-width:1120px;margin:0 auto;padding:16px;padding-block:20px 36px;display:flex;flex-direction:column;gap:14px}
+
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:10px 20px}
+.eyebrow{font-family:var(--fell);font-style:italic;color:var(--dim);font-size:16px;margin:0}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,46px);line-height:1;margin:2px 0 0;letter-spacing:.01em;color:var(--parch);text-wrap:balance}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font-family:var(--display);font-size:16px;background:transparent;color:var(--parch);border:1px solid var(--gold);padding:6px 14px;cursor:pointer;letter-spacing:.03em}
+.btn:hover{background:rgba(195,154,69,.15)}
+.btn[aria-pressed="true"]{background:var(--gold);color:var(--ink)}
+.btn:focus-visible,.item:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+.frame{padding:clamp(8px,1.6vw,18px);background:linear-gradient(135deg,#e0b75a,#8a6420 30%,#d9a843 55%,#7a561a 80%,#c39a45);box-shadow:inset 0 0 0 2px #4a3410,inset 0 0 0 5px #d9b766,0 18px 40px rgba(0,0,0,.65)}
+.scroller{overflow-x:auto;overflow-y:hidden;border:2px solid #2b1d08;background:#000;-webkit-overflow-scrolling:touch}
+.canvas{position:relative;width:100%;aspect-ratio:2000/1116;overflow:hidden}
+.art{position:absolute;inset:0;transform-origin:50% 60%;animation:breathe 26s ease-in-out infinite alternate}
+@keyframes breathe{to{transform:scale(1.018)}}
+.art img{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
+.sky{position:absolute;left:0;top:0;width:100%;height:22%;overflow:hidden;pointer-events:none;opacity:.32;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+.sky i{position:absolute;inset:0 auto 0 0;width:200%;background:url(exodo.jpg) repeat-x 0 0/50% auto;animation:drift 160s linear infinite}
+@keyframes drift{to{transform:translateX(-50%)}}
+.shade{position:absolute;left:0;right:0;top:24%;bottom:0;pointer-events:none;mix-blend-mode:multiply;opacity:.55;
+  background:radial-gradient(ellipse 22% 30% at 20% 50%,rgba(40,30,20,.45),transparent 70%),radial-gradient(ellipse 18% 26% at 70% 30%,rgba(40,30,20,.35),transparent 70%);
+  background-size:100% 100%;animation:shade 48s linear infinite}
+@keyframes shade{from{transform:translateX(-40%)}to{transform:translateX(60%)}}
+.ball{position:absolute;left:42%;top:44.8%;width:6.25%;height:18.4%;pointer-events:none;
+  background:url(exodo.jpg) no-repeat 44.8% 54.88%/1600% auto;
+  -webkit-mask-image:radial-gradient(ellipse 48% 46% at 50% 50%,#000 70%,transparent 100%);mask-image:radial-gradient(ellipse 48% 46% at 50% 50%,#000 70%,transparent 100%);
+  animation:bob 2.8s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-2.2%) rotate(-1.5deg)}}
+.spots{position:absolute;inset:0;width:100%;height:100%}
+.spot{fill:transparent;stroke:transparent;stroke-width:4;cursor:pointer;transition:fill .2s,stroke .2s}
+.spot:hover,.spot:focus-visible{fill:rgba(239,227,196,.10);stroke:rgba(239,227,196,.85);stroke-dasharray:14 8;outline:none}
+.spots{-webkit-tap-highlight-color:transparent}
+.mark{fill:none;stroke:var(--gold);stroke-width:5;pointer-events:none;transform-box:fill-box;transform-origin:center;animation:pulse 2.2s ease-out infinite}
+.dot{fill:var(--gold);stroke:#2b1d08;stroke-width:3;pointer-events:none}
+@keyframes pulse{from{transform:scale(.7);opacity:1}to{transform:scale(2.4);opacity:0}}
+.show .spot{stroke:rgba(239,227,196,.7);stroke-dasharray:14 8}
+.spot.lead{animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{fill:rgba(255,214,130,.28);stroke:var(--gold);stroke-width:9;stroke-dasharray:none}}
+.act.lead{animation:blinkb 1.2s ease-in-out infinite}
+@keyframes blinkb{50%{background:var(--gold);border-color:var(--gold)}}
+.av.wait{opacity:.4}
+.spot.talk{stroke:var(--gold);stroke-dasharray:none;stroke-width:6;fill:rgba(195,154,69,.12)}
+.tip{position:absolute;pointer-events:none;font-family:var(--display);font-size:15px;background:rgba(29,23,18,.88);color:var(--parch);border:1px solid var(--gold);padding:2px 10px;white-space:nowrap;transform:translate(-50%,-140%)}
+.marching .spots,.marching .tip{display:none}
+.marching .art{animation:march 5.5s ease-in forwards}
+@keyframes march{to{transform:scale(1.7);transform-origin:76% 30%;filter:sepia(.4) brightness(1.15)}}
+
+.intro{position:fixed;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(20,15,10,.82);overflow:auto}
+.edict{background:var(--parch);color:var(--ink);max-width:460px;padding:20px 24px;box-shadow:0 10px 30px rgba(0,0,0,.6);display:flex;flex-direction:column;gap:10px;text-align:center;border:1px solid var(--sepia)}
+.edict h2{font-family:var(--display);font-weight:400;font-size:clamp(24px,3.4vw,34px);margin:0;line-height:1.05}
+.edict p{margin:0;font-size:clamp(16px,1.9vw,19px)}
+.edict .date{font-family:var(--display);letter-spacing:.22em;text-transform:uppercase;font-size:14px;color:var(--red)}
+.edict .go{align-self:center;background:var(--red);border-color:var(--red);color:var(--parch);font-size:18px;padding:8px 20px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.mode{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 8px;border:1px solid var(--red);background:transparent;color:var(--ink);cursor:pointer;font-family:var(--body)}
+.mode strong{font-family:var(--display);font-weight:400;font-size:18px;color:var(--red);line-height:1.05}
+.mode span{font-size:14px;line-height:1.2;color:var(--sepia)}
+.mode.easy{background:var(--red);border-color:var(--red)}
+.mode.easy strong{color:var(--parch)}
+.mode.easy span{color:#f1d9c9}
+.mode:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.below{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:14px}
+@media (max-width:760px){.below{grid-template-columns:1fr}}
+.cartela{background:var(--parch);color:var(--ink);padding:14px 18px;border:1px solid var(--sepia);min-height:7.5em;box-shadow:inset 0 0 40px rgba(122,90,54,.25)}
+.who{font-family:var(--display);font-size:18px;color:var(--red);margin:0 0 4px;letter-spacing:.02em}
+.line{margin:0;font-size:clamp(18px,2vw,21px);font-family:var(--fell)}
+.line b{font-family:var(--body);font-weight:600;font-style:normal}
+.alforja{border:1px solid var(--gold-dark);padding:12px 14px;background:rgba(0,0,0,.2);display:flex;flex-direction:column;gap:8px}
+.alforja h3{font-family:var(--display);font-weight:400;font-size:18px;margin:0;color:var(--gold)}
+.alforja .help{margin:0;font-family:var(--fell);font-style:italic;font-size:15px;color:var(--dim)}
+.items{display:flex;flex-wrap:wrap;gap:8px}
+.item{display:flex;flex-direction:column;align-items:center;gap:4px;width:84px;padding:6px 4px;background:var(--wall-2);border:1px solid var(--gold-dark);color:var(--parch);font-family:var(--body);font-size:14px;line-height:1.1;cursor:pointer;text-align:center}
+.item.sel{border-color:var(--gold);background:#4a3618;box-shadow:0 0 0 2px var(--gold)}
+.thumb{width:56px;height:56px;background-repeat:no-repeat;border:1px solid #000}
+.thumb svg{width:56px;height:56px;display:block}
+.empty{font-family:var(--fell);font-style:italic;color:var(--dim);font-size:16px}
+
+.veil{position:fixed;inset:0;z-index:10;background:rgba(15,11,8,.82);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:16px;padding-block:24px}
+.bando{position:relative;background:var(--parch);color:var(--ink);max-width:620px;width:100%;padding:clamp(20px,4vw,40px);border:1px solid var(--sepia);box-shadow:0 0 0 6px var(--parch-2),0 0 0 7px var(--sepia),0 24px 60px rgba(0,0,0,.7);animation:unroll 1.1s ease-out both;display:flex;flex-direction:column;gap:14px}
+@keyframes unroll{from{clip-path:inset(0 0 100% 0);opacity:.4}to{clip-path:inset(0 0 0 0);opacity:1}}
+.bando .kicker{font-family:var(--display);text-align:center;letter-spacing:.3em;font-size:15px;color:var(--sepia);margin:0}
+.bando h2{font-family:var(--display);font-weight:400;text-align:center;font-size:clamp(34px,7vw,58px);line-height:.95;margin:0}
+.bando .from{font-family:var(--fell);font-style:italic;text-align:center;margin:0;font-size:19px}
+.bando hr{border:0;border-top:1px solid var(--sepia);width:40%;margin:2px auto}
+.bando .lead{font-family:var(--fell);font-size:20px;margin:0;text-align:justify;hyphens:auto}
+.arts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.arts li{display:grid;grid-template-columns:7.2em 1fr;gap:4px 12px;align-items:baseline;font-size:19px}
+.arts .n{font-family:var(--display);color:var(--red);font-size:16px}
+.arts span{min-width:0}
+.blank{display:inline-block;min-width:9em;border-bottom:2px dotted var(--sepia);color:var(--sepia);font-style:italic;font-size:15px;line-height:1.1}
+.msg{font-family:var(--fell);font-style:italic;font-size:20px;margin:0;border-left:3px solid var(--red);padding-left:12px}
+.firma{text-align:right;font-family:var(--fell);font-size:18px;margin:0}
+.firma strong{font-family:var(--display);font-weight:400;font-size:24px;display:block}
+.seal{position:absolute;right:clamp(10px,3vw,26px);top:clamp(10px,3vw,26px);width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c2493a,#7c1f15);color:#f3d9c4;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:13px;text-align:center;line-height:1;transform:rotate(-12deg);box-shadow:0 2px 4px rgba(0,0,0,.4)}
+.rsvp{border-top:1px solid var(--sepia);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.rsvp h3{font-family:var(--display);font-weight:400;font-size:22px;margin:0}
+.fields{display:flex;flex-wrap:wrap;gap:10px}
+.fields label{display:flex;flex-direction:column;gap:2px;font-family:var(--display);font-size:14px;color:var(--sepia);flex:1 1 160px;min-width:0}
+.fields input{font-family:var(--body);font-size:18px;padding:6px 8px;border:1px solid var(--sepia);background:#fbf5e4;color:var(--ink);width:100%;box-sizing:border-box}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.bando .btn{color:var(--ink);border-color:var(--ink);text-decoration:none;display:inline-flex;align-items:center}
+.bando .btn.wa{background:var(--red);border-color:var(--red);color:var(--parch)}
+.bando .btn:hover{background:rgba(43,31,20,.08)}
+.bando .btn.wa:hover{background:#b23d2b}
+.note{font-size:15px;font-style:italic;color:var(--sepia);margin:0}
+@media (max-width:520px){.arts li{grid-template-columns:1fr}.seal{position:static;align-self:center;width:56px;height:56px;font-size:11px;transform:rotate(-8deg)}}
+/* ---------- Modo celular: cámara sobre el óleo + círculos de personajes ---------- */
+.mob{display:none}
+html.m{height:100%;box-sizing:border-box}
+html.m body{height:100%;overflow:hidden}
+html.m .wrap{display:none}
+html.m .mob{display:flex;flex-direction:column;height:100%}
+.mbar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 16px;background:var(--wall);border-bottom:1px solid var(--gold-dark)}
+.mbar h1{font-size:21px;margin:0}
+.mbar .tools .btn{font-size:14px;padding:4px 10px}
+.cam{position:relative;flex:1;min-height:0;background:#000 url(exodo.jpg) no-repeat;transition:background-size 1.3s cubic-bezier(.5,0,.25,1),background-position 1.3s cubic-bezier(.5,0,.25,1)}
+.cam.wide{transition-duration:3.2s}
+.mcard{position:absolute;left:10px;right:10px;bottom:10px;max-height:52%;overflow:auto;background:rgba(239,227,196,.96);color:var(--ink);padding:10px 14px 12px;display:flex;flex-direction:column;gap:6px;box-shadow:0 6px 18px rgba(0,0,0,.55);border:1px solid var(--sepia)}
+.mcard .who{font-size:16px;margin:0}
+.mcard .line{font-size:17px;line-height:1.28}
+.acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+.act{font-family:var(--display);font-size:14px;padding:6px 10px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.act.give{background:var(--red);border-color:var(--red);color:var(--parch)}
+.act .thumb{width:24px;height:24px;border:0}
+.act .thumb svg{width:24px;height:24px}
+.dock{flex:none;display:flex;align-items:center;gap:8px;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));background:var(--wall);border-top:1px solid var(--gold-dark);overflow-x:auto}
+.av{flex:none;width:52px;display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;padding:4px 0 0;color:var(--dim);font-family:var(--body);font-size:12px;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.av i{display:block;width:44px;height:44px;border-radius:50%;background:#000 url(exodo.jpg) no-repeat;box-shadow:0 0 0 2px var(--wall),0 0 0 4px var(--gold)}
+.av.done i{box-shadow:0 0 0 2px var(--wall),0 0 0 4px #4a3e30;filter:grayscale(.85) brightness(.7)}
+.av.next i{animation:ring 1.6s ease-in-out infinite}
+@keyframes ring{50%{box-shadow:0 0 0 2px var(--wall),0 0 0 7px var(--red)}}
+.av.on{color:var(--parch);font-weight:600}
+.bag{margin-left:auto;flex:none;position:relative;width:52px;height:52px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-family:var(--display);font-size:12px;line-height:1;cursor:pointer}
+.bag b{position:absolute;top:-8px;right:-8px;min-width:20px;height:20px;border-radius:10px;background:var(--red);color:var(--parch);font:600 12px/20px var(--body)}
+.bagp{position:absolute;left:10px;right:10px;bottom:10px;background:var(--wall-2);border:1px solid var(--gold);padding:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 6px 18px rgba(0,0,0,.6)}
+.bagp h3{font-family:var(--display);font-weight:400;font-size:17px;color:var(--gold);margin:0}
+.bagp .items{display:flex;flex-wrap:wrap;gap:8px}
+.bagp .item{cursor:default}
+.bagp .close{align-self:flex-start}
+html.m .intro{align-items:flex-end;padding:16px;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));background:#000 url(exodo.jpg) no-repeat 0 0/auto 100%;animation:pan 24s ease-in-out infinite alternate}
+html.m .intro::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(20,15,10,.1),rgba(20,15,10,.65))}
+html.m .edict{position:relative;padding:16px 18px;gap:8px}
+html.m .edict h2{font-size:25px}
+html.m .edict p{font-size:16px}
+@keyframes pan{to{background-position:100% 0}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.marching .art{transform:scale(1.3)}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div>
+      <p class="eyebrow">Óleo sobre tela · Banda Oriental, octubre de 2026</p>
+      <h1>El Éxodo de las Sillas</h1>
+    </div>
+    <div class="tools">
+      <button class="btn" id="show" aria-pressed="false">Ver personajes</button>
+      <button class="btn" id="hint">Pista</button>
+      <button class="btn" id="mute" aria-pressed="false">Silenciar</button>
+    </div>
+  </header>
+
+  <div class="frame">
+    <div class="scroller">
+      <div class="canvas" id="canvas">
+        <div class="art">
+          <img src="exodo.jpg" alt="Caravana de gauchos, paisanas y carretas cruzando el campo, cargando reposeras de playa" width="2000" height="1116">
+          <div class="sky"><i></i></div>
+          <div class="shade"></div>
+          <div class="ball"></div>
+          <svg class="spots" id="spots" viewBox="0 0 2000 1116" preserveAspectRatio="none"><g id="hit"></g><g id="marks"></g></svg>
+        </div>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="below">
+    <div class="cartela" aria-live="polite">
+      <p class="who" id="who">El cuadro</p>
+      <p class="line" id="line">Una caravana cruza el campo. Nadie sabe bien a dónde va, pero todos llevan reposera.</p>
+    </div>
+    <div class="alforja">
+      <h3>La alforja</h3>
+      <p class="help" id="help">Tocá un objeto y después a quien quieras dárselo.</p>
+      <div class="items" id="items"></div>
+    </div>
+  </div>
+</div>
+
+<div class="mob" id="mob">
+  <div class="mbar">
+    <h1>El Éxodo de las Sillas</h1>
+    <div class="tools">
+      <button class="btn" id="m-hint">Pista</button>
+      <button class="btn" id="m-mute" aria-pressed="false">Sonido</button>
+    </div>
+  </div>
+  <div class="cam" id="cam" role="img" aria-label="Detalle del cuadro">
+    <div class="mcard" id="mcard" aria-live="polite">
+      <p class="who" id="m-who">Martín</p>
+      <p class="line" id="m-line">La marcha avanza.</p>
+      <div class="acts" id="acts"></div>
+    </div>
+    <div class="bagp" id="bagp" hidden>
+      <h3>La alforja</h3>
+      <div class="items" id="m-items"></div>
+      <button class="act close" id="bag-close">Cerrar</button>
+    </div>
+  </div>
+  <div class="dock" id="dock"></div>
+</div>
+
+<div class="intro" id="intro">
+  <div class="edict">
+    <p class="date">23 de octubre de 1811</p>
+    <h2>Comenzaba el Éxodo del Pueblo Oriental</h2>
+    <p>215 años después, el pueblo vuelve a marchar. Nadie sabe bien a dónde, ni cuándo, ni por qué todos cargan una silla. Algunos dicen que la fecha no es casualidad…</p>
+    <p>La respuesta está escrita en un <b>bando secreto</b>. Solo podrá leerlo quien resuelva el misterio.</p>
+    <div class="modes">
+      <button class="mode easy" data-easy="1"><strong>Marcha tranquila</strong><span>3 personajes, en un minuto</span></button>
+      <button class="mode" data-easy=""><strong>Marcha completa</strong><span>5 personajes y más vueltas</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="veil" id="veil" hidden></div>
+
+<script>
+/* ===== Datos del bando: completá lo que falta. Lo vacío se ve como una línea punteada. ===== */
+const CONFIG = {
+  nombre: "Martín",
+  edad: "41",
+  cumple: "viernes 23 de octubre",
+  festejo: "sábado 24 de octubre, a las 13 h",
+  direccion: "Luis Lamas 3330, ap. 104",
+  whatsapp: "59899921343"   // con código de país, solo dígitos
+};
+/* ========================================================================================= */
+
+const W = 2000, H = 1116;
+const SPOTS = [
+  {id:"jefe", n:"Martín", p:[[1055,305],[1205,305],[1215,440],[1290,420],[1325,560],[1260,600],[1215,660],[1200,860],[1140,860],[1150,700],[1060,700],[1050,800],[1030,790],[1020,640],[1000,540],[1050,470]]},
+  {id:"abuela", n:"La Moni", r:[372,515,155,445]},
+  {id:"paisano", n:"Juancho", r:[75,480,180,440]},
+  {id:"gaucho", n:"El gaucho de la pelota", r:[840,470,215,470]},
+  {id:"gurises", n:"Los gurises", r:[478,655,245,350]}
+];
+const NAME = Object.fromEntries(SPOTS.map(s=>[s.id,s.n]));
+
+const ITEMS = {
+  salvo:{n:"Salvoconducto", svg:`<svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#3a2a1a"/><rect x="12" y="10" width="32" height="36" fill="#efe3c4"/><rect x="9" y="8" width="38" height="5" rx="2.5" fill="#d9c79c"/><rect x="9" y="43" width="38" height="5" rx="2.5" fill="#d9c79c"/><path d="M16 19h24M16 24h24M16 29h18" stroke="#7a5a36" stroke-width="1.5"/><circle cx="36" cy="37" r="5" fill="#9e3424"/></svg>`},
+  pelota:{n:"Pelota", crop:[840,500,125,205]},
+  pava:{n:"Pava", crop:[700,378,78,82]},
+  mate:{n:"Mate cebado", svg:`<svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#3a2a1a"/><path d="M17 22c0 14 4 24 11 24s11-10 11-24z" fill="#8a5a2b"/><ellipse cx="28" cy="22" rx="11" ry="3.5" fill="#3f6b2f"/><path d="M17 26h22" stroke="#c39a45" stroke-width="2"/><rect x="30" y="8" width="3" height="16" fill="#c9c2b0" transform="rotate(14 31 16)"/></svg>`},
+  silla:{n:"Reposera", crop:[76,612,84,176]}
+};
+
+const fresh = () => ({started:false, easy:false, done:false, cur:"jefe", inv:[], sel:null, f:{mision:false, pelota:false, pava:false, mate:false, silla:false}, talk:{}});
+let state = fresh();
+let muted = false;
+
+const $ = id => document.getElementById(id);
+const rand = a => a[Math.floor(Math.random()*a.length)];
+const has = i => state.inv.includes(i);
+const give = i => { if(!has(i)) state.inv.push(i); chime(); };
+const drop = i => { state.inv = state.inv.filter(x=>x!==i); if(state.sel===i) state.sel = null; };
+function say(id, text){
+  $("who").textContent = $("m-who").textContent = id ? NAME[id] : "El cuadro";
+  $("line").innerHTML = $("m-line").innerHTML = text;
+  document.querySelectorAll(".spot.talk").forEach(e=>e.classList.remove("talk"));
+  if(id){ const el = document.querySelector(`.spot[data-id="${id}"]`); if(el){ el.classList.add("talk"); setTimeout(()=>el.classList.remove("talk"),1600); } }
+}
+
+/* ---------- Diálogos ---------- */
+const NO = ["«¿Y yo qué hago con eso?»","«Guárdelo, paisano, que no es lo que necesito.»","«Con eso no se ceba ni medio mate.»","«Muy amable, pero no.»"];
+
+function talk(id){
+  const f = state.f;
+  switch(id){
+    case "jefe":
+      if(!f.mision){
+        f.mision = true;
+        if(state.easy) return say(id,`«¡Alto ahí, paisano! El ${CONFIG.cumple} cumplo ${CONFIG.edad} años y el pueblo entero marcha a festejar. Pero en mi casa no hay sillas. Su misión: <b>conseguir una reposera</b>. Me parece que <b>Juancho</b>, el de la punta izquierda, carga dos. ¡Vaya a verlo!»`);
+        give("salvo");
+        return say(id,`«¡Alto ahí, paisano! El ${CONFIG.cumple} cumplo ${CONFIG.edad} años y el pueblo entero marcha a festejar. Pero sepa usted: en mi casa no hay sillas. Su misión: <b>conseguir una reposera</b>. Me parece que <b>Juancho</b>, el de la punta izquierda, carga dos. Tome este <b>salvoconducto</b>: nadie en la caravana podrá negarle ayuda.»`);
+      }
+      if(f.silla && has("silla")) return say(id,"«¡Esa reposera es de Juancho! Démela, que quiero verla de cerca.»");
+      return say(id, rand(["«Mi autoridad emana de vosotros... y de vuestras reposeras.»","«Sin silla no hay patria. Ni festejo.»","«¿Todavía de parado? Hable con la gente, que esta caravana es solidaria.»","«No venderé el rico patrimonio de los orientales al bajo precio de una silla plegable.»","«Artigas hizo el Éxodo a los 47. Yo lo hago a los 41: voy adelantado.»"]) + "<br><i>Su misión: conseguir una reposera. Juancho carga dos.</i>");
+    case "gaucho":
+      if(f.pelota) return say(id,"«Ahora marcho más liviano. Y más triste.»");
+      return say(id, state.f.mision ? "«¿Los gurises quieren mi pelota? No la suelto. Salvo que me lo ordene Martín, por escrito y con firma.»" : "«Esta pelota la cargo desde Paysandú. No la suelto ni por orden del Cabildo.»");
+    case "gurises":
+      if(f.pava) return say(id,"«¡Gol de la Patria Vieja!» Los gurises ya no le prestan atención.");
+      return say(id,"«Señor, ¿no tiene una pelota? Hace cuarenta leguas que no jugamos a nada. Si nos consigue una, le bajamos lo que quiera de la carreta.»");
+    case "abuela":
+      if(state.easy && !f.mate){ f.mate = true; give("mate"); return say(id,"«¿Un mate para Juancho? Tome, m'hijo, recién cebado. Y dígale que la próxima vez traiga su propio termo.» Te da un <b>mate</b>."); }
+      if(f.mate) return say(id,"«Llegando al cumpleaños, el mate lo ceba Martín. Que para eso es el cumpleañero.»");
+      return say(id,"«Mate tengo, m'hijo. Yerba tengo. Lo que no tengo es agua caliente. La pava va arriba de la carreta, pero ahí solo trepan los gurises.»");
+    case "paisano":
+      if(f.silla) return say(id,"«Cuídela, que ya sobrevivió a dos veranos en la costa.»");
+      return say(id,"«Sí, cargo dos reposeras: una mía y una de repuesto. La de repuesto se la doy... pero hace tres leguas que no tomo un mate. La Moni seguro tiene.»");
+  }
+}
+
+function use(item, id){
+  const f = state.f;
+  if(item==="salvo" && id==="gaucho" && !f.pelota){
+    f.pelota = true; drop("salvo"); give("pelota");
+    return say(id,"«¿Firmado por Martín? Pucha... Orden es orden. Lleve la <b>pelota</b>, pero cuídela, que es de playa y no de guerra.»");
+  }
+  if(item==="pelota" && id==="gurises"){
+    drop("pelota"); f.pava = true; give("pava");
+    return say(id,"«¡Una pelota!» Los gurises trepan a la carreta como lagartijas y vuelven con la <b>pava</b>. Todavía está caliente.");
+  }
+  if(item==="pava" && id==="abuela"){
+    drop("pava"); f.mate = true; give("mate");
+    return say(id,"«¡Una pava! Ahora sí. El primero es para usted... no, mentira, el primero es mío. Tome el segundo.» Te da un <b>mate</b> cebado.");
+  }
+  if(item==="mate" && id==="paisano"){
+    drop("mate"); f.silla = true; give("silla");
+    return say(id,"«¡Bendito mate! Trato hecho: tome la <b>reposera</b>. Es de las buenas, de caño y con rayitas.»");
+  }
+  if(item==="silla" && id==="jefe") return finale();
+  if(item==="salvo" && id!=="gaucho") return say(id, rand(["«Muy lindo papel. Pero yo no sé leer y Martín ya lo sabe.»","«Salvoconducto tengo yo también: se llama reposera.»"]));
+  say(id, rand(NO));
+}
+
+function hint(){
+  const f = state.f; let t;
+  if(!f.mision) t = "Hablá con Martín: el jinete del centro, con pañuelo rojo.";
+  else if(state.easy && !f.mate) t = "Juancho quiere un mate. Hablá con La Moni, la del pañuelo blanco y vestido gris.";
+  else if(!f.pelota) t = "El gaucho del poncho lleva una pelota en la espalda. Mostrale el salvoconducto: tocalo en la alforja y después tocá al gaucho.";
+  else if(!f.pava) t = "Los gurises quieren jugar. Dales la pelota.";
+  else if(!f.mate) t = "La Moni, la del pañuelo blanco y vestido gris, tiene mate pero no tiene agua caliente. Dale la pava.";
+  else if(!f.silla) t = "Juancho, el de la punta izquierda, carga dos reposeras y se muere por un mate.";
+  else t = "Llevale la reposera a Martín.";
+  $("who").textContent = $("m-who").textContent = "Pista"; $("line").innerHTML = $("m-line").innerHTML = t;
+  focusSpot(next());
+  if(isM()){ state.cur = next(); frame(); render(); }
+}
+
+/* ---------- Final ---------- */
+function finale(){
+  drop("silla"); state.done = true;
+  say("jefe","«¡Ahora sí! Con esta reposera ya somos un pueblo sentado. <b>¡Orientales, al festejo!</b>»");
+  render(); clarin();
+  $("canvas").classList.add("marching");
+  if(isM()) setTimeout(()=>{ $("mcard").hidden = true; frameWide(); }, 1800);
+  setTimeout(showBando, matchMedia("(prefers-reduced-motion: reduce)").matches ? 600 : isM() ? 5600 : 4200);
+}
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function waLink(){
+  const txt = `¡${CONFIG.nombre}! Me sumo a la marcha: el ${CONFIG.festejo} estoy en el festejo de tus ${CONFIG.edad}, con silla propia.`;
+  return `https://wa.me/${CONFIG.whatsapp.replace(/\D/g,"")}?text=${encodeURIComponent(txt)}`;
+}
+function showBando(){
+  const C = CONFIG, v = $("veil");
+  v.innerHTML = `<article class="bando" role="dialog" aria-labelledby="bt">
+    <div class="seal" aria-hidden="true">${esc(C.nombre)}<br>cumple<br>${esc(C.edad)}</div>
+    <p class="kicker">BANDO</p>
+    <h2 id="bt">¡Orientales,<br>al festejo!</h2>
+    <p class="from">${esc(C.nombre)} cumple ${esc(C.edad)} años y en su casa faltan sillas. Por tanto, ordena y manda:</p>
+    <hr>
+    <ol class="arts">
+      <li><span class="n">Cuándo</span><span><b>${esc(C.festejo)}</b></span></li>
+      <li><span class="n">Dónde</span><span><b>${esc(C.direccion)}</b></span></li>
+      <li><span class="n">Qué traer</span><span><b>Tu silla o reposera.</b> Sin excepción.</span></li>
+    </ol>
+    <p class="firma">Dado en el campo de marcha, octubre de 2026.<strong>${esc(C.nombre)}</strong>Jefe de los Orientales Cumpleañeros</p>
+    <div class="row">
+      <a class="btn wa" href="${waLink()}" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+      <button class="btn" id="again">Volver a jugar</button>
+    </div>
+  </article>`;
+  v.hidden = false;
+  $("again").onclick = () => { v.hidden = true; $("canvas").classList.remove("marching"); $("mcard").hidden = false; state = fresh(); render(); frame(); say(null,"La caravana vuelve a empezar. Y usted, otra vez sin silla."); };
+}
+
+/* ---------- Render ---------- */
+function spotsSVG(){
+  return SPOTS.map(s=>{
+    const a = `class="spot" data-id="${s.id}" tabindex="0" role="button" aria-label="${s.n}"`;
+    return s.r ? `<rect ${a} x="${s.r[0]}" y="${s.r[1]}" width="${s.r[2]}" height="${s.r[3]}" rx="18"/>` : `<polygon ${a} points="${s.p.map(p=>p.join(",")).join(" ")}"/>`;
+  }).join("");
+}
+function thumb(i, z=56){
+  const it = ITEMS[i];
+  if(it.svg) return `<span class="thumb">${it.svg}</span>`;
+  const [x,y,w,h] = it.crop, s = z/Math.max(w,h);
+  const ox = (z - w*s)/2, oy = (z - h*s)/2;
+  return `<span class="thumb" style="background-image:url(exodo.jpg);background-size:${W*s}px ${H*s}px;background-position:${-x*s+ox}px ${-y*s+oy}px;background-color:#1a130c"></span>`;
+}
+const MARK = {jefe:[1130,290], gaucho:[960,450], gurises:[600,640], abuela:[452,498], paisano:[170,468]};
+function pending(){
+  const f = state.f;
+  return {jefe:!state.done, gaucho:!f.pelota, gurises:!f.pava, abuela:!f.mate, paisano:!f.silla};
+}
+function next(){
+  const f = state.f;
+  return !f.mision?"jefe":!f.pelota?"gaucho":!f.pava?"gurises":!f.mate?"abuela":!f.silla?"paisano":"jefe";
+}
+function focusSpot(id, smooth=true){
+  const sc = document.querySelector(".scroller");
+  if(sc.scrollWidth <= sc.clientWidth + 2) return;
+  const x = MARK[id][0]/W*canvas.offsetWidth - sc.clientWidth/2;
+  sc.scrollTo({left:Math.max(0,x), behavior: smooth && !matchMedia("(prefers-reduced-motion: reduce)").matches ? "smooth" : "auto"});
+}
+function render(){
+  $("intro").hidden = state.started;
+  const pend = pending(), first = state.started && !state.f.mision;
+  document.querySelector('.spot[data-id="jefe"]')?.classList.toggle("lead", first);
+  document.querySelectorAll('.spot[data-id="gaucho"],.spot[data-id="gurises"]').forEach(e=> e.style.display = state.easy ? "none" : "");
+  $("marks").innerHTML = Object.entries(MARK).filter(([id])=>pend[id] && (!first || id==="jefe")).map(([id,[x,y]])=>`<circle class="mark" cx="${x}" cy="${y}" r="18"/><circle class="dot" cx="${x}" cy="${y}" r="9"/>`).join("");
+  $("items").innerHTML = state.inv.length
+    ? state.inv.map(i=>`<button class="item ${state.sel===i?"sel":""}" data-item="${i}" aria-pressed="${state.sel===i}">${thumb(i)}${ITEMS[i].n}</button>`).join("")
+    : `<span class="empty">Vacía. Como su casa de sillas.</span>`;
+  renderMobile();
+  $("help").textContent = state.sel ? `¿A quién le das: ${ITEMS[state.sel].n}? Tocá a esa persona.` : "Tocá un objeto y después a quien quieras dárselo.";
+}
+
+/* ---------- Celular ---------- */
+const MQ = matchMedia("(max-width: 760px)");
+const isM = () => MQ.matches;
+// encuadre: centro x, cabeza y pies del personaje; cara para el círculo
+const CAM = {
+  jefe:   {cx:1150, top:300, bot:870,  face:[1130,378,90],  short:"Martín"},
+  gaucho: {cx:950,  top:470, bot:945,  face:[962,530,95],   short:"Gaucho"},
+  gurises:{cx:600,  top:650, bot:1010, face:[600,712,160],  short:"Gurises"},
+  abuela: {cx:450,  top:510, bot:965,  face:[452,578,90],   short:"La Moni"},
+  paisano:{cx:170,  top:475, bot:925,  face:[172,538,90],   short:"Juancho"}
+};
+const ORDER = ["jefe","gaucho","gurises","abuela","paisano"];
+function frame(){
+  const cam = $("cam"), vw = cam.clientWidth, vh = cam.clientHeight;
+  if(!vw || !vh) return;
+  cam.classList.remove("wide");
+  const c = CAM[state.cur];
+  let h = Math.min(H, (c.bot - c.top)/0.58), w = h*vw/vh;
+  if(w > W){ w = W; h = w*vh/vw; }
+  const s = vh/h;
+  const x = Math.min(Math.max(c.cx - w/2, 0), W - w), y = Math.min(Math.max(c.top - h*.05, 0), H - h);
+  cam.style.backgroundSize = `${W*s}px ${H*s}px`;
+  cam.style.backgroundPosition = `${-x*s}px ${-y*s}px`;
+}
+function frameWide(){
+  const cam = $("cam"), vw = cam.clientWidth, vh = cam.clientHeight, s = vw/W;
+  cam.classList.add("wide");
+  cam.style.backgroundSize = `${W*s}px ${H*s}px`;
+  cam.style.backgroundPosition = `0px ${(vh - H*s)/2.6}px`;
+}
+function renderMobile(){
+  const pend = pending(), nx = next();
+  $("dock").innerHTML = ORDER.filter(id=>!state.easy || !["gaucho","gurises"].includes(id)).map(id=>{
+    const [fx,fy,fs] = CAM[id].face, k = 44/fs;
+    const st = `background-size:${W*k}px ${H*k}px;background-position:${-(fx-fs/2)*k}px ${-(fy-fs/2)*k}px`;
+    const cls = [state.started && !state.f.mision && id!=="jefe" ? "wait" : "", pend[id]?"":"done", state.started && !state.done && id===nx?"next":"", id===state.cur?"on":""].join(" ");
+    return `<button class="av ${cls}" data-id="${id}" aria-label="${NAME[id]}"><i style="${st}"></i>${CAM[id].short}</button>`;
+  }).join("") + `<button class="bag" id="bag" aria-label="Abrir la alforja">Alfor&shy;ja${state.inv.length?`<b>${state.inv.length}</b>`:""}</button>`;
+  $("acts").innerHTML = state.done ? "" : `<button class="act ${state.started && !state.f.mision ? "lead" : ""}" data-talk="1">Hablar</button>` +
+    state.inv.map(i=>`<button class="act give" data-give="${i}">${thumb(i,24)}Dar ${ITEMS[i].n.toLowerCase()}</button>`).join("");
+  $("m-items").innerHTML = state.inv.length ? state.inv.map(i=>`<span class="item">${thumb(i)}${ITEMS[i].n}</span>`).join("") : `<span class="empty">Vacía. Como su casa de sillas.</span>`;
+}
+$("dock").addEventListener("click", e => {
+  if(e.target.closest("#bag")){ $("bagp").hidden = !$("bagp").hidden; return; }
+  const b = e.target.closest(".av"); if(!b || !state.started || state.done) return;
+  $("bagp").hidden = true;
+  state.cur = b.dataset.id; frame(); talk(state.cur); render();
+});
+$("acts").addEventListener("click", e => {
+  const b = e.target.closest(".act"); if(!b || state.done) return;
+  if(b.dataset.talk) talk(state.cur); else use(b.dataset.give, state.cur);
+  render();
+});
+$("bag-close").onclick = () => $("bagp").hidden = true;
+$("m-hint").onclick = () => { if(state.started && !state.done) hint(); };
+$("m-mute").onclick = e => { $("mute").click(); e.currentTarget.setAttribute("aria-pressed", muted); e.currentTarget.textContent = muted ? "Sin sonido" : "Sonido"; };
+function applyMode(){ document.documentElement.classList.toggle("m", isM()); render(); if(isM()) requestAnimationFrame(()=> state.done ? frameWide() : frame()); }
+MQ.addEventListener?.("change", applyMode);
+addEventListener("resize", () => { if(isM()) state.done ? frameWide() : frame(); });
+
+/* ---------- Sonido ---------- */
+let ac;
+function audio(){ try{ ac = ac || new (window.AudioContext||window.webkitAudioContext)(); if(ac.state==="suspended") ac.resume(); }catch(e){} return ac; }
+function tone(fq,t0,d,type="triangle",v=.06){
+  if(muted || !audio()) return;
+  const o = ac.createOscillator(), g = ac.createGain(), fl = ac.createBiquadFilter();
+  fl.type = "lowpass"; fl.frequency.value = 2200;
+  o.type = type; o.frequency.value = fq; o.connect(fl); fl.connect(g); g.connect(ac.destination);
+  const t = ac.currentTime + t0;
+  g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(v,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  o.start(t); o.stop(t+d+.05);
+}
+function chime(){ tone(784,0,.25); tone(1175,.08,.35); }
+function clarin(){
+  const n = [[392,.18],[523,.18],[659,.18],[784,.45],[659,.18],[784,.9]];
+  let t = 0; n.forEach(([f,d])=>{ tone(f,t,d*1.1,"sawtooth",.05); tone(f/2,t,d,"triangle",.04); t += d; });
+}
+
+/* ---------- Eventos ---------- */
+const svg = $("spots"), tip = $("tip"), canvas = $("canvas");
+$("hit").innerHTML = spotsSVG();
+function act(id){
+  if(!state.started || state.done) return;
+  if(state.sel){ const it = state.sel; state.sel = null; use(it,id); } else talk(id);
+  render();
+}
+svg.addEventListener("click", e => { const s = e.target.closest(".spot"); if(s) act(s.dataset.id); });
+svg.addEventListener("keydown", e => { const s = e.target.closest(".spot"); if(s && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); act(s.dataset.id); } });
+svg.addEventListener("pointermove", e => {
+  const s = e.target.closest(".spot");
+  if(!s || !state.started || e.pointerType==="touch"){ tip.hidden = true; return; }
+  const r = canvas.getBoundingClientRect();
+  tip.style.left = (e.clientX - r.left) + "px"; tip.style.top = (e.clientY - r.top) + "px";
+  tip.textContent = state.sel ? `Darle ${ITEMS[state.sel].n.toLowerCase()} a: ${NAME[s.dataset.id]}` : NAME[s.dataset.id];
+  tip.hidden = false;
+});
+svg.addEventListener("pointerleave", () => tip.hidden = true);
+$("items").addEventListener("click", e => {
+  const b = e.target.closest(".item"); if(!b) return;
+  const i = b.dataset.item; state.sel = state.sel===i ? null : i; render();
+});
+document.querySelector(".modes").addEventListener("click", e => {
+  const b = e.target.closest(".mode"); if(!b) return;
+  state = fresh(); state.easy = !!b.dataset.easy;
+  if(state.easy){ state.f.pelota = true; state.f.pava = true; }
+  audio(); state.started = true; chime(); render(); focusSpot("jefe");
+  if(isM()){ state.cur = "jefe"; frame(); say(null,"La marcha avanza. Ese de pañuelo rojo, a caballo, es Martín. Él sabe algo. Tocá «Hablar»."); render(); }
+  else say(null,"La marcha avanza. En el centro, a caballo y con pañuelo rojo, va Martín. Él sabe algo. Empezá por hablarle.");
+});
+$("hint").onclick = () => { if(state.started && !state.done) hint(); };
+$("show").onclick = e => { const on = canvas.classList.toggle("show"); e.currentTarget.setAttribute("aria-pressed", on); };
+$("mute").onclick = e => { muted = !muted; e.currentTarget.setAttribute("aria-pressed", muted); e.currentTarget.textContent = muted ? "Con sonido" : "Silenciar"; };
+
+function boot(data){
+  if(data && data.state) state = data.state;
+  if(!state.cur) state.cur = "jefe";
+  applyMode();
+  requestAnimationFrame(()=>focusSpot("jefe",false));
+  if(state.done){ canvas.classList.add("marching"); showBando(); }
+}
+window.claude?.hot?.snapshot?.(() => ({state}));
+window.claude?.hot?.ready ? window.claude.hot.ready(boot) : boot(window.claude?.hot?.data ?? {});
+</script>
+
+</body>
+</html>
