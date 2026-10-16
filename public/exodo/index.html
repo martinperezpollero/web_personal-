@@ -86,7 +86,7 @@ h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,46px);lin
 .edict p{margin:0;font-size:clamp(16px,1.9vw,19px)}
 .edict .date{font-family:var(--display);letter-spacing:.22em;text-transform:uppercase;font-size:14px;color:var(--red)}
 .edict .go{align-self:center;background:var(--red);border-color:var(--red);color:var(--parch);font-size:18px;padding:8px 20px}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.modes{display:grid;grid-template-columns:1fr;gap:10px;margin-top:4px}
 .mode{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 8px;border:1px solid var(--red);background:transparent;color:var(--ink);cursor:pointer;font-family:var(--body)}
 .mode strong{font-family:var(--display);font-weight:400;font-size:18px;color:var(--red);line-height:1.05}
 .mode span{font-size:14px;line-height:1.2;color:var(--sepia)}
@@ -254,8 +254,7 @@ html.m .edict p{font-size:16px}
     <p>215 años después, el pueblo vuelve a marchar. Nadie sabe bien a dónde, ni cuándo, ni por qué todos cargan una silla. Algunos dicen que la fecha no es casualidad…</p>
     <p>La respuesta está escrita en un <b>bando secreto</b>. Solo podrá leerlo quien resuelva el misterio.</p>
     <div class="modes">
-      <button class="mode easy" data-easy="1"><strong>Marcha tranquila</strong><span>3 personajes, en un minuto</span></button>
-      <button class="mode" data-easy=""><strong>Marcha completa</strong><span>5 personajes y más vueltas</span></button>
+      <button class="mode easy"><strong>Empezar la marcha</strong><span>5 personajes y más vueltas</span></button>
     </div>
   </div>
 </div>
@@ -292,7 +291,7 @@ const ITEMS = {
   silla:{n:"Reposera", crop:[76,612,84,176]}
 };
 
-const fresh = () => ({started:false, easy:false, done:false, cur:"jefe", inv:[], sel:null, f:{mision:false, pelota:false, pava:false, mate:false, silla:false}, talk:{}});
+const fresh = () => ({started:false, done:false, cur:"jefe", inv:[], sel:null, f:{mision:false, pelota:false, pava:false, mate:false, silla:false}, talk:{}});
 let state = fresh();
 let muted = false;
 
@@ -317,7 +316,6 @@ function talk(id){
     case "jefe":
       if(!f.mision){
         f.mision = true;
-        if(state.easy) return say(id,`«¡Alto ahí, paisano! El ${CONFIG.cumple} cumplo ${CONFIG.edad} años y el pueblo entero marcha a festejar. Pero en mi casa no hay sillas. Su misión: <b>conseguir una reposera</b>. Me parece que <b>Juancho</b>, el de la punta izquierda, carga dos. ¡Vaya a verlo!»`);
         give("salvo");
         return say(id,`«¡Alto ahí, paisano! El ${CONFIG.cumple} cumplo ${CONFIG.edad} años y el pueblo entero marcha a festejar. Pero sepa usted: en mi casa no hay sillas. Su misión: <b>conseguir una reposera</b>. Me parece que <b>Juancho</b>, el de la punta izquierda, carga dos. Tome este <b>salvoconducto</b>: nadie en la caravana podrá negarle ayuda.»`);
       }
@@ -330,7 +328,6 @@ function talk(id){
       if(f.pava) return say(id,"«¡Gol de la Patria Vieja!» Los gurises ya no le prestan atención.");
       return say(id,"«Señor, ¿no tiene una pelota? Hace cuarenta leguas que no jugamos a nada. Si nos consigue una, le bajamos lo que quiera de la carreta.»");
     case "abuela":
-      if(state.easy && !f.mate){ f.mate = true; give("mate"); return say(id,"«¿Un mate para Juancho? Tome, m'hijo, recién cebado. Y dígale que la próxima vez traiga su propio termo.» Te da un <b>mate</b>."); }
       if(f.mate) return say(id,"«Llegando al cumpleaños, el mate lo ceba Martín. Que para eso es el cumpleañero.»");
       return say(id,"«Mate tengo, m'hijo. Yerba tengo. Lo que no tengo es agua caliente. La pava va arriba de la carreta, pero ahí solo trepan los gurises.»");
     case "paisano":
@@ -365,7 +362,6 @@ function use(item, id){
 function hint(){
   const f = state.f; let t;
   if(!f.mision) t = "Hablá con Martín: el jinete del centro, con pañuelo rojo.";
-  else if(state.easy && !f.mate) t = "Juancho quiere un mate. Hablá con La Moni, la del pañuelo blanco y vestido gris.";
   else if(!f.pelota) t = "El gaucho del poncho lleva una pelota en la espalda. Mostrale el salvoconducto: tocalo en la alforja y después tocá al gaucho.";
   else if(!f.pava) t = "Los gurises quieren jugar. Dales la pelota.";
   else if(!f.mate) t = "La Moni, la del pañuelo blanco y vestido gris, tiene mate pero no tiene agua caliente. Dale la pava.";
@@ -446,7 +442,6 @@ function render(){
   $("intro").hidden = state.started;
   const pend = pending(), first = state.started && !state.f.mision;
   document.querySelector('.spot[data-id="jefe"]')?.classList.toggle("lead", first);
-  document.querySelectorAll('.spot[data-id="gaucho"],.spot[data-id="gurises"]').forEach(e=> e.style.display = state.easy ? "none" : "");
   $("marks").innerHTML = Object.entries(MARK).filter(([id])=>pend[id] && (!first || id==="jefe")).map(([id,[x,y]])=>`<circle class="mark" cx="${x}" cy="${y}" r="18"/><circle class="dot" cx="${x}" cy="${y}" r="9"/>`).join("");
   $("items").innerHTML = state.inv.length
     ? state.inv.map(i=>`<button class="item ${state.sel===i?"sel":""}" data-item="${i}" aria-pressed="${state.sel===i}">${thumb(i)}${ITEMS[i].n}</button>`).join("")
@@ -487,7 +482,7 @@ function frameWide(){
 }
 function renderMobile(){
   const pend = pending(), nx = next();
-  $("dock").innerHTML = ORDER.filter(id=>!state.easy || !["gaucho","gurises"].includes(id)).map(id=>{
+  $("dock").innerHTML = ORDER.map(id=>{
     const [fx,fy,fs] = CAM[id].face, k = 44/fs;
     const st = `background-size:${W*k}px ${H*k}px;background-position:${-(fx-fs/2)*k}px ${-(fy-fs/2)*k}px`;
     const cls = [state.started && !state.f.mision && id!=="jefe" ? "wait" : "", pend[id]?"":"done", state.started && !state.done && id===nx?"next":"", id===state.cur?"on":""].join(" ");
@@ -558,8 +553,7 @@ $("items").addEventListener("click", e => {
 });
 document.querySelector(".modes").addEventListener("click", e => {
   const b = e.target.closest(".mode"); if(!b) return;
-  state = fresh(); state.easy = !!b.dataset.easy;
-  if(state.easy){ state.f.pelota = true; state.f.pava = true; }
+  state = fresh();
   audio(); state.started = true; chime(); render(); focusSpot("jefe");
   if(isM()){ state.cur = "jefe"; frame(); say(null,"La marcha avanza. Ese de pañuelo rojo, a caballo, es Martín. Él sabe algo. Tocá «Hablar»."); render(); }
   else say(null,"La marcha avanza. En el centro, a caballo y con pañuelo rojo, va Martín. Él sabe algo. Empezá por hablarle.");
