@@ -28,6 +28,43 @@
     "DOI": "10.3390/youth6040163"
   },
   {
+    "id": "factores-ocio-habitar-o-tempo-2026",
+    "type": "chapter",
+    "title": "Factores determinantes para el ocio a lo largo de la vida",
+    "container-title": "Habitar o tempo: ócios, culturas e subjetividades do contemporâneo",
+    "author": [
+      {
+        "family": "Monteagudo",
+        "given": "María Jesús"
+      },
+      {
+        "family": "Pérez Pollero",
+        "given": "Martín"
+      }
+    ],
+    "editor": [
+      {
+        "family": "Martins",
+        "given": "José Clerton de Oliveira"
+      },
+      {
+        "family": "Barbosa Jr.",
+        "given": "Francisco Welligton"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "publisher": "Diálogo Freiriano",
+    "page": "249-268",
+    "ISBN": "978-65-5203-819-7",
+    "DOI": "10.64622/DF9786552038197"
+  },
+  {
     "id": "tejidos-nuevas-plumas-2025",
     "type": "book",
     "title": "Tejidos. Aportes al campo de la Recreación desde el telar uruguayo",
