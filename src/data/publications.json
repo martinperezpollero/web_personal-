@@ -1,5 +1,33 @@
 [
   {
+    "id": "youth-leisure-self-management-2026",
+    "type": "article-journal",
+    "title": "Youth Leisure: Advances in Understanding the Relationships Between Self-Management and Life Satisfaction",
+    "container-title": "Youth",
+    "author": [
+      {
+        "family": "Monteagudo Sánchez",
+        "given": "María Jesús"
+      },
+      {
+        "family": "Pérez Pollero",
+        "given": "Martín"
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2026
+        ]
+      ]
+    },
+    "volume": "6",
+    "issue": "4",
+    "publisher": "MDPI",
+    "ISSN": "2673-995X",
+    "DOI": "10.3390/youth6040163"
+  },
+  {
     "id": "tejidos-nuevas-plumas-2025",
     "type": "book",
     "title": "Tejidos. Aportes al campo de la Recreación desde el telar uruguayo",
